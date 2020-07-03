@@ -5,3 +5,4 @@ Author: KRAKEN FORCE TEAM
 3) Framework:
     + Hibernate
 4) CI/CD Build tool: Maven
+5) Database: MySQL
