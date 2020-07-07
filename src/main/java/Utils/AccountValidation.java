@@ -1,7 +1,7 @@
 package Utils;
 
 import Services.Hibernate.DAO.UserDaoImpl;
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
 
 public class AccountValidation {
     private String username;
@@ -34,7 +34,7 @@ public class AccountValidation {
     public boolean validate() {
         //...
         UserDaoImpl userDao = new UserDaoImpl();
-        User u = userDao.getUserByUsername(username);
+        LoginInfo u = userDao.getUserByUsername(username);
         if (Crypto.checkpw(password, u.getHashpw())) {
             return true;
         }

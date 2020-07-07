@@ -1,0 +1,14 @@
+.root{
+    -fx-background-image: url("Photo/erp.jpg");
+    -fx-background-size: cover;
+}
+.confirmBtn{
+    -fx-background-color: yellowgreen;
+    -fx-text-fill: white;
+}
+.inputField{
+    -fx-text-fill: white;
+}
+.cardPane{
+    -fx-border-radius: 8px;
+}

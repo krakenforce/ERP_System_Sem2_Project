@@ -3,7 +3,7 @@ package App;
 import Boxes.ConfirmBox;
 import Controller.LoginController;
 import Controller.MainWindowController;
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,15 +17,15 @@ import java.io.InputStream;
 public class App extends Application {
 
     public Stage window;
-    private User loggedUser;
+    private LoginInfo loggedUser;
     MainWindowController mainw;
     LoginController login;
 
-    public User getLoggedUser() {
+    public LoginInfo getLoggedUser() {
         return loggedUser;
     }
 
-    public void setLoggedUser(User loggedUser) {
+    public void setLoggedUser(LoginInfo loggedUser) {
         this.loggedUser = loggedUser;
     }
 
@@ -47,7 +47,7 @@ public class App extends Application {
     }
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("../Fxml/MainWindow.fxml", "Main window");
+            mainw = (MainWindowController) changeScene("../Fxml/Login.fxml", "Main window");
             mainw.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();

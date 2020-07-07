@@ -1,7 +1,7 @@
 package Services.Hibernate.DAO;
 
 import Repositories.UserDao;
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
 import Services.Hibernate.utils.HibernateUtil;
 import Utils.Crypto;
 import Utils.Email;
@@ -15,19 +15,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<LoginInfo> getAllUser() {
         return null;
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public LoginInfo getUserByUsername(String username) {
         SessionFactory fac = HibernateUtil.getSessionFactory();
         Session s = fac.openSession();
-        User u;
+        LoginInfo u;
 
         try {
             s.beginTransaction();
-            u = s.get(User.class, username);
+            u = s.get(LoginInfo.class, username);
             s.getTransaction().commit();
         }finally {
             s.close();
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
         try{
             s.beginTransaction();
 
-            User u = new User(username, Crypto.hashpw(password), email, type);
+            LoginInfo u = new LoginInfo(username, Crypto.hashpw(password), email, type);
             s.save(u);
 
             s.getTransaction().commit();
@@ -73,7 +73,7 @@ public class UserDaoImpl implements UserDao {
         int rs = 0;
         try {
             s.beginTransaction();
-            User u = s.get(User.class, username);
+            LoginInfo u = s.get(LoginInfo.class, username);
 
             if (u.getEmail().equals(email)) {
                 String newPw = Crypto.generateRandomPassword(7);
