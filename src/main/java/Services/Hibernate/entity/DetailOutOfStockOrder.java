@@ -1,10 +1,10 @@
 package Services.Hibernate.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+
+@Entity
+@Table(name = "detail_out_of_stock_order")
 public class DetailOutOfStockOrder extends DeliveryDetails {
 
     @Id
@@ -12,10 +12,12 @@ public class DetailOutOfStockOrder extends DeliveryDetails {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "delivery_Bill")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "delivery_bill_id", foreignKey = @ForeignKey(name = "fk_delivery_bill"))
     private DeliveryBill deliveryBill;
 
-    @Column(name = "order")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
     private Order order;
 
     public Long getId() {

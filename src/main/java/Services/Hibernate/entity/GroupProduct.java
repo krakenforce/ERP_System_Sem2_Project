@@ -2,13 +2,12 @@ package Services.Hibernate.entity;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "group_product")
 public class GroupProduct {
 
     @Id
@@ -23,8 +22,13 @@ public class GroupProduct {
     @Column(name = "name")
     private String name;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "salesman_group_product_id", foreignKey = @ForeignKey(name = "fk_salesman_group_product"))
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);
 
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Set<Product> productHashSet = new HashSet<Product>(0);
 
     public Long getId() {

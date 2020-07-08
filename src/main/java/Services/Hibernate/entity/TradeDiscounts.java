@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "trade_discounts")
 public class TradeDiscounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +30,12 @@ public class TradeDiscounts {
     @Column(name = "date_end")
     private Date dateEnd;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "payment_id", foreignKey = @ForeignKey(name = "fk_payment"))
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
 
     public Long getId() {

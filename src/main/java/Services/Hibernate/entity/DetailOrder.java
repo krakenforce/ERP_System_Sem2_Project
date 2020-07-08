@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "detail_order")
 public class DetailOrder {
 
     @Id
@@ -25,8 +27,12 @@ public class DetailOrder {
     @Column(name = "date")
     private Date date;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "receipt_hash_id", foreignKey = @ForeignKey(name = "fk_receipt_hash"))
     private Set<Receipts> receiptHashSet=  new HashSet<Receipts>(0);
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
     private  Set<Order> orderSet = new HashSet<Order>(0);
 
     public Long getId() {

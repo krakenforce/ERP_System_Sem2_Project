@@ -2,13 +2,12 @@ package Services.Hibernate.entity;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "salesman")
 public class Salesman {
 
     @Id
@@ -28,10 +27,17 @@ public class Salesman {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer"))
     private Set<Customer> customerSet = new HashSet<Customer>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order_set"))
     private Set<Order> orderSet = new HashSet<Order>(0);
 
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JoinColumn(name = "salesman_group_product_id", foreignKey = @ForeignKey(name = "fk_salesman_product_group"))
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);
 
     public Long getId() {

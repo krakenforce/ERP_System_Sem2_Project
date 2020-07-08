@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Bill_Warehousing")
+@Table(name = "bill_warehousing")
 public class BillWarehousing {
 
     @Id
@@ -20,10 +20,12 @@ public class BillWarehousing {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "warehousing_Detail_Set", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "warehousing_Detail_id", foreignKey = @ForeignKey(name = "fk_warehousing_detail"), nullable = false)
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
-    @Column(name = "warehouse")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "warehouse_id", foreignKey = @ForeignKey(name = "fk_warehouse"))
     private Warehouse warehouse;
 
     public Long getId() {

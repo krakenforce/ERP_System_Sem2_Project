@@ -47,7 +47,7 @@ public class App extends Application {
     }
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("../Fxml/Login.fxml", "Main window");
+            mainw = (MainWindowController) changeScene("Form/Login.fxml", "Main window");
             mainw.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +57,7 @@ public class App extends Application {
     private void goToLogin() {
 
         try {
-            login = (LoginController) changeScene("../Fxml/LoginUI.fxml", "Login");
+            login = (LoginController) changeScene("Form/Login.fxml", "Login");
             login.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class App extends Application {
 
     private Initializable changeScene(String fxml, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        InputStream in =  getClass().getResourceAsStream(fxml);
+        InputStream in = getClass().getResourceAsStream(fxml);
         loader.setLocation(getClass().getResource(fxml));
 
         Parent root = loader.load(in);

@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "delivery_bill")
 public class DeliveryBill {
 
     @Id
@@ -16,6 +18,8 @@ public class DeliveryBill {
     @Column(name = "date")
     private Date date;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "detail_out_of_stock_id", foreignKey = @ForeignKey(name = "detail_out_of_order"))
     private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
 
     public Date getDate() {

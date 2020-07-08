@@ -2,11 +2,11 @@ package Services.Hibernate.entity;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+
+@Entity
+@Table(name = "unit")
 public class Unit {
 
     @Id
@@ -28,6 +28,8 @@ public class Unit {
     @Column(name = "value_exchange")
     private Long valueExchange;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product;
 
     public Long getId() {

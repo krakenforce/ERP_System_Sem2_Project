@@ -5,6 +5,9 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.sql.Date;
 
+
+@Entity
+@Table(name = "discount")
 public class Discount {
 
     @Id
@@ -31,6 +34,8 @@ public class Discount {
     private Boolean status;
 
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product;
 
     public Long getId() {

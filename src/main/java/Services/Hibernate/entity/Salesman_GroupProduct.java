@@ -1,10 +1,9 @@
 package Services.Hibernate.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "salesman_group_product")
 public class Salesman_GroupProduct {
 
     @Id
@@ -12,6 +11,9 @@ public class Salesman_GroupProduct {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
     private Salesman salesman;
 
     private GroupProduct groupProduct;

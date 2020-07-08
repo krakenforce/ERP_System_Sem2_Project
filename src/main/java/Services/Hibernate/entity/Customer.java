@@ -1,15 +1,15 @@
 package Services.Hibernate.entity;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "customer")
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = -4581675898265303366L;
@@ -27,13 +27,16 @@ public class Customer implements Serializable {
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
-    @Column(name = "salesman")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
     private Salesman salesman;
 
-    @Column(name = "tradeDiscountsSet")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "tradeDiscounts_id", foreignKey = @ForeignKey(name = "fk_tradeDiscount"))
     private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
 
-    @Column(name = "tradeDiscountsSet")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order"))
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 
 

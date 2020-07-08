@@ -2,13 +2,12 @@ package Services.Hibernate.entity;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -32,12 +31,20 @@ public class Product {
     @Column(name  = "retail_price")
     private Long retailPrice;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "group_product_id", foreignKey = @ForeignKey(name = "fk_group_product"))
     private GroupProduct groupProduct;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "warehousing_detail_id", foreignKey = @ForeignKey(name = "fk_warehousing_detail"))
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "discount_id", foreignKey = @ForeignKey(name = "fk_discount"))
     private Set<Discount> discountSet = new HashSet<Discount>(0);
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
     private Set<Order> orderSet = new HashSet<Order>(0);
 
     private Unit unit;

@@ -3,6 +3,8 @@ package Services.Hibernate.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
+@Table(name = "receipt")
 public class Receipts {
 
     @Id
@@ -14,6 +16,8 @@ public class Receipts {
     @Column(name = "date")
     private Date date;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order"))
     private DetailOrder detailOrder;
 
     public Long getId() {
