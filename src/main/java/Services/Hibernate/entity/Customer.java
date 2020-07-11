@@ -27,15 +27,15 @@ public class Customer implements Serializable {
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "salesman")
     @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
     private Salesman salesman;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "customer")
     @JoinColumn(name = "tradeDiscounts_id", foreignKey = @ForeignKey(name = "fk_tradeDiscount"))
     private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "customer")
     @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order"))
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 

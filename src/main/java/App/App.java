@@ -57,7 +57,7 @@ public class App extends Application {
     private void goToLogin() {
 
         try {
-            login = (LoginController) changeScene("Form/Login.fxml", "Login");
+            login = (LoginController) changeScene("/Form/Login.fxml", "Login");
             login.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class App extends Application {
         InputStream in = getClass().getResourceAsStream(fxml);
         loader.setLocation(getClass().getResource(fxml));
 
-        Parent root = loader.load(in);
+        Parent root = (Parent) loader.load(in);
 
         window.setScene(new Scene(root));
         window.setTitle(title);

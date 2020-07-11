@@ -27,11 +27,11 @@ public class DetailOrder {
     @Column(name = "date")
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "detailOrder")
     @JoinColumn(name = "receipt_hash_id", foreignKey = @ForeignKey(name = "fk_receipt_hash"))
     private Set<Receipts> receiptHashSet=  new HashSet<Receipts>(0);
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "detailOrder")
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
     private  Set<Order> orderSet = new HashSet<Order>(0);
 

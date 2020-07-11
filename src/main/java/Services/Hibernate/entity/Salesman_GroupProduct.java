@@ -16,6 +16,7 @@ public class Salesman_GroupProduct {
     @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
     private Salesman salesman;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private GroupProduct groupProduct;
 
     public Long getId() {

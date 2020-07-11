@@ -31,22 +31,25 @@ public class Product {
     @Column(name  = "retail_price")
     private Long retailPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @Lob
+    @Column(name = "barcode", columnDefinition = "BLOB")
+    private byte[] barcode;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "group_product_id", foreignKey = @ForeignKey(name = "fk_group_product"))
     private GroupProduct groupProduct;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
-    @JoinColumn(name = "warehousing_detail_id", foreignKey = @ForeignKey(name = "fk_warehousing_detail"))
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE}, mappedBy = "product")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
-    @JoinColumn(name = "discount_id", foreignKey = @ForeignKey(name = "fk_discount"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "product")
     private Set<Discount> discountSet = new HashSet<Discount>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
-    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "product")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "product")
+    @JoinColumn(name = "unit_id", unique = true)
     private Unit unit;
 
     public Long getId() {

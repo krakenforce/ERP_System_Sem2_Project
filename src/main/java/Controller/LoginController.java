@@ -49,8 +49,8 @@ public class LoginController implements Initializable {
         userDao = new UserDaoImpl();
 
         // setup the 2 password fields:
-        pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
-        showPassword();
+        //pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
+        //showPassword();
 
         btnLogin.setDefaultButton(true);
 

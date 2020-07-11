@@ -11,6 +11,7 @@ import java.util.Set;
 @Table(name = "bill_warehousing")
 public class BillWarehousing {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -20,13 +21,29 @@ public class BillWarehousing {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "warehousing_Detail_id", foreignKey = @ForeignKey(name = "fk_warehousing_detail"), nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "billWarehousing")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "warehouse_id", foreignKey = @ForeignKey(name = "fk_warehouse"))
     private Warehouse warehouse;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH})
+    public Set<WarehousingDetails> getWarehousingDetailsSet() {
+        return warehousingDetailsSet;
+    }
+
+    public void setWarehousingDetailsSet(Set<WarehousingDetails> warehousingDetailsSet) {
+        this.warehousingDetailsSet = warehousingDetailsSet;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 
     public Long getId() {
         return id;
@@ -42,21 +59,5 @@ public class BillWarehousing {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Set<WarehousingDetails> getWarehousingDetailsSet() {
-        return warehousingDetailsSet;
-    }
-
-    public void setWarehousingDetailsSet(Set<WarehousingDetails> warehousingDetailsSet) {
-        this.warehousingDetailsSet = warehousingDetailsSet;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
     }
 }
