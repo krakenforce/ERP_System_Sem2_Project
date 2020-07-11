@@ -17,7 +17,7 @@ public class Payment {
     @Column(name = "date")
     private Date date;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "trade_discount_id", foreignKey = @ForeignKey(name = "fk_trade_discount"))
     private TradeDiscounts tradeDiscounts;
 

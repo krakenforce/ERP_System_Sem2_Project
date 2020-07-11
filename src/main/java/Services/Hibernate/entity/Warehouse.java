@@ -12,6 +12,6 @@ public abstract class Warehouse {
 
     protected String address;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "warehouse")
     protected Set<BillWarehousing> billWarehousingSet = new HashSet<BillWarehousing>(0);
 }

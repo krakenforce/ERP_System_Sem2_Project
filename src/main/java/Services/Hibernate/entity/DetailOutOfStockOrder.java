@@ -12,11 +12,11 @@ public class DetailOutOfStockOrder extends DeliveryDetails {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "delivery_bill_id", foreignKey = @ForeignKey(name = "fk_delivery_bill"))
     private DeliveryBill deliveryBill;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
     private Order order;
 

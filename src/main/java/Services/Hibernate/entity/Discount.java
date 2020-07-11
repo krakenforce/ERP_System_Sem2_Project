@@ -34,7 +34,7 @@ public class Discount {
     private Boolean status;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product;
 

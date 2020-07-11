@@ -23,15 +23,15 @@ public class WarehousingDetails {
     @Column(name = "transport_fee")
     private Long transportFee;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "")
     @JoinColumn(name = "bill_warehousing_id", foreignKey = @ForeignKey(name = "fk_bill_warehousing"))
     private BillWarehousing billWarehousing;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "delivery_detail_id", foreignKey = @ForeignKey(name = "fk_delivery_detail"))
     private Set<DeliveryDetails> deliveryDetailsSet = new HashSet<DeliveryDetails>(0);
 

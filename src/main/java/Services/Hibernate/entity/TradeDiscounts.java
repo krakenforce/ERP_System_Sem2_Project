@@ -30,11 +30,11 @@ public class TradeDiscounts {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer"))
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "payment_id", foreignKey = @ForeignKey(name = "fk_payment"))
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
 

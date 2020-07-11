@@ -28,7 +28,7 @@ public class Unit {
     @Column(name = "value_exchange")
     private Long valueExchange;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "product")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Product product;
 

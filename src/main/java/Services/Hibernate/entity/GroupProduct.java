@@ -22,12 +22,12 @@ public class GroupProduct {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "salesman_group_product_id", foreignKey = @ForeignKey(name = "fk_salesman_group_product"))
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
     private Set<Product> productHashSet = new HashSet<Product>(0);
 

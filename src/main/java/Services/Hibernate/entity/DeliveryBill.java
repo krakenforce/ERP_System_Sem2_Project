@@ -18,7 +18,7 @@ public class DeliveryBill {
     @Column(name = "date")
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "deliveryBill")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "deliveryBill")
     private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
 
     public Date getDate() {

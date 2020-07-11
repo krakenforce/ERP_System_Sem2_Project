@@ -8,7 +8,6 @@ import javax.persistence.Transient;
 @Table(name = "cental_warehouse")
 public class CentalWarehouse extends Warehouse {
 
-    @Transient
     private int id;
 
 }
