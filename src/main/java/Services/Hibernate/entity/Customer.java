@@ -27,18 +27,31 @@ public class Customer implements Serializable {
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "salesman")
-    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman_customer"))
     private Salesman salesman;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "customer")
-    @JoinColumn(name = "tradeDiscounts_id", foreignKey = @ForeignKey(name = "fk_tradeDiscount"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "customer")
     private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "customer")
-    @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "customer")
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 
+
+    public Customer(String name, String phone, Salesman salesman, Set<TradeDiscounts> tradeDiscountsSet, Set<DetailOrder> detailOrderSet) {
+        this.name = name;
+        this.phone = phone;
+        this.salesman = salesman;
+        this.tradeDiscountsSet = tradeDiscountsSet;
+        this.detailOrderSet = detailOrderSet;
+    }
+
+    public Customer() {
+    }
 
     public Long getId() {
         return id;

@@ -3,13 +3,15 @@ package Services.Hibernate.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "group_product")
-public class GroupProduct {
+public class GroupProduct implements Serializable {
 
+    private static final long serialVersionUID = -7918105939904676862L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -22,14 +24,26 @@ public class GroupProduct {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "salesman_group_product_id", foreignKey = @ForeignKey(name = "fk_salesman_group_product"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}
+            ,mappedBy = "groupProduct")
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "groupProduct")
     private Set<Product> productHashSet = new HashSet<Product>(0);
+
+    public GroupProduct(Double commission, String name, Set<Salesman_GroupProduct> salesman_groupProductSet, Set<Product> productHashSet) {
+        this.commission = commission;
+        this.name = name;
+        this.salesman_groupProductSet = salesman_groupProductSet;
+        this.productHashSet = productHashSet;
+    }
+
+    public GroupProduct() {
+    }
 
     public Long getId() {
         return id;

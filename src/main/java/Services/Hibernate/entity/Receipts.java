@@ -1,24 +1,37 @@
 package Services.Hibernate.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "receipt")
-public class Receipts {
+public class Receipts implements Serializable {
 
+    private static final long serialVersionUID = 2145327346230996501L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date")
     private Date date;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order"))
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order_Receipts"))
     private DetailOrder detailOrder;
+
+    public Receipts(Date date, DetailOrder detailOrder) {
+        this.date = date;
+        this.detailOrder = detailOrder;
+    }
+
+    public Receipts() {
+    }
 
     public Long getId() {
         return id;

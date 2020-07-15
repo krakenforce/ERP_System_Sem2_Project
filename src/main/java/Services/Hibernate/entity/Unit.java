@@ -3,12 +3,14 @@ package Services.Hibernate.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "unit")
-public class Unit {
+public class Unit implements Serializable {
 
+    private static final long serialVersionUID = 8005054112062019759L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -28,9 +30,19 @@ public class Unit {
     @Column(name = "value_exchange")
     private Long valueExchange;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private Product product;
+
+    public Unit(String unitPrimary, String unitExchange, Long valuePrimary, Long valueExchange, Product product) {
+        this.unitPrimary = unitPrimary;
+        this.unitExchange = unitExchange;
+        this.valuePrimary = valuePrimary;
+        this.valueExchange = valueExchange;
+        this.product = product;
+    }
+
+    public Unit() {
+    }
 
     public Long getId() {
         return id;

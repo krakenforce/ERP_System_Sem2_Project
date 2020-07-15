@@ -3,14 +3,16 @@ package Services.Hibernate.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "detail_order")
-public class DetailOrder {
+public class DetailOrder implements Serializable {
 
+    private static final long serialVersionUID = -3809551132407679447L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -20,20 +22,35 @@ public class DetailOrder {
     @Column(name = "is_Pay")
     private Boolean isPay;
 
-    @Column(name = "customer")
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_DetailOrder"))
     private Customer customer;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date")
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "detailOrder")
-    @JoinColumn(name = "receipt_hash_id", foreignKey = @ForeignKey(name = "fk_receipt_hash"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "detailOrder")
     private Set<Receipts> receiptHashSet=  new HashSet<Receipts>(0);
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "detailOrder")
-    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "detailOrder")
     private  Set<Order> orderSet = new HashSet<Order>(0);
+
+    public DetailOrder(Boolean isPay, Customer customer, Date date, Set<Receipts> receiptHashSet, Set<Order> orderSet) {
+        this.isPay = isPay;
+        this.customer = customer;
+        this.date = date;
+        this.receiptHashSet = receiptHashSet;
+        this.orderSet = orderSet;
+    }
+
+    public DetailOrder() {
+    }
 
     public Long getId() {
         return id;

@@ -1,14 +1,16 @@
 package Services.Hibernate.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "warehousing_details")
-public class WarehousingDetails {
+public class WarehousingDetails implements Serializable {
 
+    private static final long serialVersionUID = -3295642969588711730L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -24,16 +26,29 @@ public class WarehousingDetails {
     private Long transportFee;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product"))
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product_WarehousingDetails"))
     private Product product;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "")
-    @JoinColumn(name = "bill_warehousing_id", foreignKey = @ForeignKey(name = "fk_bill_warehousing"))
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "bill_warehousing_id", foreignKey = @ForeignKey(name = "fk_bill_warehousing_WarehousingDetails"))
     private BillWarehousing billWarehousing;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "delivery_detail_id", foreignKey = @ForeignKey(name = "fk_delivery_detail"))
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "warehousingDetails")
     private Set<DeliveryDetails> deliveryDetailsSet = new HashSet<DeliveryDetails>(0);
+
+    public WarehousingDetails(Long amount, Long price, Long transportFee,
+                              Product product, BillWarehousing billWarehousing, Set<DeliveryDetails> deliveryDetailsSet) {
+        this.amount = amount;
+        this.price = price;
+        this.transportFee = transportFee;
+        this.product = product;
+        this.billWarehousing = billWarehousing;
+        this.deliveryDetailsSet = deliveryDetailsSet;
+    }
+
+    public WarehousingDetails() {
+    }
 
     public Long getId() {
         return id;

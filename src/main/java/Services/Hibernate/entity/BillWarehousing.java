@@ -17,24 +17,32 @@ public class BillWarehousing {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "billWarehousing")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "billWarehousing")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "warehouse_id", foreignKey = @ForeignKey(name = "fk_warehouse"))
+    @JoinColumn(name = "warehouse_id", foreignKey = @ForeignKey(name = "fk_warehouse_BillWarehousing"))
     private Warehouse warehouse;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.REFRESH})
     public Set<WarehousingDetails> getWarehousingDetailsSet() {
         return warehousingDetailsSet;
     }
 
     public void setWarehousingDetailsSet(Set<WarehousingDetails> warehousingDetailsSet) {
         this.warehousingDetailsSet = warehousingDetailsSet;
+    }
+
+    public BillWarehousing() {
+    }
+
+    public BillWarehousing(Date date, Set<WarehousingDetails> warehousingDetailsSet, Warehouse warehouse) {
+        this.date = date;
+        this.warehousingDetailsSet = warehousingDetailsSet;
+        this.warehouse = warehouse;
     }
 
     public Warehouse getWarehouse() {

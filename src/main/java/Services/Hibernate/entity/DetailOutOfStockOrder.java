@@ -4,21 +4,27 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "detail_out_of_stock_order")
+@DiscriminatorValue("DetailOutOfStockOrder")
 public class DetailOutOfStockOrder extends DeliveryDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "delivery_bill_id", foreignKey = @ForeignKey(name = "fk_delivery_bill"))
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "delivery_bill_id", foreignKey = @ForeignKey(name = "fk_delivery_bill_DetailOutOfStockOrder"))
     private DeliveryBill deliveryBill;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order"))
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk_order_DetailOutOfStockOrder"))
     private Order order;
+
+    public DetailOutOfStockOrder(WarehousingDetails warehousingDetails, DeliveryBill deliveryBill, Order order) {
+        super(warehousingDetails);
+        this.deliveryBill = deliveryBill;
+        this.order = order;
+    }
+
+    public DetailOutOfStockOrder() {
+    }
 
     public Long getId() {
         return id;

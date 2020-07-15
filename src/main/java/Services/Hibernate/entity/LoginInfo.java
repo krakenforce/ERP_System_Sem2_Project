@@ -92,3 +92,4 @@ public class LoginInfo implements Serializable {
         this.type_id = type;
     }
 }
+

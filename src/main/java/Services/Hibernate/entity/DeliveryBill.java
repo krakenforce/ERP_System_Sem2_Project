@@ -1,25 +1,34 @@
 package Services.Hibernate.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "delivery_bill")
-public class DeliveryBill {
+public class DeliveryBill implements Serializable {
 
+    private static final long serialVersionUID = 3290225096670717279L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date")
     private Date date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "deliveryBill")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "deliveryBill")
     private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
+
+    public DeliveryBill() {
+    }
 
     public Date getDate() {
         return date;
@@ -34,6 +43,11 @@ public class DeliveryBill {
     }
 
     public void setDetailOutOfStockOrderSet(Set<DetailOutOfStockOrder> detailOutOfStockOrderSet) {
+        this.detailOutOfStockOrderSet = detailOutOfStockOrderSet;
+    }
+
+    public DeliveryBill(Date date, Set<DetailOutOfStockOrder> detailOutOfStockOrderSet) {
+        this.date = date;
         this.detailOutOfStockOrderSet = detailOutOfStockOrderSet;
     }
 

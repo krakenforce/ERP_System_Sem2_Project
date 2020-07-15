@@ -3,13 +3,15 @@ package Services.Hibernate.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "trade_discounts")
-public class TradeDiscounts {
+public class TradeDiscounts implements Serializable {
+    private static final long serialVersionUID = 1060157365724340112L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -22,21 +24,35 @@ public class TradeDiscounts {
     @Column(name = "limit_money")
     private Long limitMoney;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date_start")
     private Date dateStars;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type="org.hibernate.type.DateType")
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer"))
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "payment_id", foreignKey = @ForeignKey(name = "fk_payment"))
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "tradeDiscounts")
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
+
+    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd, Customer customer, Set<Payment> paymentSet) {
+        this.name = name;
+        this.limitMoney = limitMoney;
+        this.dateStars = dateStars;
+        this.dateEnd = dateEnd;
+        this.customer = customer;
+        this.paymentSet = paymentSet;
+    }
+
+    public TradeDiscounts() {
+    }
 
     public Long getId() {
         return id;

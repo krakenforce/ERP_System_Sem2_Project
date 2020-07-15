@@ -1,23 +1,35 @@
 package Services.Hibernate.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "salesman_group_product")
-public class Salesman_GroupProduct {
+public class Salesman_GroupProduct implements Serializable {
 
+    private static final long serialVersionUID = 5381057270387414743L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman"))
+    @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman_Salesman_GroupProduct"))
     private Salesman salesman;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "groupProduct_id", foreignKey = @ForeignKey(name = "fk_groupProduct_Salesman_GroupProduct"))
     private GroupProduct groupProduct;
+
+    public Salesman_GroupProduct(Salesman salesman, GroupProduct groupProduct) {
+        this.salesman = salesman;
+        this.groupProduct = groupProduct;
+    }
+
+    public Salesman_GroupProduct() {
+    }
 
     public Long getId() {
         return id;

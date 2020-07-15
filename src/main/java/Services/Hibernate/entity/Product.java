@@ -3,12 +3,15 @@ package Services.Hibernate.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "Product")
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = 859022454278766265L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,26 +34,38 @@ public class Product {
     @Column(name  = "retail_price")
     private Long retailPrice;
 
-    @Lob
-    @Column(name = "barcode", columnDefinition = "BLOB")
-    private byte[] barcode;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "group_product_id", foreignKey = @ForeignKey(name = "fk_group_product"))
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "group_product_id", foreignKey = @ForeignKey(name = "fk_group_product_Product"))
     private GroupProduct groupProduct;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
     private Set<Discount> discountSet = new HashSet<Discount>(0);
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "product")
-    @JoinColumn(name = "unit_id", unique = true)
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "unit_id", unique = true, nullable = false)
     private Unit unit;
+
+    public Product() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
