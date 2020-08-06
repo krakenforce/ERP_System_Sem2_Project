@@ -35,15 +35,15 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
 
-        HibernateUtil.getSessionFactory();
+        //HibernateUtil.getSessionFactory();
         // setting up:
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram();
-        });
-
-
-        // jump to login:
+//        window.setOnCloseRequest(e -> {
+//            e.consume();
+//            closeProgram();
+//        });
+//
+//
+//        // jump to login:
         goToLogin();
         window.show();
     }
