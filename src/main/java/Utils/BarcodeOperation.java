@@ -1,2 +1,5 @@
-package Utils;public class BarcodeOperation {
+package Utils;
+
+public class BarcodeOperation {
+
 }
