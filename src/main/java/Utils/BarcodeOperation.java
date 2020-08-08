@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public class BarcodeOperation {
 
     //barcode generator
-    public static BufferedImage generateEAN13BarcodeImage(String barcodeText) {
+    public BufferedImage generateEAN13BarcodeImage(String barcodeText) {
         EAN13Bean barcodeGenerator = new EAN13Bean();
         BitmapCanvasProvider canvas =
                 new BitmapCanvasProvider(160, BufferedImage.TYPE_BYTE_BINARY, false, 0);
