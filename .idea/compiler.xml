@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ERP_System_Sem2_Project" />
+        <module name="erp_system_sem2_project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />

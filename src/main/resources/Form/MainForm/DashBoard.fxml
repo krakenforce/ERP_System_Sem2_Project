@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DashBoardController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <top>
+            <AnchorPane prefHeight="59.0" prefWidth="1366.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="62.0" fitWidth="1366.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../Photo/top%20image.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="54.0" fitWidth="53.0" layoutX="32.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Photo/download.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="990.0" layoutY="4.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="54.0" style="-fx-background-color: transparent;" />
+                  <ImageView fitHeight="48.0" fitWidth="54.0" layoutX="1007.0" layoutY="7.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../Photo/1376086-png-svg-profile-png-512_512_preview.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="1077.0" layoutY="12.0" prefHeight="19.0" prefWidth="211.0" text="Employee name: toan ngo vu thanh" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1077.0" layoutY="31.0" prefHeight="19.0" prefWidth="211.0" text="Email: ngotoanlibra@gmail.com" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <MenuButton layoutX="1293.0" layoutY="14.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="0.0" style="-fx-background-color: transparent;">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Photo/white-arrow-down.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+                  <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="942.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Photo/bell-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+         <left>
+            <VBox prefHeight="706.0" prefWidth="207.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="207.0" text="HOME">
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Photo/home-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Button>
+                  <MenuButton mnemonicParsing="false" prefHeight="63.0" prefWidth="212.0" text="MenuButton">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+                  <MenuButton layoutX="10.0" layoutY="67.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="212.0" text="MenuButton">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </MenuButton>
+                  <MenuButton layoutX="10.0" layoutY="130.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="212.0" text="MenuButton">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </MenuButton>
+                  <MenuButton layoutX="10.0" layoutY="193.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="212.0" text="MenuButton">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </MenuButton>
+                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="Powered By Krakenforce">
+                     <VBox.margin>
+                        <Insets top="380.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <TabPane fx:id="tpMain" prefHeight="200.0" prefWidth="200.0" styleClass="tpMain" stylesheets="@../style.css" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
+               <Tab>
+                  
+               </Tab>
+            </TabPane>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

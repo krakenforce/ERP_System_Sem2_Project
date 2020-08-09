@@ -1,6 +1,6 @@
 package Services.Hibernate.utils;
 
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -21,7 +21,7 @@ public class HibernateUtil {
 
 
                 MetadataSources metadataSources = new MetadataSources(standardRegistry);
-                metadataSources.addAnnotatedClass(User.class);
+                metadataSources.addAnnotatedClass(LoginInfo.class);
 
                 Metadata metaData =  metadataSources.getMetadataBuilder().build();
                 sessionFactory = metaData.getSessionFactoryBuilder().build();

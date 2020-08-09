@@ -3,7 +3,7 @@ package Controller;
 import App.App;
 import Boxes.ForgetPassword;
 import Services.Hibernate.DAO.UserDaoImpl;
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,8 +49,8 @@ public class LoginController implements Initializable {
         userDao = new UserDaoImpl();
 
         // setup the 2 password fields:
-        pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
-        showPassword();
+        //pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
+        //showPassword();
 
         btnLogin.setDefaultButton(true);
 
@@ -84,7 +84,7 @@ public class LoginController implements Initializable {
         }
 
         System.out.println(pw);
-        User u = userDao.getUserByUsername(username);
+        LoginInfo u = userDao.getUserByUsername(username);
         if (u != null) {
             app.setLoggedUser(u);
             app.goToMainWindow();

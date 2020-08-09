@@ -3,7 +3,8 @@ package App;
 import Boxes.ConfirmBox;
 import Controller.LoginController;
 import Controller.MainWindowController;
-import Services.Hibernate.entity.User;
+import Services.Hibernate.entity.LoginInfo;
+import Services.Hibernate.utils.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,15 +18,15 @@ import java.io.InputStream;
 public class App extends Application {
 
     public Stage window;
-    private User loggedUser;
+    private LoginInfo loggedUser;
     MainWindowController mainw;
     LoginController login;
 
-    public User getLoggedUser() {
+    public LoginInfo getLoggedUser() {
         return loggedUser;
     }
 
-    public void setLoggedUser(User loggedUser) {
+    public void setLoggedUser(LoginInfo loggedUser) {
         this.loggedUser = loggedUser;
     }
 
@@ -34,20 +35,21 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
 
+        //HibernateUtil.getSessionFactory();
         // setting up:
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram();
-        });
-
-
-        // jump to login:
+//        window.setOnCloseRequest(e -> {
+//            e.consume();
+//            closeProgram();
+//        });
+//
+//
+//        // jump to login:
         goToLogin();
         window.show();
     }
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("../Fxml/MainWindow.fxml", "Main window");
+            mainw = (MainWindowController) changeScene("Form/Login.fxml", "Main window");
             mainw.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +59,7 @@ public class App extends Application {
     private void goToLogin() {
 
         try {
-            login = (LoginController) changeScene("../Fxml/LoginUI.fxml", "Login");
+            login = (LoginController) changeScene("/Form/Login.fxml", "Login");
             login.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,10 +69,10 @@ public class App extends Application {
 
     private Initializable changeScene(String fxml, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        InputStream in =  getClass().getResourceAsStream(fxml);
+        InputStream in = getClass().getResourceAsStream(fxml);
         loader.setLocation(getClass().getResource(fxml));
 
-        Parent root = loader.load(in);
+        Parent root = (Parent) loader.load(in);
 
         window.setScene(new Scene(root));
         window.setTitle(title);
