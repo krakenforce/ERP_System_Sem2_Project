@@ -16,3 +16,6 @@
     -fx-background-image: url("Photo/656670.jpg");
     -fx-background-size: cover;
 }
+.transparentBtn{
+    -fx-background-color: transparent;
+}
