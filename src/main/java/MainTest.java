@@ -11,15 +11,15 @@ public class MainTest {
         SalesManDAO salesManDao = new SalesManDAO();
 
         salesManDao.saveSalesMan(salesman);
-        Salesman salesman1 = salesManDao.findById((long) 1);
-        System.out.println(salesman1);
-        salesman1.setName("dat3333");
-        salesman.setAddress("asdasd");
-        salesman.setPhone("9999999");
-        salesManDao.updateSalesMan(salesman1);
-        System.out.println(salesman1);
-        salesManDao.deleteSalesMan(salesman1);
-        salesman1 = salesManDao.findById((long) 1);
-        System.out.println(salesman1);
+//        Salesman salesman1 = salesManDao.findById((long) 1);
+//        System.out.println(salesman1);
+//        salesman1.setName("dat3333");
+//        salesman.setAddress("asdasd");
+//        salesman.setPhone("9999999");
+//        salesManDao.updateSalesMan(salesman1);
+//        System.out.println(salesman1);
+//        salesManDao.deleteSalesMan(salesman1);
+//        salesman1 = salesManDao.findById((long) 1);
+//        System.out.println(salesman1);
     }
 }

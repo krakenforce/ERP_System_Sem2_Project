@@ -23,7 +23,7 @@ public class SalesManDAO {
             s.getTransaction().commit();
         }catch (Exception e) {
             e.printStackTrace();
-            // Rollback trong trường hợp có lỗi xẩy ra.
+            // Rollback in case an error occurs
             s.getTransaction().rollback();
         }finally {
             s.close();

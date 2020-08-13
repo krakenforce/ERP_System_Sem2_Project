@@ -54,6 +54,8 @@ public class Salesman implements Serializable {
         this.salesman_groupProductSet = salesman_groupProductSet;
     }
 
+
+
     public Salesman() {
     }
 
