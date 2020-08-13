@@ -1,6 +1,6 @@
 package Services.Hibernate.DAO;
 
-import Services.Hibernate.entity.DetailOrder;
+import Services.Hibernate.entity.Payment;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,35 +8,20 @@ import org.hibernate.SessionFactory;
 import javax.persistence.Query;
 import java.sql.Date;
 
-public class DetailOrderDAO {
-    public DetailOrderDAO(){
+public class PaymentDAO {
+    public PaymentDAO(){
 
     }
 
-    public void saveDetailOrder(DetailOrder detailOrder){
+    public void savePayment(Payment payment){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session  = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.save(detailOrder);
+            session.save(payment);
             session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
-
-    public void updateDetailOrder(DetailOrder detailOrder){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session  = sessionFactory.openSession();
-
-        try{
-            session.beginTransaction();
-            session.update(detailOrder);
-            session.getTransaction().commit();
-        }catch (Exception e){
+        }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
@@ -44,15 +29,15 @@ public class DetailOrderDAO {
         }
     }
 
-    public void deleteDetailOrder(DetailOrder detailOrder){
+    public void updatePayment(Payment payment){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session  = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.delete(detailOrder);
+            session.update(payment);
             session.getTransaction().commit();
-        }catch (Exception e){
+        }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
@@ -60,46 +45,62 @@ public class DetailOrderDAO {
         }
     }
 
-    public DetailOrder findByID(Long id){
+    public void deletePayment(Payment payment){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        try{
+            session.beginTransaction();
+            session.delete(payment);
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+    }
+    public Payment findById(Long id){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
-        DetailOrder detailOrder = null;
+        Payment payment = null;
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM DetailOrder session WHERE session.id = :id";
+            hql = "SELECT session FROM Payment session WHERE session.id = :id";
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
-            detailOrder = (DetailOrder) query.getSingleResult();
+            payment = (Payment) query.getSingleResult();
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
             session.close();
-            return detailOrder;
+            return payment;
         }
     }
-    public DetailOrder findByDate(Date date){
+
+    public Payment findByDate(Date date){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
-        DetailOrder detailOrder = null;
+        Payment payment = null;
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM DetailOrder session WHERE session.date = :date";
+            hql = "SELECT session FROM Payment session WHERE session.date = :date";
             Query query = session.createQuery(hql);
             query.setParameter("date", date);
-            detailOrder = (DetailOrder) query.getSingleResult();
+            payment = (Payment) query.getSingleResult();
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
             session.close();
-            return detailOrder;
+            return payment;
         }
     }
 }

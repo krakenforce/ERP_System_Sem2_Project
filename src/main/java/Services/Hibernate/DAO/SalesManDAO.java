@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.Salesman;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -92,6 +93,27 @@ public class SalesManDAO {
             s.close();
             return salesman;
         }
+    }
 
+    public Salesman findByName(String name){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Salesman salesMan = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Salesman session WHERE session.name LIKE :name";
+            javax.persistence.Query query = session.createQuery(hql);
+            query.setParameter("name", name);
+            salesMan = (Salesman) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return salesMan;
+        }
     }
 }
