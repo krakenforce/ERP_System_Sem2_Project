@@ -4,6 +4,10 @@ import App.App;
 import Boxes.ForgetPassword;
 import Services.Hibernate.DAO.UserDaoImpl;
 import Services.Hibernate.entity.LoginInfo;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,17 +27,19 @@ public class LoginController implements Initializable {
     private Label pwLabel;
 
     @FXML
-    private TextField tfUsername;
+    private JFXTextField tfUsername;
     @FXML
-    private PasswordField pfPW;
+    private JFXPasswordField pfPW;
     @FXML
-    private Button btnLogin;
+    private JFXButton btnLogin;
     @FXML
-    private CheckBox cbShowPW;
+    private JFXCheckBox cbShowPW;
     @FXML
-    private Hyperlink hlForgetPW;
+    private ToggleButton tgbtnShowPW;
     @FXML
-    private TextField tfShowPW;
+    private JFXTextField tfShowPW;
+    @FXML
+    private JFXCheckBox cbRememberMe;
 
     @FXML
     private Label prompt;
@@ -48,7 +54,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userDao = new UserDaoImpl();
+        //userDao = new UserDaoImpl();
 
         // setup the 2 password fields:
         //pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
@@ -63,19 +69,22 @@ public class LoginController implements Initializable {
 
     @FXML
     public void showPassword() {
-        if (cbShowPW.isSelected()) {
+
+        if (tgbtnShowPW.isSelected()) {
             pfPW.setVisible(false);
             tfShowPW.setVisible(true);
-            pwLabel.setLabelFor(tfShowPW);
+            tfShowPW.setText(pfPW.getText());
+           // pwLabel.setLabelFor(tfShowPW);
         } else {
             pfPW.setVisible(true);
             tfShowPW.setVisible(false);
-            pwLabel.setLabelFor(pfPW);
+            pfPW.setText(tfShowPW.getText());
+            //pwLabel.setLabelFor(pfPW);
         }
 
     }
 
-
+    @FXML
     public void logIn(ActionEvent event) {
         String username = tfUsername.getText();
         String pw = pfPW.getText();
