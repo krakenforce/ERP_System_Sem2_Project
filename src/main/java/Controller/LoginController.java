@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //userDao = new UserDaoImpl();
+        userDao = new UserDaoImpl();
 
         // setup the 2 password fields:
         //pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
