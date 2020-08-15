@@ -19,3 +19,6 @@
 .transparentBtn{
     -fx-background-color: transparent;
 }
+.componentColor{
+    -fx-background-color: blue;
+}

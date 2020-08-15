@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
+
     UserDaoImpl userDao;
     private App app;
     @FXML
