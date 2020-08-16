@@ -1,6 +1,7 @@
 package App;
 
 import Boxes.ConfirmBox;
+import Controller.DashBoardController;
 import Controller.LoginController;
 import Controller.MainWindowController;
 import Services.Hibernate.entity.LoginInfo;
@@ -21,6 +22,7 @@ public class App extends Application {
     private LoginInfo loggedUser;
     MainWindowController mainw;
     LoginController login;
+    DashBoardController dashboard;
 
     public LoginInfo getLoggedUser() {
         return loggedUser;
@@ -44,12 +46,22 @@ public class App extends Application {
 //
 //
 //        // jump to login:
-        goToLogin();
+        goToDashboard();
         window.show();
     }
+
+    public void goToDashboard(){
+        try{
+            dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Dash Board");
+            dashboard.setApp(this);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("Form/Login.fxml", "Main window");
+            mainw = (MainWindowController) changeScene("/Form/Login.fxml", "Main window");
             mainw.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
