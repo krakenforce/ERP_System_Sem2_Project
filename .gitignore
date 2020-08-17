@@ -1,0 +1,5 @@
+# add anything you don't want to push here.
+target
+.idea
+src/main/resources/hibernate.cfg_tuan.xml
+
