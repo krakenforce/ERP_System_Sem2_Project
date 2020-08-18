@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManListController">
    <center>
@@ -25,19 +25,28 @@
         </rowConstraints>
          <children>
             <Label />
-            <Label text="Phone number:" GridPane.rowIndex="1" />
-            <Label text="Address:" GridPane.rowIndex="2" />
-            <Label text="Name:" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Phone number:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="Address:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="Name:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="tfName" GridPane.columnIndex="1" />
+            <TextField fx:id="tfPhone" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tfAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
    <bottom>
       <BorderPane prefHeight="406.0" prefWidth="779.0" BorderPane.alignment="CENTER">
          <center>
-            <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
+            <GridPane fx:id="gpTable" gridLinesVisible="true" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -55,6 +64,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
+               <children>
+                  <Label text="Seller ID:" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Name:" GridPane.columnIndex="1" />
+                  <Label layoutX="205.0" layoutY="22.0" text="Name:" GridPane.columnIndex="2" />
+               </children>
             </GridPane>
          </center>
          <bottom>
@@ -65,7 +79,10 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="56.0" layoutY="125.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Add" />
+            <Button fx:id="btnAdd" layoutX="50.0" layoutY="113.0" mnemonicParsing="false" onAction="#AddSeller" prefHeight="35.0" prefWidth="101.0" text="Add">
+               <font>
+                  <Font size="17.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </right>

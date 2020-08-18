@@ -4,6 +4,7 @@ import Boxes.ConfirmBox;
 import Controller.DashBoardController;
 import Controller.LoginController;
 import Controller.MainWindowController;
+import Controller.SalesManListController;
 import Services.Hibernate.entity.LoginInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -45,7 +46,8 @@ public class App extends Application {
 //
 //
 //        // jump to login:
-        goToDashboard();
+        //goToDashboard();
+        testForm();
         window.show();
     }
 
@@ -53,6 +55,15 @@ public class App extends Application {
         try{
             dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Dash Board");
             dashboard.setApp(this);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void testForm(){
+        try{
+            SalesManListController test = new SalesManListController();
+            test = (SalesManListController) changeScene("/Form/SalesmanModule/SalesManList.fxml", "Test");
+            test.setApp(this);
         }catch(IOException e){
             e.printStackTrace();
         }
