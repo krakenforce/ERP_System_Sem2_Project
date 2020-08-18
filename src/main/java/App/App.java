@@ -5,7 +5,6 @@ import Controller.DashBoardController;
 import Controller.LoginController;
 import Controller.MainWindowController;
 import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.utils.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
