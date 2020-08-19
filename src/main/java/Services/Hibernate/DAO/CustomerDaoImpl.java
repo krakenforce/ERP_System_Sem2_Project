@@ -1,27 +1,43 @@
 package Services.Hibernate.DAO;
 
-import Services.Hibernate.entity.GroupProduct;
-import Services.Hibernate.entity.Product;
+import Repositories.CustomerDao;
+import Services.Hibernate.entity.Customer;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 
-public class ProductDAO {
-    public ProductDAO(){
+public class CustomerDaoImpl implements CustomerDao {
+    public CustomerDaoImpl(){
 
     }
 
-    public void saveProduct(Product product){
+    public void saveCustomer(Customer customer){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session  = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.save(product);
+            session.save(customer);
             session.getTransaction().commit();
-        }catch(Exception e){
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+    }
+
+    public void updateCustomer(Customer customer){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session  = sessionFactory.openSession();
+
+        try{
+            session.beginTransaction();
+            session.update(customer);
+            session.getTransaction().commit();
+        }catch (Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
@@ -29,15 +45,15 @@ public class ProductDAO {
         }
     }
 
-    public void updateProduct(Product product){
+    public void deleteCustomer(Customer customer){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session  = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.update(product);
+            session.delete(customer);
             session.getTransaction().commit();
-        }catch(Exception e){
+        }catch (Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
@@ -45,85 +61,57 @@ public class ProductDAO {
         }
     }
 
-    public void deleteProduct(Product product){
+    public Customer findByID(Long id){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-
-        try{
-            session.beginTransaction();
-            session.delete(product);
-            session.getTransaction().commit();
-        }catch(Exception e){
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
-        }
-    }
-    public Product findById(Long id){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session  = sessionFactory.openSession();
+        Customer customer = null;
         String hql = "";
-        Product product = null;
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM Product session WHERE session.id = :id";
+            hql = "SELECT session FROM Customer session WHERE session.id = :id";
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
-            product = (Product) query.getSingleResult();
+            customer = (Customer) query.getSingleResult();
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
             session.close();
-            return product;
+            return customer;
         }
     }
 
-    public Product findByName(String name){
+    public Customer findByName(String name){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        Customer customer = null;
         String hql = "";
-        Product product = null;
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM Product session WHERE session.name LIKE :name";
+            hql = "SELECT session FROM Customer session WHERE session.name LIKE :name";
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
-            product = (Product) query.getSingleResult();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
-            return product;
-        }
-    }
-
-    public Product findByPrice(Long price){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        String hql = "";
-        Product product = null;
-
-        try{
-            session.beginTransaction();
-            hql = "SELECT session FROM Product session WHERE session.price = :price";
-            Query query = session.createQuery(hql);
-            query.setParameter("price", price);
-            product = (Product) query.getSingleResult();
+            customer = (Customer) query.getSingleResult();
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
-        }finally{
+        }finally {
             session.close();
-            return product;
+            return customer;
         }
+    }
 
+    @Override
+    public int addCustomer(String name, String phone, int Salesman) {
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Customer> getAllCustomers() {
+        return null;
     }
 }
