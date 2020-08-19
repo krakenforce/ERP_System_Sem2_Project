@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Repositories.CustomerDao;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -7,7 +8,7 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 
-public class CustomerDAO {
+public class CustomerDAO implements CustomerDao {
     public CustomerDAO(){
 
     }
@@ -101,5 +102,10 @@ public class CustomerDAO {
             session.close();
             return customer;
         }
+    }
+
+    @Override
+    public void addCustomer(String name) {
+
     }
 }

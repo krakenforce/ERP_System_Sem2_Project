@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -27,29 +28,40 @@
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="573.0" minWidth="10.0" prefWidth="348.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="70.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="139.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="212.0" minHeight="0.0" prefHeight="43.0" valignment="TOP" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="48.0" valignment="TOP" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="33.0" valignment="TOP" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="258.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="103.0" valignment="TOP" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="139.0" minHeight="0.0" prefHeight="49.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="212.0" minHeight="0.0" prefHeight="40.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="36.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="54.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="38.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="127.0" valignment="TOP" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="TOP_LEFT" text="Product: " GridPane.columnIndex="1" />
-            <ChoiceBox fx:id="productChoiceBox" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" />
-            <Label text="Amount: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="amountTextField" maxWidth="162.0" onMouseExited="#checkAmount" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Customer: " GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ChoiceBox fx:id="customerChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <CheckBox fx:id="customerCheckBox" mnemonicParsing="false" text="New customer" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="nameLabel" disable="true" text="Name: " GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="phoneLabel" disable="true" text="Phone: " GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <CheckBox fx:id="paidCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="161.0" text="Paid" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button fx:id="okBtn" mnemonicParsing="false" onAction="#makeOrder" prefHeight="36.0" prefWidth="172.0" text="MAKE AN ORDER" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField fx:id="customerNameField" disable="true" maxWidth="-Infinity" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="phoneTextField" disable="true" maxWidth="-Infinity" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label alignment="TOP_LEFT" text="Product: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="productChoiceBox" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Amount: " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="amountTextField" maxWidth="162.0" onMouseExited="#checkAmount" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="Customer: " GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ChoiceBox fx:id="customerChoiceBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <CheckBox fx:id="customerCheckBox" mnemonicParsing="false" text="New customer" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label fx:id="nameLabel" disable="true" text="Name: " GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="phoneLabel" disable="true" text="Phone: " GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <CheckBox fx:id="paidCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="161.0" text="Paid" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <Button fx:id="okBtn" mnemonicParsing="false" onAction="#makeOrder" prefHeight="36.0" prefWidth="172.0" text="MAKE AN ORDER" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <TextField fx:id="customerNameField" disable="true" maxWidth="-Infinity" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <TextField fx:id="phoneTextField" disable="true" maxWidth="-Infinity" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Button mnemonicParsing="false" onAction="#addToOrder" text="Add to Order" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ListView fx:id="orderListView" prefHeight="97.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label text="Order: " GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ChoiceBox prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" />
+            <Label text="Salesman: " GridPane.columnIndex="1" />
+            <Label text="Lack: " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField maxWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
