@@ -1,18 +1,12 @@
 import Services.Hibernate.DAO.LoginInfoDAO;
 import Services.Hibernate.DAO.SalesManDAO;
-import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.entity.Salesman;
+import Services.Hibernate.entity.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainTest {
     public static void main(String[] args) {
-        LoginInfo loginInfo = new LoginInfo();
-
-        loginInfo.setUsername("test");
-        loginInfo.setEmail("test@gmail.com");
-        loginInfo.setHashpw("adsfahsdfhuieruwrwebr");
-        loginInfo.setType(1);
-
-        LoginInfoDAO loginInfoDAO = new LoginInfoDAO();
-        loginInfoDAO.saveLoginInfo(loginInfo);
+        Product p = new Product();
     }
 }

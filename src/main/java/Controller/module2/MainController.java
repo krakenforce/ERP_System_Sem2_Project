@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -51,7 +52,7 @@ public class MainController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../../Form/Module2/PurchaseOrder.fxml"));
         try {
-            GridPane purchaseOrderContents = loader.load();
+            Node purchaseOrderContents = loader.load();
             PurchaseOrderController purchaseOrderController = loader.getController();
             purchaseOrderWin.setCenter(purchaseOrderContents);
 

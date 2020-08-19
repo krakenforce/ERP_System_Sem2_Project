@@ -63,6 +63,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
+    public Product(String name, long price, Unit unit) {
+        this.name = name;
+        this.price = price;
+        this.unit = unit;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
