@@ -1,7 +1,5 @@
 import Services.Hibernate.DAO.LoginInfoDAO;
-import Services.Hibernate.DAO.SalesManDAO;
 import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.entity.Salesman;
 
 public class MainTest {
     public static void main(String[] args) {

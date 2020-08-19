@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Repositories.SalesmanDao;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.Salesman;
 import Services.Hibernate.utils.HibernateUtil;
@@ -7,9 +8,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-public class SalesManDAO {
+import java.util.ArrayList;
 
-    public SalesManDAO() {
+public class SalesManDaoImpl implements SalesmanDao {
+
+    public SalesManDaoImpl() {
     }
 
     public void saveSalesMan(Salesman salesman) {
@@ -115,5 +118,10 @@ public class SalesManDAO {
             session.close();
             return salesMan;
         }
+    }
+
+    @Override
+    public ArrayList<Salesman> getAllSalesman() {
+        return null;
     }
 }
