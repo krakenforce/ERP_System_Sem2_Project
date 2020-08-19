@@ -24,11 +24,11 @@
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
             <TabPane fx:id="tpMain" prefHeight="200.0" prefWidth="200.0" styleClass="tpMain" stylesheets="@../style.css" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
-               <Tab text="module 1">
+               <Tab fx:id="module1Tab" onSelectionChanged="#handleTabChanges" text="module 1">
                   
                </Tab>
-               <Tab text="module 2" />
-               <Tab text="module 3" />
+               <Tab fx:id="module2Tab" onSelectionChanged="#handleTabChanges" text="module 2" />
+               <Tab fx:id="module3Tab" onSelectionChanged="#handleTabChanges" text="module 3" />
             </TabPane>
          </center>
          <top>

@@ -98,7 +98,7 @@ public class LoginController implements Initializable {
         LoginInfo u = userDao.getUserByUsername(username);
         if (u != null) {
             app.setLoggedUser(u);
-            app.goToMainWindow();
+            //
         } else {
             prompt.setText("Wrong username or password");
         }

@@ -3,9 +3,7 @@ package App;
 import Boxes.ConfirmBox;
 import Controller.DashBoardController;
 import Controller.LoginController;
-import Controller.MainWindowController;
 import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.utils.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +18,6 @@ public class App extends Application {
 
     public Stage window;
     private LoginInfo loggedUser;
-    MainWindowController mainw;
     LoginController login;
     DashBoardController dashboard;
 
@@ -59,14 +56,6 @@ public class App extends Application {
         }
     }
 
-    public void goToMainWindow() {
-        try {
-            mainw = (MainWindowController) changeScene("/Form/Login.fxml", "Main window");
-            mainw.setApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void goToLogin() {
 
