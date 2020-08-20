@@ -46,7 +46,12 @@ public class SalesManListController implements Initializable {
         salesman.setPhone(tfPhone.getText());
         salesman.setAddress(tfAddress.getText());
 
+
         SalesManDAO salesManDAO = new SalesManDAO();
         salesManDAO.saveSalesMan(salesman);
+    }
+
+    public void AlertOperation(){
+
     }
 }
