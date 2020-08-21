@@ -59,7 +59,7 @@
             <TextField fx:id="phoneTextField" disable="true" maxWidth="-Infinity" prefWidth="162.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <Button fx:id="addToItemsBtn" mnemonicParsing="false" onAction="#addToItems" text="Add to Items" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label text="Items: " GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ChoiceBox prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" />
+            <ChoiceBox fx:id="salesmanChoiceBox" prefHeight="26.0" prefWidth="162.0" GridPane.columnIndex="2" />
             <Label text="Salesman: " GridPane.columnIndex="1" />
             <Label text="Lack: " GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField maxWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
