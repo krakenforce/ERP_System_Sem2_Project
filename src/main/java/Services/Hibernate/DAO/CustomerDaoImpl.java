@@ -2,12 +2,16 @@ package Services.Hibernate.DAO;
 
 import Repositories.CustomerDao;
 import Services.Hibernate.entity.Customer;
+import Services.Hibernate.entity.Salesman;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
     public CustomerDaoImpl(){
@@ -106,12 +110,41 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public int addCustomer(String name, String phone, int Salesman) {
-        return 0;
+    public Long addCustomer(String name, String phone, int salesman) {
+        Salesman s = null;
+        try {
+            SalesManDaoImpl si = new SalesManDaoImpl();
+            s = si.findById((long) salesman);
+
+        } catch (NoResultException e) {
+            return 0L;
+        }
+        Customer c = new Customer(name, phone);
+        c.setSalesman(s);
+        saveCustomer(c);
+        return c.getId();
     }
 
     @Override
-    public ArrayList<Customer> getAllCustomers() {
-        return null;
+    public List<Customer> getAllCustomers() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Customer> customers = null;
+        String hql = "";
+
+        try {
+            session.beginTransaction();
+            hql = "from Customer ";
+            Query query = session.createQuery(hql);
+            customers = query.getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return customers;
+
     }
 }

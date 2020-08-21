@@ -1,14 +1,15 @@
 package Services.Hibernate.DAO;
 
 import Repositories.ProductDao;
-import Services.Hibernate.entity.GroupProduct;
 import Services.Hibernate.entity.Product;
+import Services.Hibernate.entity.Unit;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
     public ProductDaoImpl(){
@@ -130,17 +131,48 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public ArrayList<Product> getAllProducts() {
-        return null;
+    public List<Product> getAllProducts() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Product> products = null;
+        String hql = "";
+
+        try {
+            session.beginTransaction();
+            hql = "from Product ";
+            Query query = session.createQuery(hql);
+            products = query.getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return products;
     }
 
     @Override
-    public void addProduct(String name, String price, int unit) {
+    public void addProduct(String name, Long price, Long unit) {
+        Unit u = null;
+        try {
+            UnitDaoImpl ui = new UnitDaoImpl();
+            u = ui.findById(unit);
 
+        } catch (NoResultException e) {
+            System.out.println("no unit with that id");
+            return;
+        }
+        Product p = new Product();
+        p.setName(name);
+        p.setPrice(price);
+        p.setUnit(u);
+
+        saveProduct(p);
     }
 
     @Override
-    public int amountNeeded(int productId, int buyingAmount) {
+    public int amountNeeded(Long productId, int buyingAmount) {
         return 0;
     }
 }
