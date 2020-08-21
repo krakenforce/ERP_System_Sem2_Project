@@ -72,6 +72,7 @@ public class UnitDaoImpl implements UnitDao {
             session.beginTransaction();
             hql = "SELECT session FROM Unit session WHERE session.id = :id ";
             Query query = session.createQuery(hql);
+            query.setParameter("id", id);
             unit = (Unit) query.getSingleResult();
             session.getTransaction().commit();
         }catch(Exception e){
