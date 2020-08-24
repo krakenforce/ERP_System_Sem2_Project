@@ -11,7 +11,7 @@
         <property name="hibernate.connection.pool_size">10</property>
         <property name="show_sql">true</property> <!-- notice this -->
         <property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+<!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
         <mapping class="Services.Hibernate.entity.LoginInfo"/>
 
         <mapping class="Services.Hibernate.entity.Product"/>

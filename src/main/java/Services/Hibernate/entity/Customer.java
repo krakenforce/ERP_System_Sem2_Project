@@ -53,6 +53,12 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
+    public Customer(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
+
     public Long getId() {
         return id;
     }

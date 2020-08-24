@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Repositories.UnitDao;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.Unit;
 import Services.Hibernate.utils.HibernateUtil;
@@ -8,8 +9,8 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 
-public class UnitDAO {
-    public UnitDAO(){
+public class UnitDaoImpl implements UnitDao {
+    public UnitDaoImpl(){
 
     }
 
@@ -71,6 +72,7 @@ public class UnitDAO {
             session.beginTransaction();
             hql = "SELECT session FROM Unit session WHERE session.id = :id ";
             Query query = session.createQuery(hql);
+            query.setParameter("id", id);
             unit = (Unit) query.getSingleResult();
             session.getTransaction().commit();
         }catch(Exception e){
@@ -82,4 +84,12 @@ public class UnitDAO {
         }
     }
 
+    @Override
+    public Long addUnit(String exchange, String primary) {
+        Unit u = new Unit();
+        u.setUnitExchange(exchange);
+        u.setUnitPrimary(primary);
+        saveUnit(u);
+        return u.getId();
+    }
 }

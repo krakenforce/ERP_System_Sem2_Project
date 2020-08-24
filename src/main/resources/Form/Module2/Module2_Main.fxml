@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.module2.MainController">
    <content>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0">
@@ -19,7 +18,7 @@
                <children>
                   <AnchorPane prefHeight="47.0" prefWidth="422.0">
                      <children>
-                        <Label layoutX="120.0" layoutY="16.0" prefWidth="207.0" text="MAKE AN PURCHASE ORDER">
+                        <Label layoutX="105.0" layoutY="16.0" prefHeight="16.0" prefWidth="237.0" text="GENERATE AN INVOICE/RECEIPT">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>

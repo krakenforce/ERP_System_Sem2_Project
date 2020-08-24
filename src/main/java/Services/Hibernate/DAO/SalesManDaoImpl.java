@@ -1,6 +1,7 @@
 package Services.Hibernate.DAO;
 
 import Repositories.SalesmanDao;
+import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.Salesman;
 import Services.Hibernate.utils.HibernateUtil;
@@ -9,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SalesManDaoImpl implements SalesmanDao {
 
@@ -121,7 +123,32 @@ public class SalesManDaoImpl implements SalesmanDao {
     }
 
     @Override
-    public ArrayList<Salesman> getAllSalesman() {
-        return null;
+    public Long addSalesman(String name, String address, String phone) {
+        Salesman s = new Salesman(address, name, phone);
+        saveSalesMan(s);
+        return s.getId();
+    }
+
+    @Override
+    public List<Salesman> getAllSalesman() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Salesman> sms = null;
+        String hql = "";
+
+        try {
+            session.beginTransaction();
+            hql = "from Salesman ";
+            javax.persistence.Query query = session.createQuery(hql);
+            sms = query.getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return sms;
+
     }
 }
