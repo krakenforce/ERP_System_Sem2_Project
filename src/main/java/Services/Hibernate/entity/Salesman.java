@@ -59,6 +59,14 @@ public class Salesman implements Serializable {
     public Salesman() {
     }
 
+    public Salesman(Long id, String name, String address, String phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+
+    }
+
     public Long getId() {
         return id;
     }

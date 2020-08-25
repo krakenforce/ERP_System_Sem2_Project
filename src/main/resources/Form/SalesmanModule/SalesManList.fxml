@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -45,35 +47,20 @@
    </center>
    <bottom>
       <BorderPane prefHeight="406.0" prefWidth="779.0" BorderPane.alignment="CENTER">
-         <center>
-            <GridPane fx:id="gpTable" gridLinesVisible="true" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Seller ID:" />
-                  <Label layoutX="10.0" layoutY="22.0" text="Name:" GridPane.columnIndex="1" />
-                  <Label layoutX="205.0" layoutY="22.0" text="Name:" GridPane.columnIndex="2" />
-               </children>
-            </GridPane>
-         </center>
          <bottom>
             <Pagination prefHeight="41.0" prefWidth="779.0" BorderPane.alignment="CENTER" />
          </bottom>
+         <center>
+            <TableView fx:id="tbSalemanList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="clID" prefWidth="35.0" text="ID" />
+                <TableColumn fx:id="clName" prefWidth="174.0" text="Name" />
+                  <TableColumn fx:id="clAddress" prefWidth="270.0" text="Address" />
+                  <TableColumn fx:id="clPhone" prefWidth="122.0" text="Phone" />
+                  <TableColumn fx:id="clFunction" prefWidth="177.0" text="Function" />
+              </columns>
+            </TableView>
+         </center>
       </BorderPane>
    </bottom>
    <right>

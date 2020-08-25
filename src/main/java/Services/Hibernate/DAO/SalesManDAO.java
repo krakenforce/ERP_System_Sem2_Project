@@ -7,6 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SalesManDAO {
 
     public SalesManDAO() {
@@ -114,6 +117,27 @@ public class SalesManDAO {
         }finally {
             session.close();
             return salesMan;
+        }
+    }
+
+    public List<Salesman> selectAll(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Salesman> salesmanList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Salesman";
+            Query query = session.createQuery(hql);
+            salesmanList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return salesmanList;
         }
     }
 }

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.util.List;
 
 public class GroupProductDAO {
     public GroupProductDAO(){
@@ -100,6 +101,27 @@ public class GroupProductDAO {
         }finally {
             session.close();
             return groupProduct;
+        }
+    }
+
+    public List<GroupProduct> getAll(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<GroupProduct> groupProductsList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM GroupProduct";
+            Query query = session.createQuery(hql);
+            groupProductsList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return groupProductsList;
         }
     }
 }

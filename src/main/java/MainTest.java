@@ -1,18 +1,29 @@
+import Services.Hibernate.DAO.GroupProductDAO;
 import Services.Hibernate.DAO.LoginInfoDAO;
 import Services.Hibernate.DAO.SalesManDAO;
+import Services.Hibernate.entity.GroupProduct;
 import Services.Hibernate.entity.LoginInfo;
 import Services.Hibernate.entity.Salesman;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class MainTest {
-    public static void main(String[] args) {
-        LoginInfo loginInfo = new LoginInfo();
+import java.io.IOException;
+import java.util.List;
 
-        loginInfo.setUsername("test");
-        loginInfo.setEmail("test@gmail.com");
-        loginInfo.setHashpw("adsfahsdfhuieruwrwebr");
-        loginInfo.setType(1);
+public class MainTest extends Application {
 
-        LoginInfoDAO loginInfoDAO = new LoginInfoDAO();
-        loginInfoDAO.saveLoginInfo(loginInfo);
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = (Parent) FXMLLoader.load(getClass().getResource("/Form/SalesmanModule/SalesManProductGroup.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args)  {
+       launch(args);
     }
 }

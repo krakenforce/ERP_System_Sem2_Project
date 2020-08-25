@@ -45,6 +45,11 @@ public class GroupProduct implements Serializable {
     public GroupProduct() {
     }
 
+    public GroupProduct(String name) {
+        setName(name);
+    }
+
+
     public Long getId() {
         return id;
     }
