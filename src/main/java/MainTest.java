@@ -17,7 +17,7 @@ public class MainTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = (Parent) FXMLLoader.load(getClass().getResource("/Form/SalesmanModule/SalesManProductGroup.fxml"));
+        Parent root = (Parent) FXMLLoader.load(getClass().getResource("/Form/SalesmanModule/SalesManList.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

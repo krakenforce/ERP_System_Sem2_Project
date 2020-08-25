@@ -3,12 +3,15 @@ package Boxes;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class AlertBox {
     public static void display(String s, String title) {
@@ -45,17 +48,22 @@ public class AlertBox {
         win.showAndWait();
     }
 
-    public void InsertAlert(String header, String content){
+    public boolean InsertAlert(String header, String content){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(header);
         alert.setContentText(content);
-        alert.showAndWait();
+        Optional<ButtonType> result =  alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void warningAlert(String header, String content){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(header);
         alert.setContentText(content);
-        alert.showAndWait();
+
     }
 }
