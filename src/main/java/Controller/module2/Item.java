@@ -2,11 +2,10 @@ package Controller.module2;
 
 public class Item {
     private Long id;
-
-
     private Long qty;
     private String name;
     private Long price;
+    private Long total;
 
     public void setName(String name) {
         this.name = name;
@@ -20,7 +19,6 @@ public class Item {
         this.total = total;
     }
 
-    private Long total;
 
     public void setQty(Long qty) {
         this.qty = qty;
