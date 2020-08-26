@@ -62,9 +62,9 @@ public class MainController implements Initializable {
         }
         FXMLLoader loader1 = new FXMLLoader();
         loader1.setLocation(getClass().getResource("../../Form/Module2/CustomerPane.fxml"));
-        AnchorPane customerContents = null;
+        Node customerContents = null;
         try {
-            customerContents = (AnchorPane) loader1.load();
+            customerContents = loader1.load();
             customers_pane.setCenter(customerContents);
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,9 +72,9 @@ public class MainController implements Initializable {
         }
         FXMLLoader loader2 = new FXMLLoader();
         loader2.setLocation(getClass().getResource("../../Form/Module2/DiscountPane.fxml"));
-        AnchorPane discountContents = null;
+        Node discountContents = null;
         try {
-            discountContents = (AnchorPane) loader2.load();
+            discountContents = loader2.load();
             discounts_pane.setCenter(discountContents);
         } catch (IOException e) {
             e.printStackTrace();
