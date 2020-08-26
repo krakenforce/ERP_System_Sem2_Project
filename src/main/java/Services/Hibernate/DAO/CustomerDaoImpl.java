@@ -87,34 +87,34 @@ public class CustomerDaoImpl implements CustomerDao {
         }
     }
 
-    public Customer findByName(String name){
+    public List<Customer> findByName(String name){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Customer customer = null;
+        List<Customer> customers = null;
         String hql = "";
 
         try{
             session.beginTransaction();
             hql = "SELECT session FROM Customer session WHERE session.name LIKE :name";
             Query query = session.createQuery(hql);
-            query.setParameter("name", name);
-            customer = (Customer) query.getSingleResult();
+            query.setParameter("name","%" + name + "%");
+            customers = query.getResultList();
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
             session.close();
-            return customer;
+            return customers;
         }
     }
 
     @Override
-    public Long addCustomer(String name, String phone, int salesman) {
+    public Long addCustomer(String name, String phone, Long salesman) {
         Salesman s = null;
         try {
             SalesManDaoImpl si = new SalesManDaoImpl();
-            s = si.findById((long) salesman);
+            s = si.findById(salesman);
 
         } catch (NoResultException e) {
             return 0L;
