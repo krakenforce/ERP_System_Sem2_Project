@@ -86,18 +86,18 @@ public class TradeDiscountDaoImpl implements TradeDiscountsDao {
         }
     }
 
-    public TradeDiscounts findByName(String name){
+    public List<TradeDiscounts> findByName(String name){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
-        TradeDiscounts tradeDiscounts = null;
+        List<TradeDiscounts> tradeDiscounts = null;
 
         try{
             session.beginTransaction();
             hql = "SELECT session FROM TradeDiscounts session WHERE session.name LIKE :name";
             Query query = session.createQuery(hql);
-            query.setParameter("name", name);
-            tradeDiscounts = (TradeDiscounts) query.getSingleResult();
+            query.setParameter("name", "%" + name + "%");
+            tradeDiscounts = query.getResultList();
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
