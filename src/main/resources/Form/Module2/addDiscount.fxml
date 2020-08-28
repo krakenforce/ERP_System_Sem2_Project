@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.module2.AddDiscountController">
   <columnConstraints>
     <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="213.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.0" minWidth="10.0" prefWidth="387.0" />
@@ -38,7 +38,7 @@
       <DatePicker fx:id="endDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2">
          <children>
-            <Label layoutX="239.0" layoutY="17.0" text="*ADD DISCOUNTS*" />
+            <Label fx:id="promptLabel" layoutX="239.0" layoutY="17.0" text="*ADD DISCOUNTS*" />
          </children>
       </AnchorPane>
    </children>

@@ -1,5 +1,6 @@
 package Controller.module2;
 
+import Boxes.AddDiscount;
 import Boxes.ConfirmBox;
 import Services.Hibernate.DAO.TradeDiscountDaoImpl;
 import Services.Hibernate.entity.Customer;
@@ -36,26 +37,26 @@ public class TradeDiscountController implements Initializable {
 
         TableColumn<TradeDiscountCols, String> nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameCol.setPrefWidth(200);
+        nameCol.setPrefWidth(150);
 
         TableColumn<TradeDiscountCols, String> limitCol = new TableColumn<>("Limit");
         limitCol.setCellValueFactory(new PropertyValueFactory<>("limit"));
-        limitCol.setPrefWidth(200);
+        limitCol.setPrefWidth(100);
 
-        TableColumn<TradeDiscountCols, String> percentCol = new TableColumn<>("Discount Percent");
+        TableColumn<TradeDiscountCols, String> percentCol = new TableColumn<>("Discount (Percent)");
         percentCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));
-        percentCol.setPrefWidth(140);
+        percentCol.setPrefWidth(150);
 
         TableColumn<TradeDiscountCols, String> startCol = new TableColumn<>("Start Date");
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        startCol.setPrefWidth(200);
+        startCol.setPrefWidth(110);
 
         TableColumn<TradeDiscountCols, String> endCol = new TableColumn<>("End Date");
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        endCol.setPrefWidth(200);
+        endCol.setPrefWidth(110);
 
         // context menu:
-        MenuItem deleteMenu = new MenuItem("delete customer");
+        MenuItem deleteMenu = new MenuItem("delete trade discount");
         deleteMenu.setOnAction(e -> {
             try {
                 if (ConfirmBox.display("Deleting Trade Discount", "Are you sure?")) {
@@ -82,13 +83,12 @@ public class TradeDiscountController implements Initializable {
         contextMenu.getItems().add(deleteMenu);
 
         // put things together:
-        tabl.getColumns().addAll(nameCol, limitCol, percentCol, startCol, endCol);
+        tabl.getColumns().addAll(nameCol, limitCol, startCol, endCol, percentCol);
         tabl.setContextMenu(contextMenu);
-
         return tabl;
     }
 
-    private List<TradeDiscountCols> createData(String search) {
+    public List<TradeDiscountCols> createData(String search) {
         List<TradeDiscounts> tradiscounts = search.isBlank() ? ti.getAllTradeDiscounts() : ti.findByName(search);
         List<TradeDiscountCols> tradeDiscountCols = new ArrayList<>();
         for (TradeDiscounts c : tradiscounts) {
@@ -130,6 +130,9 @@ public class TradeDiscountController implements Initializable {
 
     }
 
-    public void addDiscount(ActionEvent event) {
+    public void addDiscount(ActionEvent event) throws IOException {
+        AddDiscount ad = new AddDiscount();
+        ad.display();
+        ad.setUp(this);
     }
 }
