@@ -2,6 +2,7 @@ package Boxes;
 
 import Controller.module2.AddCustomerToDiscountController;
 import Controller.module2.AddDiscountController;
+import Controller.module2.TradeDiscountCols;
 import Controller.module2.TradeDiscountController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ public class AddCustomerToDiscount {
 
     public Stage window;
     private TradeDiscountController tc;
+    public TradeDiscountCols tcol;
 
     public void display() throws IOException {
 
@@ -48,5 +50,10 @@ public class AddCustomerToDiscount {
         Platform.runLater(() -> {
 
         });
+    }
+
+    public void setUp(TradeDiscountController tc, TradeDiscountCols tcol) {
+        this.tc = tc;
+        this.tcol = tcol;
     }
 }

@@ -1,5 +1,6 @@
 package Controller.module2;
 
+import Boxes.AddCustomerToDiscount;
 import Boxes.AddDiscount;
 import Boxes.ConfirmBox;
 import Services.Hibernate.DAO.TradeDiscountDaoImpl;
@@ -79,8 +80,22 @@ public class TradeDiscountController implements Initializable {
 
         });
 
+        MenuItem addToDMenu = new MenuItem("add customers");
+        addToDMenu.setOnAction(e -> {
+            AddCustomerToDiscount box = new AddCustomerToDiscount();
+            TradeDiscountCols d = discountsTabl.getSelectionModel().getSelectedItem();
+            box.setUp(this, d);
+            try {
+                box.display();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        });
+
         ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().add(deleteMenu);
+        contextMenu.getItems().addAll(deleteMenu, addToDMenu);
+
 
         // put things together:
         tabl.getColumns().addAll(nameCol, limitCol, startCol, endCol, percentCol);

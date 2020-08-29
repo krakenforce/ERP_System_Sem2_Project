@@ -1,9 +1,6 @@
 package Boxes;
 
-import Controller.module2.AddCustomerToDiscountController;
-import Controller.module2.CustomerController;
-import Controller.module2.MakeAPayReceiptController;
-import Controller.module2.TradeDiscountController;
+import Controller.module2.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +14,8 @@ public class MakePayReceipt {
 
     public Stage window;
     private CustomerController cc;
+    public CustomerCols cl;
+    private MakeAPayReceiptController ctrl;
 
     public void display() throws IOException {
 
@@ -33,7 +32,7 @@ public class MakePayReceipt {
 
 
         // set the Utils:
-        MakeAPayReceiptController ctrl = loader.getController();
+        ctrl = (MakeAPayReceiptController) loader.getController();
         ctrl.setBox(this);
 
         window.setOnCloseRequest(e -> {
@@ -47,7 +46,14 @@ public class MakePayReceipt {
     private void close() {
         window.close();
         Platform.runLater(() -> {
-
+            Long debt = cl.getDebt();
+            Long currentDebt = debt > ctrl.amountPaidSoFar ? debt - ctrl.amountPaidSoFar : 0;
+            cl.setDebt(currentDebt);
         });
+    }
+
+    public void setUp(CustomerController cc, CustomerCols cl) {
+        this.cc = cc;
+        this.cl = cl;
     }
 }

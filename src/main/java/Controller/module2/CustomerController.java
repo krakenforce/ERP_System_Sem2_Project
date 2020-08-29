@@ -1,6 +1,7 @@
 package Controller.module2;
 
 import Boxes.ConfirmBox;
+import Boxes.MakePayReceipt;
 import Services.Hibernate.DAO.CustomerDaoImpl;
 import Services.Hibernate.entity.Customer;
 import javafx.collections.FXCollections;
@@ -64,7 +65,7 @@ public class CustomerController implements Initializable {
                     // reset page count:
                     customerData.remove(d);
                     int curPage = pag.getCurrentPageIndex();
-                    pag.setPageCount((int) Math.ceil((double) customerData.size()/(double)rowsPerPage));
+                    pag.setPageCount((int) Math.ceil((double) customerData.size() / (double) rowsPerPage));
                     pag.setCurrentPageIndex(Math.min(curPage, pag.getPageCount()));
 
                 }
@@ -74,8 +75,34 @@ public class CustomerController implements Initializable {
 
         });
 
+
+        MenuItem receiptMenu = new MenuItem("make a paid receipt");
+        receiptMenu.setOnAction(e -> {
+            MakePayReceipt b = new MakePayReceipt();
+            CustomerCols c = customerTabl.getSelectionModel().getSelectedItem();
+            b.setUp(this, c);
+            try {
+                b.display();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        });
+
+
         ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().add(deleteMenu);
+        contextMenu.getItems().addAll(deleteMenu, receiptMenu);
+        contextMenu.setOnShowing(e -> {
+            CustomerCols c = customerTabl.getSelectionModel().getSelectedItem();
+            Long debt = c.getDebt();
+//            if (debt == null || debt.equals(0L)) {
+//                receiptMenu.setDisable(true);
+//            } else {
+//                receiptMenu.setDisable(false);
+//            }
+
+        });
+
 
         // put things together:
         tabl.getColumns().addAll(nameCol, phoneCol, debtCol, spentCol);
@@ -93,33 +120,32 @@ public class CustomerController implements Initializable {
             col.setName(c.getName());
             col.setPhone(c.getPhone());
 
-            customerCols.add(col) ;
+            customerCols.add(col);
         }
 
         return customerCols;
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         pag.setPageFactory(this::createPage);
-        pag.setPageCount((int) Math.ceil((double) customerData.size()/(double)rowsPerPage));
+        pag.setPageCount((int) Math.ceil((double) customerData.size() / (double) rowsPerPage));
     }
 
     private Node createPage(int pageIndex) {
-       int fromIndex = rowsPerPage * pageIndex;
-       int toIndex = Math.min( fromIndex + rowsPerPage, customerData.size());
+        int fromIndex = rowsPerPage * pageIndex;
+        int toIndex = Math.min(fromIndex + rowsPerPage, customerData.size());
         customerTabl.setItems(FXCollections.observableList(customerData.subList(fromIndex, toIndex)));
-       return customerTabl;
+        return customerTabl;
     }
 
     public void searchByName(ActionEvent event) {
         customerData = createData(searchField.getText());
 
         pag.setPageFactory(this::createPage);
-        pag.setPageCount((int) Math.ceil((double) customerData.size()/(double)rowsPerPage));
+        pag.setPageCount((int) Math.ceil((double) customerData.size() / (double) rowsPerPage));
         pag.setCurrentPageIndex(0);
 
 

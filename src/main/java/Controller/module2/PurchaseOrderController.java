@@ -104,7 +104,7 @@ public class PurchaseOrderController implements Initializable {
             }
         });
         customerChoiceBox.setOnAction(event -> {
-            // check to see discount
+            // check to calculate discount
         });
 
 
