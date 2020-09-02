@@ -8,11 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -106,6 +111,8 @@ public class SalesManListController implements Initializable {
         return selectedSalesman;
     }
 
+
+
     //Delete selected salesman object and refresh the tableView;
     public void deleteSalesMan(ActionEvent event) {
         SalesManDAO salesManDAO = new SalesManDAO();
@@ -133,4 +140,35 @@ public class SalesManListController implements Initializable {
 
     }
 
+    //Clear all information in Textfield when click on Cancel button
+    public void cancelAction(ActionEvent event) {
+        tfID.clear();
+        tfName.clear();
+        tfPhone.clear();
+        tfAddress.clear();
+    }
+
+    public void openSellersProductGroup(ActionEvent event) throws IOException {
+        Salesman selectedSalesman = getSelectedSalesMan();
+        if(selectedSalesman == null){
+            AlertBox alertBox = new AlertBox();
+            alertBox.warningAlert("You still not choose salemans", "Please select salemans and try again!!!");
+        }else{
+            String salesmanName = selectedSalesman.getName();
+            Long id = selectedSalesman.getId();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/SalesManProductGroup.fxml"));
+            Parent root = loader.load();
+
+            SalesManProductGroupController controller = loader.getController();
+            controller.getSalesmanInfo(id,salesmanName);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Second Window");
+            stage.show();
+        }
+
+
+    }
 }

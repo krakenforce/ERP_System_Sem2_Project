@@ -1,9 +1,3 @@
-import Services.Hibernate.DAO.GroupProductDAO;
-import Services.Hibernate.DAO.LoginInfoDAO;
-import Services.Hibernate.DAO.SalesManDAO;
-import Services.Hibernate.entity.GroupProduct;
-import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.entity.Salesman;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MainTest extends Application {
 
@@ -25,5 +18,20 @@ public class MainTest extends Application {
 
     public static void main(String[] args)  {
        launch(args);
+//        SalesManDAO salesManDAO = new SalesManDAO();
+//        Salesman salesman = salesManDAO.findById((long) 1);
+//
+//        GroupProductDAO groupProductDAO = new GroupProductDAO();
+//        GroupProduct groupProduct = groupProductDAO.findById((long) 1);
+//
+//        Salesman_GroupProduct salesmanGroup = new Salesman_GroupProduct();
+//        salesmanGroup.setSalesman(salesman);
+//        salesmanGroup.setGroupProduct(groupProduct);
+//
+//        Salesman_ProductGroupDAO group = new Salesman_ProductGroupDAO();
+//        group.saveGroup(salesmanGroup);
+
+
+
     }
 }

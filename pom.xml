@@ -37,6 +37,14 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>8.4.0.jre11</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx</artifactId>
+            <version>11</version>
+            <type>pom</type>
+        </dependency>
+
 
         <dependency>
             <groupId>net.sf.barcode4j</groupId>

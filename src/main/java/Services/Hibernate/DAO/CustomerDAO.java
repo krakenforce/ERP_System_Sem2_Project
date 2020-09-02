@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.util.List;
 
 public class CustomerDAO {
     public CustomerDAO(){
@@ -81,10 +82,10 @@ public class CustomerDAO {
         }
     }
 
-    public Customer findByName(String name){
+    public List<Customer> findByName(String name){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Customer customer = null;
+        List<Customer> customerList = null;
         String hql = "";
 
         try{
@@ -92,14 +93,14 @@ public class CustomerDAO {
             hql = "SELECT session FROM Customer session WHERE session.name LIKE :name";
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
-            customer = (Customer) query.getSingleResult();
+            customerList = query.getResultList();
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally {
             session.close();
-            return customer;
+            return customerList;
         }
     }
 }

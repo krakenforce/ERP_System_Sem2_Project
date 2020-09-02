@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReceiptByTypeController">
    <top>
       <StackPane prefHeight="61.0" prefWidth="677.0" BorderPane.alignment="CENTER" />
@@ -27,6 +26,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -74,21 +74,27 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="tfPayerName" GridPane.columnIndex="1" />
+            <TextField fx:id="tfAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tfReason" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfMoney" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="tfMoneyInWord" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cbTypeOfDocument" prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="tfNumOfDoc" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="tfLiability" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label layoutX="10.0" layoutY="351.0" text="Customer Name:" GridPane.rowIndex="8">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbCustomerName" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
    </center>
    <bottom>
-      <BorderPane prefHeight="78.0" prefWidth="677.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="47.0" prefWidth="677.0" BorderPane.alignment="CENTER">
          <top>
-            <Button mnemonicParsing="false" text="Create" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#AddReceipt" text="Create" BorderPane.alignment="CENTER" />
          </top>
       </BorderPane>
    </bottom>
