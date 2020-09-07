@@ -128,6 +128,15 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button contentDisplay="TOP" layoutX="271.0" layoutY="10.0" mnemonicParsing="false" onAction="#openSalesmanCustomerList" prefHeight="56.0" prefWidth="134.0" text="Show Customer List">
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Photo/customer-segment-1792155-1522474.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
    </top>
