@@ -60,6 +60,13 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
+    public Customer(Long id, String name, String phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public String getAddress() {
         return address;
     }

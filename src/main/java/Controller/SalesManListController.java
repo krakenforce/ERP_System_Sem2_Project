@@ -169,13 +169,14 @@ public class SalesManListController implements Initializable {
 
     public void openSalesmanCustomerList(ActionEvent actionEvent) throws IOException {
         Salesman selectedSalesman = getSelectedSalesMan();
-        String salesmanName = selectedSalesman.getName();
         Long id = selectedSalesman.getId();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/CustomerSalerList.fxml"));
         Parent root = loader.load();
 
-        SalesManProductGroupController controller = loader.getController();
+        CustomerSalerListController controller = loader.getController();
+        controller.setSalesmanInfo(id);
+        controller.getDataCustomer(id);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
