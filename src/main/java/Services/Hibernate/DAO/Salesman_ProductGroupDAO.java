@@ -66,11 +66,11 @@ public class Salesman_ProductGroupDAO {
         String hql = "";
 
         try{
-            hql = "FROM salesman_group_product session WHERE session.salesman_id = :salesmanID";
+            hql = "FROM Salesman_GroupProduct session WHERE salesman.id = :salesmanID";
             Query query = session.createQuery(hql);
             query.setParameter("salesmanID", salesmanID);
             groupList = query.getResultList();
-            session.getTransaction().commit();
+            //session.getTransaction().commit();
 
         }catch(Exception e){
             session.getTransaction().rollback();

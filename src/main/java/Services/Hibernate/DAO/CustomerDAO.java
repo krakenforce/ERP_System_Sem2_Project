@@ -103,4 +103,29 @@ public class CustomerDAO {
             return customerList;
         }
     }
+
+    public List<Customer> findBySalesmanID(Long salesmanID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+        String hql = "";
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Customer session WHERE session.salesman.id = :salesmanID ";
+            Query query = session.createQuery(hql);
+            query.setParameter("salesmanID", salesmanID);
+            customerList = query.getResultList();
+            session.getTransaction().rollback();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return customerList;
+        }
+
+
+    }
 }

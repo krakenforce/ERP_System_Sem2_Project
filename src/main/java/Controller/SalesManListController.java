@@ -61,7 +61,7 @@ public class SalesManListController implements Initializable {
 
     public void addSeller(ActionEvent actionEvent) {
         AlertBox alertBox = new AlertBox();
-        if(alertBox.InsertAlert("Insert Seller", "Do you really want to insert this seller") == true){
+        if (alertBox.InsertAlert("Insert Seller", "Do you really want to insert this seller") == true) {
             Salesman salesman = new Salesman();
             salesman.setName(tfName.getText());
             salesman.setPhone(tfPhone.getText());
@@ -91,26 +91,25 @@ public class SalesManListController implements Initializable {
         return salesmenList;
     }
 
-    public void selectRowTable(){
+    public void selectRowTable() {
         tbSalemanList.setOnMouseClicked((MouseEvent event) -> {
-            if(event.getClickCount() > 1){
-               Salesman salesman = getSelectedSalesMan();
-               tfID.setText(salesman.getId().toString());
-               tfName.setText(salesman.getName());
-               tfPhone.setText(salesman.getPhone());
-               tfAddress.setText(salesman.getAddress());
+            if (event.getClickCount() > 1) {
+                Salesman salesman = getSelectedSalesMan();
+                tfID.setText(salesman.getId().toString());
+                tfName.setText(salesman.getName());
+                tfPhone.setText(salesman.getPhone());
+                tfAddress.setText(salesman.getAddress());
             }
         });
     }
 
     private Salesman getSelectedSalesMan() {
         Salesman selectedSalesman = null;
-        if(tbSalemanList.getSelectionModel().getSelectedItem() != null){
+        if (tbSalemanList.getSelectionModel().getSelectedItem() != null) {
             selectedSalesman = tbSalemanList.getSelectionModel().getSelectedItem();
         }
         return selectedSalesman;
     }
-
 
 
     //Delete selected salesman object and refresh the tableView;
@@ -124,7 +123,7 @@ public class SalesManListController implements Initializable {
     }
 
     //Update selected salesman object and refresh the tableview
-    public void updateSalesMan(){
+    public void updateSalesMan() {
         Salesman salesman = new Salesman();
         salesman.setId(Long.parseLong(tfID.getText()));
         salesman.setName(tfName.getText());
@@ -150,25 +149,37 @@ public class SalesManListController implements Initializable {
 
     public void openSellersProductGroup(ActionEvent event) throws IOException {
         Salesman selectedSalesman = getSelectedSalesMan();
-        if(selectedSalesman == null){
-            AlertBox alertBox = new AlertBox();
-            alertBox.warningAlert("You still not choose salemans", "Please select salemans and try again!!!");
-        }else{
-            String salesmanName = selectedSalesman.getName();
-            Long id = selectedSalesman.getId();
+        String salesmanName = selectedSalesman.getName();
+        Long id = selectedSalesman.getId();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/SalesManProductGroup.fxml"));
-            Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/SalesManProductGroup.fxml"));
+        Parent root = loader.load();
 
-            SalesManProductGroupController controller = loader.getController();
-            controller.getSalesmanInfo(id,salesmanName);
+        SalesManProductGroupController controller = loader.getController();
+        controller.getSalesmanInfo(id, salesmanName);
+        controller.setDataToListView(id);
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
-            stage.show();
-        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Second Window");
+        stage.show();
+
+    }
 
 
+    public void openSalesmanCustomerList(ActionEvent actionEvent) throws IOException {
+        Salesman selectedSalesman = getSelectedSalesMan();
+        String salesmanName = selectedSalesman.getName();
+        Long id = selectedSalesman.getId();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/CustomerSalerList.fxml"));
+        Parent root = loader.load();
+
+        SalesManProductGroupController controller = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Second Window");
+        stage.show();
     }
 }

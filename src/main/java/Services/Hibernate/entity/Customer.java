@@ -24,6 +24,12 @@ public class Customer implements Serializable {
     private String name;
 
     @Type(type = "org.hibernate.type.StringNVarcharType")
+    @Column(name = "address", length = 200, nullable = false)
+    private String address;
+
+
+
+    @Type(type = "org.hibernate.type.StringNVarcharType")
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
@@ -42,9 +48,10 @@ public class Customer implements Serializable {
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 
 
-    public Customer(String name, String phone, Salesman salesman, Set<TradeDiscounts> tradeDiscountsSet, Set<DetailOrder> detailOrderSet) {
+    public Customer(String name, String phone, String address, Salesman salesman, Set<TradeDiscounts> tradeDiscountsSet, Set<DetailOrder> detailOrderSet) {
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.salesman = salesman;
         this.tradeDiscountsSet = tradeDiscountsSet;
         this.detailOrderSet = detailOrderSet;
@@ -53,6 +60,13 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public Long getId() {
         return id;
     }
