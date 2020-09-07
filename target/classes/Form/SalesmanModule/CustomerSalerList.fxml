@@ -60,15 +60,6 @@
                             </image>
                         </ImageView>
                     </graphic></Button>
-                <Button contentDisplay="TOP" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#openCustomerList" prefHeight="56.0" prefWidth="134.0" text="Show Group Product">
-                    <graphic>
-                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/GRoup.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
             </children>
         </HBox>
     </top>
@@ -106,7 +97,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="tfID" GridPane.columnIndex="1" />
+            <TextField fx:id="tfID" editable="false" GridPane.columnIndex="1" />
             </children>
         </GridPane>
     </center>

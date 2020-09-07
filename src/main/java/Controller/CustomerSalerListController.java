@@ -1,5 +1,6 @@
 package Controller;
 
+import Repositories.Function;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.SalesManDAO;
 import Services.Hibernate.entity.Customer;
@@ -14,12 +15,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CustomerSalerListController implements Initializable {
+public class CustomerSalerListController implements Initializable, Function {
 
     @FXML
     private TextField tfName;
@@ -52,6 +54,24 @@ public class CustomerSalerListController implements Initializable {
     private TableColumn<String, Customer> clCusAddress;
 
 
+    public void selectRowTable() {
+        tbCusInfo.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 1) {
+                Customer customer = getSelectedCustomer();
+                tfName.setText(customer.getName());
+                tfPhone.setText(customer.getPhone());
+                tfAddress.setText(customer.getAddress());
+            }
+        });
+    }
+
+    private Customer getSelectedCustomer() {
+        Customer selectedCustomer = null;
+        if (tbCusInfo.getSelectionModel().getSelectedItem() != null) {
+            selectedCustomer = tbCusInfo.getSelectionModel().getSelectedItem();
+        }
+        return selectedCustomer;
+    }
 
     public void addCustomer(ActionEvent actionEvent) {
         SalesManDAO salesmanDAO = new SalesManDAO();
@@ -65,29 +85,43 @@ public class CustomerSalerListController implements Initializable {
         CustomerDAO customerDAO = new CustomerDAO();
         customerDAO.saveCustomer(customer);
 
-        tbCusInfo.getItems().clear();
-        tbCusInfo.setItems(getDataCustomer(Long.parseLong(tfID.getText())));
+        refreshTable(tbCusInfo);
     }
 
     public void updateCustomer(ActionEvent actionEvent) {
+        SalesManDAO salesmanDAO = new SalesManDAO();
+        Salesman selectedSalesman = salesmanDAO.findById(Long.parseLong(tfID.getText()));
+        Customer customer = new Customer();
+        customer.setId(getSelectedCustomer().getId());
+        customer.setSalesman(selectedSalesman);
+        customer.setName(tfName.getText());
+        customer.setAddress(tfAddress.getText());
+        customer.setPhone(tfPhone.getText());
 
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.updateCustomer(customer);
+
+        //refresh table after adding
+        refreshTable(tbCusInfo);
 
     }
 
     public void deleteCustomer(ActionEvent actionEvent) {
+        CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.deleteCustomer(getSelectedCustomer());
 
+        refreshTable(tbCusInfo);
     }
 
     public void cancelAction(ActionEvent actionEvent) {
-
+        tfName.clear();
+        tfPhone.clear();
+        tfAddress.clear();
     }
-
-    public void openCustomerList(ActionEvent actionEvent) {
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        selectRowTable();
     }
 
     public void setSalesmanInfo(Long id){
@@ -110,6 +144,9 @@ public class CustomerSalerListController implements Initializable {
     }
 
 
-
-
+    @Override
+    public void refreshTable(TableView tableName) {
+        tableName.getItems().clear();
+        tableName.setItems(getDataCustomer(Long.parseLong(tfID.getText())));
+    }
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import App.App;
 import Boxes.AlertBox;
+import Repositories.Function;
 import Services.Hibernate.DAO.SalesManDAO;
 import Services.Hibernate.entity.Salesman;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SalesManListController implements Initializable {
+public class SalesManListController implements Initializable, Function {
 
     private App app;
 
@@ -70,9 +71,7 @@ public class SalesManListController implements Initializable {
             SalesManDAO salesManDAO = new SalesManDAO();
             salesManDAO.saveSalesMan(salesman);
 
-            //refresh table after adding
-            tbSalemanList.getItems().clear();
-            tbSalemanList.setItems(getData());
+           refreshTable(tbSalemanList);
         }
     }
 
@@ -118,8 +117,7 @@ public class SalesManListController implements Initializable {
         salesManDAO.deleteSalesMan(getSelectedSalesMan());
 
         //refresh table after adding
-        tbSalemanList.getItems().clear();
-        tbSalemanList.setItems(getData());
+        refreshTable(tbSalemanList);
     }
 
     //Update selected salesman object and refresh the tableview
@@ -133,10 +131,7 @@ public class SalesManListController implements Initializable {
         SalesManDAO salesManDAO = new SalesManDAO();
         salesManDAO.updateSalesMan(salesman);
 
-        //refresh table after adding
-        tbSalemanList.getItems().clear();
-        tbSalemanList.setItems(getData());
-
+        refreshTable(tbSalemanList);
     }
 
     //Clear all information in Textfield when click on Cancel button
@@ -182,5 +177,11 @@ public class SalesManListController implements Initializable {
         stage.setScene(new Scene(root));
         stage.setTitle("Second Window");
         stage.show();
+    }
+
+    @Override
+    public void refreshTable(TableView tbSalemanList) {
+        tbSalemanList.getItems().clear();
+        tbSalemanList.setItems(getData());
     }
 }
