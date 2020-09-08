@@ -18,7 +18,7 @@ public class MainTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/Form/SalesmanModule/SalesManList.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Form/TestForm2.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -29,49 +29,7 @@ public class MainTest extends Application {
         //testAddCustomer();
     }
 
-    public static void testAddGroupProduct(){
-        GroupProduct groupProduct = new GroupProduct();
-        groupProduct.setName("day dien");
-        groupProduct.setCommission(55.2);
-        GroupProductDAO groupProductDAO = new GroupProductDAO();
-        groupProductDAO.saveGroupProduct(groupProduct);
-    }
-
-    public static void testGetGroupProduct(){
-        Salesman_ProductGroupDAO dao = new Salesman_ProductGroupDAO();
-
-        List<Salesman_GroupProduct> list = dao.selectBySalesmanID((long) 1);
-        for(Salesman_GroupProduct items : list){
-            System.out.println(items.getSalesman().getId());
-            System.out.println(items.getGroupProduct().getId());
-            System.out.println(items.getSalesman().getName());
-            System.out.println(items.getGroupProduct().getName());
-        }
-    }
-
-    public static void testAddCustomer(){
-        //Test add customer
-        SalesManDAO dao = new SalesManDAO();
-        Salesman salesman = dao.findById((long) 2);
-
-        Customer customer = new Customer();
-        customer.setName("customer 4");
-        customer.setPhone("793475");
-        customer.setAddress("china");
-        customer.setSalesman(salesman);
-
-        CustomerDAO cusDao = new CustomerDAO();
-        cusDao.saveCustomer(customer);
-    }
-
-    public static void getCustomerBySalesmanId(Long salesmanId){
-
-        CustomerDAO cusDao = new CustomerDAO();
-        List<Customer> list = cusDao.findBySalesmanID(salesmanId);
-        for(Customer items : list){
-            System.out.println(items.getName());
-        }
-
+    public static void testAddTradeDiscount(){
 
     }
 }

@@ -128,4 +128,27 @@ public class CustomerDAO {
 
 
     }
+    public List<Customer> selectAllCustomer(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+        String hql = "";
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Customer ";
+            Query query = session.createQuery(hql);
+            customerList = query.getResultList();
+            session.getTransaction().rollback();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return customerList;
+        }
+
+
+    }
 }
