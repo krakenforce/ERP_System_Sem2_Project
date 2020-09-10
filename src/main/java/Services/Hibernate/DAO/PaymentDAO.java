@@ -1,14 +1,17 @@
 package Services.Hibernate.DAO;
 
+import Repositories.IListBehavior;
 import Services.Hibernate.entity.Payment;
+import Services.Hibernate.entity.TradeDiscounts;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.sql.Date;
+import java.util.List;
 
-public class PaymentDAO {
+public class PaymentDAO implements IListBehavior {
     public PaymentDAO(){
 
     }
@@ -101,6 +104,28 @@ public class PaymentDAO {
         }finally {
             session.close();
             return payment;
+        }
+    }
+
+    @Override
+    public List<Payment> getAll() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<Payment> paymentList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Payment ";
+            Query query = session.createQuery(hql);
+            paymentList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return paymentList;
         }
     }
 }

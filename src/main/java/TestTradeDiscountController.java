@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TestFormController implements Initializable {
+public class TestTradeDiscountController implements Initializable {
     @FXML
     private TextField tfName;
 
     @FXML
-    private TextField tfCusID;
+    private TextField tfCusName;
 
     @FXML
-    private ComboBox<Long> cbCusName;
+    private ComboBox<Long> cbCusID;
 
     @FXML
     private TextField tfMoneyLimit;
@@ -49,6 +49,13 @@ public class TestFormController implements Initializable {
         tradeDiscountDAO.saveTradeDiscount(tradeDiscounts);
     }
 
+    @FXML
+    public void getCustomer(ActionEvent actionEvent) {
+        Customer customer = getSelectedCustomer(cbCusID.getSelectionModel().getSelectedItem());
+        tfCusName.setText(customer.getName());
+    }
+
+
     public void getCustomerList(){
         ObservableList<Long> customerList = FXCollections.observableArrayList();
         CustomerDAO customerDAO = new CustomerDAO();
@@ -57,10 +64,10 @@ public class TestFormController implements Initializable {
         for(Customer items: list){
             customerList.add(items.getId());
         }
-        cbCusName.setItems(customerList);
+        cbCusID.setItems(customerList);
     }
     public Long getCustomerId(){
-        return cbCusName.getSelectionModel().getSelectedItem();
+        return cbCusID.getSelectionModel().getSelectedItem();
     }
 
     public Customer getSelectedCustomer(Long id){
@@ -82,4 +89,6 @@ public class TestFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getCustomerList();
     }
+
+
 }

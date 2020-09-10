@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -31,15 +32,21 @@ public class SalesManProductGroupController implements Initializable {
     private ComboBox<String> cbProGroup;
     @FXML
     private ListView<String> lvProGroup;
+    @FXML
+    private ListView<Double> lvCommission;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDataToComboBox();
-
     }
 
     public void addProductGroup(ActionEvent event) {
+//        if(cbProGroup.getSelectionModel().getSelectedItem() == null){
+//            System.out.println("chưa chọn giá trị");
+//        }else{
+//            System.out.println("Đã chọn giá trị");
+//        }
         //Get seller ID
         SalesManDAO salesManDAO = new SalesManDAO();
         long salesmanID = Long.parseLong(tfSellerID.getText());
@@ -49,32 +56,41 @@ public class SalesManProductGroupController implements Initializable {
         GroupProductDAO groupProductDAO = new GroupProductDAO();
         GroupProduct selectedGroup = groupProductDAO.findByName(cbProGroup.getValue());
 
-        
         //After add show them to list view
         Salesman_GroupProduct salesman_groupProduct = new Salesman_GroupProduct();
         salesman_groupProduct.setSalesman(selectedSalesman);
         salesman_groupProduct.setGroupProduct(selectedGroup);
         Salesman_ProductGroupDAO salesmanProGroup = new Salesman_ProductGroupDAO();
         salesmanProGroup.saveGroup(salesman_groupProduct);
+
         //setDataToListView();
+        // fix this bug. add all group without add Group
+        refreshListView(lvProGroup,setDataToLVProGroup(salesmanID) );
     }
     public void updateSellerProGroup(ActionEvent event) {
 
     }
 
     public void deleteSellerProGroup(ActionEvent event) {
+        SalesManDAO salesManDAO = new SalesManDAO();
+        Salesman salesman = salesManDAO.findById(Long.parseLong(tfSellerID.getText()));
+
         GroupProductDAO groupProductDAO = new GroupProductDAO();
         GroupProduct groupProduct = groupProductDAO.findByName(lvProGroup.getSelectionModel().getSelectedItem());
-        Salesman_GroupProduct salesman_groupProduct = new Salesman_GroupProduct();
-        salesman_groupProduct.setGroupProduct(groupProduct);
+
         Salesman_ProductGroupDAO salesman_productGroupDAO = new Salesman_ProductGroupDAO();
+        Salesman_GroupProduct salesman_groupProduct = salesman_productGroupDAO.selectBySalesmanAndGroupProductID(salesman.getId(),groupProduct.getId());
         salesman_productGroupDAO.deleteGroup(salesman_groupProduct);
+
+        Long salesmanID = Long.parseLong(tfSellerID.getText());
+
+        refreshListView(lvProGroup, setDataToLVProGroup(salesmanID));
     }
 
     public void cancelAction(ActionEvent event) {
     }
 
-    public void setDataToComboBox(){
+    public ObservableList<String> setDataToComboBox(){
         ObservableList<String> list = FXCollections.observableArrayList();
         GroupProductDAO groupProductDAO = new GroupProductDAO();
         List<GroupProduct> groupProductList  = groupProductDAO.getAll();
@@ -82,6 +98,18 @@ public class SalesManProductGroupController implements Initializable {
             list.add(value.getName());
         }
         cbProGroup.setItems(list);
+        return list;
+    }
+
+    public ObservableList setDataToLVProGroup(Long id) {
+        Salesman_ProductGroupDAO dao = new Salesman_ProductGroupDAO();
+        ObservableList<String> productList = FXCollections.observableArrayList();
+        List<Salesman_GroupProduct> list = dao.selectBySalesmanID(id);
+        for(Salesman_GroupProduct items : list){
+            productList.add(items.getGroupProduct().getName());
+        }
+        lvProGroup.setItems(productList);
+        return productList;
     }
 
     public void getSalesmanInfo(Long id, String salesmanName){
@@ -90,15 +118,9 @@ public class SalesManProductGroupController implements Initializable {
         tfName2.setText(salesmanName);
     }
 
-    public void setDataToListView(Long id) {
-        Salesman_ProductGroupDAO dao = new Salesman_ProductGroupDAO();
-        ObservableList<String> product = FXCollections.observableArrayList();
-        List<Salesman_GroupProduct> list = dao.selectBySalesmanID(id);
-        for(Salesman_GroupProduct items : list){
-            product.add(items.getGroupProduct().getName());
-        }
-        lvProGroup.setItems(product);
+    public void refreshListView(ListView listViewName, ObservableList obsList) {
+        listViewName.getItems().clear();
+        listViewName.setItems(obsList);
     }
-
 
 }

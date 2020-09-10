@@ -33,16 +33,16 @@ public class Customer implements Serializable {
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman_customer"))
     private Salesman salesman;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "customer")
     private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "customer")
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
@@ -65,6 +65,11 @@ public class Customer implements Serializable {
         this.name = name;
         this.phone = phone;
         this.address = address;
+    }
+
+    public Customer(Long id, String name) {
+        this.id = id;
+        this.name =  name;
     }
 
     public String getAddress() {

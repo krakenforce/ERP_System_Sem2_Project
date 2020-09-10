@@ -1,15 +1,19 @@
 package Services.Hibernate.DAO;
 
+import Repositories.Function;
+import Repositories.IListBehavior;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.TradeDiscounts;
 import Services.Hibernate.utils.HibernateUtil;
+import javafx.scene.control.TableView;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.sql.Date;
+import java.util.List;
 
-public class TradeDiscountDAO {
+public class TradeDiscountDAO implements IListBehavior {
     public TradeDiscountDAO(){
 
     }
@@ -125,6 +129,26 @@ public class TradeDiscountDAO {
             session.close();
             return tradeDiscounts;
         }
+    }
 
+    public List<TradeDiscounts> getAll(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<TradeDiscounts> tradeDiscountsList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM TradeDiscounts ";
+            Query query = session.createQuery(hql);
+            tradeDiscountsList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return tradeDiscountsList;
+        }
     }
 }

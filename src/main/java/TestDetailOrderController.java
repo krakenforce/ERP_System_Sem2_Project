@@ -16,7 +16,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TestForm2Controller implements Initializable {
+public class TestDetailOrderController implements Initializable {
     @FXML
     private DatePicker dpDate;
 
@@ -39,7 +39,7 @@ public class TestForm2Controller implements Initializable {
 
     }
 
-    public void getCustomerList(){
+    public List<Customer> getCustomerList(){
         ObservableList<Long> customerList = FXCollections.observableArrayList();
         CustomerDAO customerDAO = new CustomerDAO();
         List<Customer> list = customerDAO.selectAllCustomer();
@@ -48,6 +48,7 @@ public class TestForm2Controller implements Initializable {
             customerList.add(items.getId());
         }
         cbCusID.setItems(customerList);
+        return list;
     }
     public Long getCustomerId(){
         return cbCusID.getSelectionModel().getSelectedItem();

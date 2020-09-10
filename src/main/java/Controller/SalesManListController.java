@@ -152,7 +152,8 @@ public class SalesManListController implements Initializable, Function {
 
         SalesManProductGroupController controller = loader.getController();
         controller.getSalesmanInfo(id, salesmanName);
-        controller.setDataToListView(id);
+        controller.setDataToLVProGroup(id);
+        controller.setDataToLVCommission(id);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

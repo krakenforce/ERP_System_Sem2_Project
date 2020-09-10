@@ -22,7 +22,7 @@ public class Payment implements Serializable {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "trade_discount_id", foreignKey = @ForeignKey(name = "fk_trade_discount_Payment"))
     private TradeDiscounts tradeDiscounts;
@@ -33,6 +33,17 @@ public class Payment implements Serializable {
     }
 
     public Payment() {
+    }
+
+    public Payment(Long id, Date date, TradeDiscounts tradeDiscounts) {
+        this.id = id;
+        this.date = date;
+        this.tradeDiscounts = tradeDiscounts;
+    }
+
+    public Payment(Long id, Date date) {
+        this.id = id;
+        this.date = date;
     }
 
     public Long getId() {

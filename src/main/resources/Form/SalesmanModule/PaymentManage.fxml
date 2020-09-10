@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.PaymentManageController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PaymentManageController">
+    <top>
+        <HBox prefHeight="48.0" prefWidth="779.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#test" prefHeight="56.0" prefWidth="54.0" text="Save">
+                    <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Photo/save.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="52.0" text="New">
+                    <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Photo/add-icon--ikons-icons--softiconsm-5.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="65.0" prefWidth="51.0" text="Edit">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Photo/create-new--v1.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="57.0" prefWidth="52.0" text="Delete">
+                    <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Photo/unnamed.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="58.0" prefWidth="52.0" text="Cancel">
+                    <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../Photo/delete-sign--v2.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+            </children>
+        </HBox>
+    </top>
+    <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TableView fx:id="tbPaymentTable" prefHeight="426.0" prefWidth="754.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="clPaymentID" prefWidth="45.0" text="ID" />
+                <TableColumn fx:id="clDateOfPay" prefWidth="103.0" text="Date Of Payment" />
+                  <TableColumn fx:id="clTradeDisName" prefWidth="139.0" text=" Trade Discount" />
+                  <TableColumn fx:id="clLimit" prefWidth="76.0" text="Money limit" />
+                  <TableColumn fx:id="clStartDay" prefWidth="83.0" text="Start day" />
+                  <TableColumn fx:id="clEndDay" prefWidth="69.0" text="End day" />
+                  <TableColumn fx:id="clCusID" prefWidth="75.0" text="Customer ID" />
+                  <TableColumn fx:id="clCusName" prefWidth="168.0" text="Customer name" />
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <Pagination prefHeight="47.0" prefWidth="759.0" BorderPane.alignment="CENTER" />
+         </bottom></BorderPane>
+   </center>
+</BorderPane>

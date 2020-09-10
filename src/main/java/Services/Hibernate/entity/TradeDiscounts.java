@@ -32,12 +32,12 @@ public class TradeDiscounts implements Serializable {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "tradeDiscounts")
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
@@ -52,6 +52,13 @@ public class TradeDiscounts implements Serializable {
     }
 
     public TradeDiscounts() {
+    }
+
+    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd) {
+        this.name = name;
+        this.limitMoney = limitMoney;
+        this.dateStars = dateStars;
+        this.dateEnd = dateEnd;
     }
 
     public Long getId() {
