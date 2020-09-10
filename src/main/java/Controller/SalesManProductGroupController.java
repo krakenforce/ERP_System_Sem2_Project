@@ -42,11 +42,11 @@ public class SalesManProductGroupController implements Initializable {
     }
 
     public void addProductGroup(ActionEvent event) {
-//        if(cbProGroup.getSelectionModel().getSelectedItem() == null){
-//            System.out.println("chưa chọn giá trị");
-//        }else{
-//            System.out.println("Đã chọn giá trị");
-//        }
+        if(cbProGroup.getSelectionModel().getSelectedItem() == null){
+            System.out.println("chưa chọn giá trị");
+        }else{
+            System.out.println("Đã chọn giá trị");
+        }
         //Get seller ID
         SalesManDAO salesManDAO = new SalesManDAO();
         long salesmanID = Long.parseLong(tfSellerID.getText());
@@ -68,6 +68,7 @@ public class SalesManProductGroupController implements Initializable {
         refreshListView(lvProGroup,setDataToLVProGroup(salesmanID) );
     }
     public void updateSellerProGroup(ActionEvent event) {
+        System.out.println("sdjftiis");
 
     }
 
