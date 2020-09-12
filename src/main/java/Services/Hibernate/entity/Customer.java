@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,7 +38,7 @@ public class Customer implements Serializable {
             mappedBy = "customer")
     private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "customer")
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
@@ -52,12 +54,6 @@ public class Customer implements Serializable {
 
     public Customer() {
     }
-
-    public Customer(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
-
 
     public Long getId() {
         return id;
@@ -105,5 +101,23 @@ public class Customer implements Serializable {
 
     public void setDetailOrderSet(Set<DetailOrder> detailOrderSet) {
         this.detailOrderSet = detailOrderSet;
+    }
+
+    public Long calculateDebt (){
+        List<DetailOrder> detailOrderListNotPay = new ArrayList<DetailOrder>();
+
+        Long congNoDaThanhToan = (long) 0;
+        Long congNoChuaThanhToan = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(!detailOrder.getPay()){
+                congNoChuaThanhToan = congNoChuaThanhToan + detailOrder.tinhTongTienDetailOrder();
+                detailOrderListNotPay.add(detailOrder);
+            }
+            congNoDaThanhToan = congNoDaThanhToan + detailOrder.tinhTienDaTra();
+        }
+
+
+        return congNoChuaThanhToan - congNoDaThanhToan;
+
     }
 }
