@@ -22,6 +22,9 @@ public class Payment implements Serializable {
     @Column(name = "date")
     private Date date;
 
+    @Column(name  = "money")
+    private Long money;
+
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "trade_discount_id", foreignKey = @ForeignKey(name = "fk_trade_discount_Payment"))
@@ -68,5 +71,13 @@ public class Payment implements Serializable {
 
     public void setTradeDiscounts(TradeDiscounts tradeDiscounts) {
         this.tradeDiscounts = tradeDiscounts;
+    }
+
+    public Long getMoney() {
+        return money;
+    }
+
+    public void setMoney(Long money) {
+        this.money = money;
     }
 }

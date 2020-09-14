@@ -20,6 +20,9 @@ public class Receipts implements Serializable {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "money_Pay")
+    private Long moneyPay;
+
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "detail_order_id", foreignKey = @ForeignKey(name = "fk_detail_order_Receipts"))
@@ -31,6 +34,14 @@ public class Receipts implements Serializable {
     }
 
     public Receipts() {
+    }
+
+    public Long getMoneyPay() {
+        return moneyPay;
+    }
+
+    public void setMoneyPay(Long moneyPay) {
+        this.moneyPay = moneyPay;
     }
 
     public Long getId() {

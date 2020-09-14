@@ -23,6 +23,9 @@ public class Order implements Serializable {
     @Column(name = "is_enough")
     private boolean isEnough;
 
+    @Column(name = "amount")
+    private Long amount;
+
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
@@ -69,6 +72,14 @@ public class Order implements Serializable {
 
     public boolean isEnough() {
         return isEnough;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     public void setEnough(boolean enough) {

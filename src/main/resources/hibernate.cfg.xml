@@ -16,6 +16,7 @@
         <mapping class="Services.Hibernate.entity.Product"/>
         <mapping class="Services.Hibernate.entity.Order"/>
         <mapping class="Services.Hibernate.entity.WarehouseOfStore"/>
+        <mapping class="Services.Hibernate.entity.Delivery_Warehousing"/>
         <mapping class="Services.Hibernate.entity.Warehouse"/>
         <mapping class="Services.Hibernate.entity.CentalWarehouse"/>
         <mapping class="Services.Hibernate.entity.Customer"/>
