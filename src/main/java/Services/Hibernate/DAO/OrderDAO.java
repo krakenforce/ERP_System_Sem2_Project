@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Repositories.IListBehavior;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.Discount;
 import Services.Hibernate.entity.Order;
@@ -11,7 +12,7 @@ import javax.persistence.Query;
 import java.sql.Date;
 import java.util.List;
 
-public class OrderDAO {
+public class OrderDAO implements IListBehavior {
     public OrderDAO(){
 
     }
@@ -107,4 +108,94 @@ public class OrderDAO {
         }
     }
 
+    public List<Order> findBySalesmanID(Long salesmanID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Order session WHERE session.salesman.id = :salesmanID";
+            Query query = session.createQuery(hql);
+            query.setParameter("salesmanID", salesmanID );
+            orderList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return orderList;
+        }
+    }
+
+    public List<Order> findByDate(Date startDate, Date endDate){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Order session WHERE session.detailOrder.date BETWEEN :startDate AND :endDate";
+            Query query = session.createQuery(hql);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            orderList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return orderList;
+        }
+    }
+
+    public List<Order> findByDate(Long salesmanID, Date startDate, Date endDate){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Order session WHERE session.salesman.id =:salesmanID AND session.detailOrder.date BETWEEN :startDate AND :endDate";
+            Query query = session.createQuery(hql);
+            query.setParameter("salesmanID", salesmanID);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            orderList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return orderList;
+        }
+    }
+
+    @Override
+    public List<Order> getAll() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Order";
+            Query query = session.createQuery(hql);
+            orderList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return orderList;
+        }
+    }
 }

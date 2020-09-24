@@ -180,9 +180,28 @@ public class SalesManListController implements Initializable, Function {
         stage.show();
     }
 
+    public void openCommissionSummary(ActionEvent actionEvent) throws IOException {
+        Salesman selectedSalesman = getSelectedSalesMan();
+        Long id = selectedSalesman.getId();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/CommissionSummary.fxml"));
+        Parent root = loader.load();
+
+        CommissionSummaryController controller = loader.getController();
+        controller.setSalesmanID(selectedSalesman.getId());
+        controller.runTable(selectedSalesman.getName());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Second Window");
+        stage.show();
+    }
+
     @Override
     public void refreshTable(TableView tbSalemanList) {
         tbSalemanList.getItems().clear();
         tbSalemanList.setItems(getData());
     }
+
+
 }

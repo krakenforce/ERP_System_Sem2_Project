@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CustomerSalerListController implements Initializable, Function {
+public class CustomerSalerListController implements Initializable,Function{
 
     @FXML
     private TextField tfName;
