@@ -29,17 +29,17 @@ public class Salesman implements Serializable {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Customer> customerSet = new HashSet<Customer>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);

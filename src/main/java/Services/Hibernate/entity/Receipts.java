@@ -16,12 +16,25 @@ public class Receipts implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
+    @Column(name = "payer_name")
+    private String payerName;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "reason")
+    private String reason;
+
+
     @Type(type="org.hibernate.type.DateType")
     @Column(name = "date")
     private Date date;
 
     @Column(name = "money_Pay")
     private Long moneyPay;
+
+    @Column(name = "money_Pay_In_Word")
+    private String moneyPayInWords;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
@@ -34,6 +47,22 @@ public class Receipts implements Serializable {
     }
 
     public Receipts() {
+    }
+
+    public Receipts(Long receiptID, Date date, Long moneyPay) {
+        this.id = receiptID;
+        this.date = date;
+        this.moneyPay = moneyPay;
+    }
+
+    public Receipts(String payerName, String address, String reason, Long moneyPay, String moneyInWord, Date date, DetailOrder detailOrder) {
+        this.payerName = payerName;
+        this.address = address;
+        this.reason = reason;
+        this.moneyPay = moneyPay;
+        this.moneyPayInWords = moneyInWord;
+        this.date = date;
+        this.detailOrder = detailOrder;
     }
 
     public Long getMoneyPay() {
@@ -66,5 +95,37 @@ public class Receipts implements Serializable {
 
     public void setDetailOrder(DetailOrder detailOrder) {
         this.detailOrder = detailOrder;
+    }
+
+    public String getPayerName() {
+        return payerName;
+    }
+
+    public void setPayerName(String payerName) {
+        this.payerName = payerName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getMoneyPayInWords() {
+        return moneyPayInWords;
+    }
+
+    public void setMoneyPayInWords(String moneyPayInWords) {
+        this.moneyPayInWords = moneyPayInWords;
     }
 }

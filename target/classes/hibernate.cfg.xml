@@ -8,11 +8,13 @@
         <property name="hibernate.connection.username">toan</property>
         <property name="hibernate.connection.password">Toan.789</property>
         <property name="hibernate.connection.pool_size">10</property>
-        <property name="show_sql">true</property> <!-- notice this -->
+        <property name="show_sql">true</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
-        <mapping class="Services.Hibernate.entity.LoginInfo"/>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
+        <mapping class="Services.Hibernate.entity.LoginInfo"/>
         <mapping class="Services.Hibernate.entity.Product"/>
         <mapping class="Services.Hibernate.entity.Order"/>
         <mapping class="Services.Hibernate.entity.WarehouseOfStore"/>

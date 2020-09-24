@@ -1,5 +1,7 @@
 package Services.Hibernate.DAO;
 
+import Repositories.IListBehavior;
+import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.GroupProduct;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.utils.HibernateUtil;
@@ -7,8 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.util.List;
 
-public class ProductDAO {
+public class ProductDAO implements IListBehavior {
     public ProductDAO(){
 
     }
@@ -125,5 +128,27 @@ public class ProductDAO {
             return product;
         }
 
+    }
+
+    @Override
+    public List<Product> getAll() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Product> list = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Product " ;
+            Query query = session.createQuery(hql);
+            list = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
     }
 }

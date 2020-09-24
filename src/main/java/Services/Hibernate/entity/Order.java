@@ -27,27 +27,35 @@ public class Order implements Serializable {
     private Long amount;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "salesman_id" , foreignKey= @ForeignKey(name = "Fk_salesman_Order"), nullable = true)
     private Salesman salesman;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "detailOrder_id" , foreignKey= @ForeignKey(name = "Fk_detailOrder_Order"), nullable = true)
     private DetailOrder detailOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "product_id" , foreignKey= @ForeignKey(name = "Fk_product_Order"), nullable = true)
     private Product product;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "order")
     private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
 
     public Order() {
+    }
+
+    public Order(long amount, boolean enough, DetailOrder detailOrder, Product product, Salesman salesman) {
+        this.amount = amount;
+        this.isEnough = enough;
+        this.detailOrder = detailOrder;
+        this.product = product;
+        this.salesman = salesman;
     }
 
     public Set<DetailOutOfStockOrder> getDetailOutOfStockOrderSet() {

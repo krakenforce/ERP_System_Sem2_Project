@@ -148,7 +148,5 @@ public class CustomerDAO {
             session.close();
             return customerList;
         }
-
-
     }
 }

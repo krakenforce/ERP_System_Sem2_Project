@@ -1,5 +1,6 @@
 package Services.Hibernate.DAO;
 
+import Repositories.IListBehavior;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -7,8 +8,9 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.sql.Date;
+import java.util.List;
 
-public class DetailOrderDAO {
+public class DetailOrderDAO implements IListBehavior {
     public DetailOrderDAO(){
 
     }
@@ -101,5 +103,28 @@ public class DetailOrderDAO {
             session.close();
             return detailOrder;
         }
+    }
+
+
+    @Override
+    public List<DetailOrder> getAll() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<DetailOrder> list = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM DetailOrder " ;
+            Query query = session.createQuery(hql);
+            list = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
     }
 }

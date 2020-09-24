@@ -35,6 +35,7 @@ public class SalesManProductGroupController implements Initializable {
     @FXML
     private ListView<Double> lvCommission;
 
+    private Long salesmanID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +50,6 @@ public class SalesManProductGroupController implements Initializable {
         }
         //Get seller ID
         SalesManDAO salesManDAO = new SalesManDAO();
-        long salesmanID = Long.parseLong(tfSellerID.getText());
         Salesman selectedSalesman = salesManDAO.findById(salesmanID);
 
         //Get Product group ID
@@ -63,12 +63,10 @@ public class SalesManProductGroupController implements Initializable {
         Salesman_ProductGroupDAO salesmanProGroup = new Salesman_ProductGroupDAO();
         salesmanProGroup.saveGroup(salesman_groupProduct);
 
-        //setDataToListView();
         // fix this bug. add all group without add Group
-        refreshListView(lvProGroup,setDataToLVProGroup(salesmanID) );
+        refreshListView(lvProGroup,setDataToLVProGroup(salesmanID));
     }
     public void updateSellerProGroup(ActionEvent event) {
-        System.out.println("sdjftiis");
 
     }
 
@@ -89,6 +87,7 @@ public class SalesManProductGroupController implements Initializable {
     }
 
     public void cancelAction(ActionEvent event) {
+
     }
 
     public ObservableList<String> setDataToComboBox(){
@@ -124,4 +123,11 @@ public class SalesManProductGroupController implements Initializable {
         listViewName.setItems(obsList);
     }
 
+    public Long getId() {
+        return salesmanID;
+    }
+
+    public void setId(Long salesmanID) {
+        this.salesmanID = salesmanID;
+    }
 }

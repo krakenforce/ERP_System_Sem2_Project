@@ -1,3 +1,5 @@
+package TestController;
+
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.PaymentDAO;
 import Services.Hibernate.DAO.TradeDiscountDAO;
