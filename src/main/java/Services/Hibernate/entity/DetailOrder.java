@@ -99,4 +99,22 @@ public class DetailOrder implements Serializable {
     public void setOrderSet(Set<Order> orderSet) {
         this.orderSet = orderSet;
     }
+
+    public Long tinhTongTienDetailOrder(){
+        Long tongTien = (long) 0;
+
+        for(Order order : orderSet){
+            tongTien = tongTien + order.tinhTienOrder();
+        }
+
+        return tongTien;
+    }
+
+    public Long tinhTienDaTra() {
+        Long tienDaTra = (long) 0;
+        for(Receipts receipts: receiptHashSet){
+            tienDaTra = tienDaTra + receipts.getMoneyPay();
+        }
+        return tienDaTra;
+    }
 }

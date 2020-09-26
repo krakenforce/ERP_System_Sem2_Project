@@ -22,9 +22,6 @@ public class WarehousingDetails implements Serializable {
     @Column(name = "price")
     private Long price;
 
-    @Column(name = "transport_fee")
-    private Long transportFee;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "fk_product_WarehousingDetails"))
     private Product product;
@@ -35,17 +32,9 @@ public class WarehousingDetails implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "warehousingDetails")
-    private Set<DeliveryDetails> deliveryDetailsSet = new HashSet<DeliveryDetails>(0);
+    private Set<Delivery_Warehousing> delivery_WarehousingSet = new HashSet<Delivery_Warehousing>(0);
 
-    public WarehousingDetails(Long amount, Long price, Long transportFee,
-                              Product product, BillWarehousing billWarehousing, Set<DeliveryDetails> deliveryDetailsSet) {
-        this.amount = amount;
-        this.price = price;
-        this.transportFee = transportFee;
-        this.product = product;
-        this.billWarehousing = billWarehousing;
-        this.deliveryDetailsSet = deliveryDetailsSet;
-    }
+
 
     public WarehousingDetails() {
     }
@@ -74,13 +63,13 @@ public class WarehousingDetails implements Serializable {
         this.price = price;
     }
 
-    public Long getTransportFee() {
-        return transportFee;
-    }
-
-    public void setTransportFee(Long transportFee) {
-        this.transportFee = transportFee;
-    }
+//    public Long getTransportFee() {
+//        return transportFee;
+//    }
+//
+//    public void setTransportFee(Long transportFee) {
+//        this.transportFee = transportFee;
+//    }
 
     public Product getProduct() {
         return product;
@@ -98,11 +87,20 @@ public class WarehousingDetails implements Serializable {
         this.billWarehousing = billWarehousing;
     }
 
-    public Set<DeliveryDetails> getDeliveryDetailsSet() {
-        return deliveryDetailsSet;
+    public Set<Delivery_Warehousing> getDelivery_WarehousingSet() {
+        return delivery_WarehousingSet;
     }
 
-    public void setDeliveryDetailsSet(Set<DeliveryDetails> deliveryDetailsSet) {
-        this.deliveryDetailsSet = deliveryDetailsSet;
+    public void setDelivery_WarehousingSet(Set<Delivery_Warehousing> delivery_WarehousingSet) {
+        this.delivery_WarehousingSet = delivery_WarehousingSet;
+    }
+
+    @Override
+    public String toString() {
+        return "\nWarehousingDetails{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", price=" + price +
+                "} ";
     }
 }

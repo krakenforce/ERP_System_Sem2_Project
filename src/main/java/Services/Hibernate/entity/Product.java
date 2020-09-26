@@ -55,9 +55,9 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "unit_id", unique = true, nullable = false)
+    @JoinColumn(name = "unit_id", foreignKey = @ForeignKey(name = "fk_Unit_Product"))
     private Unit unit;
 
     public Product() {
@@ -153,5 +153,14 @@ public class Product implements Serializable {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

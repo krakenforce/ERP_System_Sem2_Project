@@ -1,8 +1,10 @@
 package Services.Hibernate.entity;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,15 +56,13 @@ public class Salesman implements Serializable {
         this.salesman_groupProductSet = salesman_groupProductSet;
     }
 
-
-
-    public Salesman() {
-    }
-
     public Salesman(String address, String name, String phone) {
         this.name = name;
-        this.address = address;
         this.phone = phone;
+        this.address = address;
+    }
+
+    public Salesman() {
     }
 
     public Long getId() {
