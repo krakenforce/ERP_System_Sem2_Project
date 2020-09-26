@@ -3,6 +3,7 @@ package Services.Hibernate.DAO;
 import Repositories.CustomerDao;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.Salesman;
+import Services.Hibernate.entity.TradeDiscounts;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +11,8 @@ import org.hibernate.SessionFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,5 +149,25 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         return customers;
 
+    }
+
+    public List<TradeDiscounts> getAllDiscounts(Long id) {
+        // get all valid discounts
+        TradeDiscountDaoImpl ti = new TradeDiscountDaoImpl();
+        List<TradeDiscounts> ts = ti.getAllTradeDiscounts();
+        List<TradeDiscounts> rs = new ArrayList<>();
+        for (TradeDiscounts t : ts) {
+            Date d = t.getDateEnd();
+            Date today = Date.valueOf(LocalDate.now());
+            if (d.compareTo(today) < 0) {
+                continue;
+            }
+            if (t.getCustomer() == findByID(id)) {
+                rs.add(t);
+            }
+
+        }
+
+        return rs;
     }
 }

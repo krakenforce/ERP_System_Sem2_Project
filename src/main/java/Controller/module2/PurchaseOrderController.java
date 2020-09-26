@@ -1,11 +1,7 @@
 package Controller.module2;
 
-import Services.Hibernate.DAO.CustomerDaoImpl;
-import Services.Hibernate.DAO.ProductDaoImpl;
-import Services.Hibernate.DAO.SalesManDaoImpl;
-import Services.Hibernate.entity.Customer;
-import Services.Hibernate.entity.Product;
-import Services.Hibernate.entity.Salesman;
+import Services.Hibernate.DAO.*;
+import Services.Hibernate.entity.*;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,12 +11,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
+import org.apache.tools.ant.taskdefs.condition.Or;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class PurchaseOrderController implements Initializable {
+
+    CustomerController customerController;
 
     SimpleLongProperty sum = new SimpleLongProperty(0L);
     SimpleLongProperty discount = new SimpleLongProperty(0L);
@@ -28,13 +31,14 @@ public class PurchaseOrderController implements Initializable {
     ProductDaoImpl pi = new ProductDaoImpl();
     SalesManDaoImpl si = new SalesManDaoImpl();
     CustomerDaoImpl ci = new CustomerDaoImpl();
-
+    public Label promtText;
     public ChoiceBox<Product> productChoiceBox;
     public ChoiceBox<Salesman> salesmanChoiceBox;
     public ChoiceBox<Customer> customerChoiceBox;
     public TextField quantityTextField;
     public TableView<Item> itemsTable;
     public CheckBox customerCheckBox;
+    public CheckBox paidCheckBox;
     public TextField customerNameField;
     public TextField phoneTextField;
     public Label nameLabel;
@@ -105,6 +109,13 @@ public class PurchaseOrderController implements Initializable {
         });
         customerChoiceBox.setOnAction(event -> {
             // check to calculate discount
+            Long id = customerChoiceBox.getValue().getId();
+            List<TradeDiscounts>ts = ci.getAllDiscounts(id);
+//            Long percentDiscount =  ts.get(0).getPerCent();
+//            Long dis = (sum * percentDiscount) / 100;
+//            discount.set(dis);
+            calculateSum();
+
         });
 
 
@@ -133,6 +144,64 @@ public class PurchaseOrderController implements Initializable {
     }
 
     public void generateBtn(ActionEvent event) {
+        Customer c = null;
+        // if new customer:
+        if (customerCheckBox.isSelected()) {
+            String name = customerNameField.getText();
+            String phone = phoneTextField.getText();
+            if (name.isBlank() || phone.isBlank()) {
+                promtText.setText("Name or Phone of New-Customer is invalid!");
+                return;
+            }
+            Long salesman = 0L;
+            if (!(salesmanChoiceBox.getValue().equals(null))) {
+                salesman = salesmanChoiceBox.getSelectionModel().getSelectedItem().getId();
+
+            }
+
+            Long cid  = ci.addCustomer(name, phone, salesman);
+            c = ci.findByID(cid);
+        } else {
+            c = customerChoiceBox.getValue();
+        }
+
+        // new order detail:
+        DetailOrderDAO di = new DetailOrderDAO();
+        OrderDAO oi = new OrderDAO();
+        ProductDaoImpl ip = new ProductDaoImpl();
+
+
+        DetailOrder order_d = new DetailOrder();
+        Date today = Date.valueOf(LocalDate.now());
+        order_d.setCustomer(c);
+        order_d.setDate(today);
+        order_d.setPay(paidCheckBox.isSelected()? true : false);
+
+        di.saveDetailOrder(order_d);
+
+        // make the order for each product
+        Salesman sm = salesmanChoiceBox.getValue();
+        Set<Order> orders = new HashSet<>();
+        for (Item item : itemsTable.getItems()) {
+            Order order = new Order();
+            Long amount = item.getQty();
+            order.setDetailOrder(order_d);
+            order.setAmount(amount);
+            order.setSalesman(sm);
+            order.setProduct(ip.findById(item.getId()));
+            oi.saveOrder(order);
+            orders.add(order);
+            // is Enough ?? -- don't know how to calculate, need a method
+        }
+
+        order_d.setOrderSet(orders);
+       di.updateDetailOrder(order_d);
+
+        // update the customer pane:
+        if (customerController != null) {
+            customerController.searchByName(new ActionEvent());
+        }
+
     }
 
     public void addToItems(ActionEvent event) {
@@ -193,5 +262,9 @@ public class PurchaseOrderController implements Initializable {
             customerLabel.setDisable(false);
         }
 
+    }
+
+    public void setCustomerController(CustomerController ctrl) {
+        this.customerController = ctrl;
     }
 }

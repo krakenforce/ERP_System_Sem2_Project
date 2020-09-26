@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -52,6 +53,10 @@ public class Customer implements Serializable {
         this.detailOrderSet = detailOrderSet;
     }
 
+    public Customer(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
     public Customer() {
     }
 
@@ -119,5 +124,29 @@ public class Customer implements Serializable {
 
         return congNoChuaThanhToan - congNoDaThanhToan;
 
+    }
+
+   public Long totalSpent(Date fromDate, Date toDate){
+        Long tongTien = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(detailOrder.getPay()){
+               if(fromDate.after(detailOrder.getDate()) && toDate.before(detailOrder.getDate())){
+                   tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+               }
+            }
+        }
+        return tongTien;
+    }
+
+    public Long totalSpent(){
+        Long tongTien = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(detailOrder.getPay()){
+                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+            }
+
+        }
+
+        return tongTien;
     }
 }

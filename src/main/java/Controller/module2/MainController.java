@@ -33,6 +33,9 @@ public class MainController implements Initializable {
     @FXML
     BorderPane customers_pane;
 
+    CustomerController customerController;
+    TradeDiscountController tradeDiscountController;
+    PurchaseOrderController purchaseOrderController;
 
     public void setApp(App app) {
         this.app = app;
@@ -53,7 +56,7 @@ public class MainController implements Initializable {
         loader.setLocation(getClass().getResource("../../Form/Module2/PurchaseOrder.fxml"));
         try {
             Node purchaseOrderContents = loader.load();
-            PurchaseOrderController purchaseOrderController = loader.getController();
+            purchaseOrderController = loader.getController();
             purchaseOrderWin.setCenter(purchaseOrderContents);
 
 
@@ -65,6 +68,7 @@ public class MainController implements Initializable {
         Node customerContents = null;
         try {
             customerContents = loader1.load();
+            customerController =  loader1.getController();
             customers_pane.setCenter(customerContents);
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,6 +79,7 @@ public class MainController implements Initializable {
         Node discountContents = null;
         try {
             discountContents = loader2.load();
+            tradeDiscountController = loader2.getController();
             discounts_pane.setCenter(discountContents);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,12 +88,14 @@ public class MainController implements Initializable {
 //        currentLeftPane = customers_pane;
         setCurrentPane(customers_pane, customersPaneBtn);
 
-
+        // set controllers into the purchase controller:
+        purchaseOrderController.setCustomerController(customerController);
     }
 
     public void handleClicks(ActionEvent event) {
         if (event.getSource() == customersPaneBtn) {
             setCurrentPane(customers_pane, customersPaneBtn);
+            customerController.searchByName(event);
         }
         if (event.getSource() == discountPaneBtn) {
             setCurrentPane(discounts_pane, discountPaneBtn);

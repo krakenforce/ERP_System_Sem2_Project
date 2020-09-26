@@ -4,7 +4,9 @@ import Boxes.ConfirmBox;
 import Boxes.MakePayReceipt;
 import Services.Hibernate.DAO.CustomerDaoImpl;
 import Services.Hibernate.entity.Customer;
+import javafx.beans.binding.ObjectExpression;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -95,11 +97,11 @@ public class CustomerController implements Initializable {
         contextMenu.setOnShowing(e -> {
             CustomerCols c = customerTabl.getSelectionModel().getSelectedItem();
             Long debt = c.getDebt();
-//            if (debt == null || debt.equals(0L)) {
-//                receiptMenu.setDisable(true);
-//            } else {
-//                receiptMenu.setDisable(false);
-//            }
+            if (debt == null || debt.equals(0L)) {
+                receiptMenu.setDisable(true);
+            } else {
+                receiptMenu.setDisable(false);
+            }
 
         });
 
@@ -111,8 +113,9 @@ public class CustomerController implements Initializable {
         return tabl;
     }
 
+
     private List<CustomerCols> createData(String search) {
-        List<Customer> customers = search.isBlank() ? ci.getAllCustomers() : ci.findByName(search);
+        ObservableList<Customer> customers = FXCollections.observableList(search.isBlank() ? ci.getAllCustomers() : ci.findByName(search));
         List<CustomerCols> customerCols = new ArrayList<>();
         for (Customer c : customers) {
             CustomerCols col = new CustomerCols();
@@ -120,6 +123,8 @@ public class CustomerController implements Initializable {
             col.setName(c.getName());
             col.setPhone(c.getPhone());
 
+            col.setDebt(c.calculateDebt());
+            col.setSpent(c.totalSpent());
             customerCols.add(col);
         }
 
@@ -150,4 +155,7 @@ public class CustomerController implements Initializable {
 
 
     }
+
+
+
 }
