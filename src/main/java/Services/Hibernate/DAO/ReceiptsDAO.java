@@ -1,17 +1,13 @@
 package Services.Hibernate.DAO;
 
-import Controller.RecieptListManageController;
 import Repositories.IListBehavior;
-import Services.Hibernate.entity.Payment;
 import Services.Hibernate.entity.Receipts;
 import Services.Hibernate.utils.HibernateUtil;
-import com.mysql.cj.xdevapi.SqlUpdateResult;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.sql.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class ReceiptsDAO implements IListBehavior {

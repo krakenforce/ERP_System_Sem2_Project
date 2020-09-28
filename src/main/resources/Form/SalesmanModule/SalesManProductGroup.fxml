@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManProductGroupController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.SalesManProductGroupController">
     <top>
         <HBox prefHeight="48.0" prefWidth="779.0" BorderPane.alignment="CENTER">
             <children>
@@ -97,10 +99,10 @@
     <bottom>
         <BorderPane prefHeight="388.0" prefWidth="779.0" BorderPane.alignment="CENTER">
          <right>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="388.0" prefWidth="123.0" BorderPane.alignment="CENTER" />
          </right>
          <left>
-            <GridPane prefHeight="388.0" prefWidth="545.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="388.0" prefWidth="641.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="295.0" />
@@ -112,19 +114,18 @@
                 <RowConstraints maxHeight="124.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Saler Name:">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
                   <Label text="Product Group:" GridPane.rowIndex="1">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfName2" GridPane.columnIndex="1" />
-                  <ListView fx:id="lvProGroup" prefHeight="192.0" prefWidth="273.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ListView fx:id="lvCommission" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TableView fx:id="tbProductGroup" onMouseClicked="#test" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columns>
+                      <TableColumn fx:id="clGroupName" prefWidth="178.0" text="Name" />
+                      <TableColumn fx:id="clCommission" prefWidth="116.0" text="Commission" />
+                    </columns>
+                  </TableView>
+                  <ListView fx:id="lvProductList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </left>

@@ -11,5 +11,11 @@ D:/Project/Java/ERP_System_Sem2_Project/src/main/resources/hibernate.cfg.xml</re
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/ERP_System_Sem_2</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="erp_system_sem_2@localhost" uuid="1bf9a57c-a523-4fdd-9ef7-21f6960423c0">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/erp_system_sem_2</jdbc-url>
+    </data-source>
   </component>
 </project>

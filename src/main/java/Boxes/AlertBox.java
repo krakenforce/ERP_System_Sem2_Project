@@ -22,10 +22,6 @@ public class AlertBox {
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.getStyleClass().add("prompt");
 
-//        ImageView image = new ImageView("Main/images/skull.png");
-//        image.setFitHeight(40);
-//        image.setFitWidth(40);
-
         VBox vbox = new VBox();
         vbox.getChildren().addAll(prompt);
         vbox.setSpacing(10);
@@ -64,5 +60,12 @@ public class AlertBox {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(header);
         alert.setContentText(content);
+    }
+
+    public void nullSelectedSalesman(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error");
+        alert.setContentText("You still have not selected a seller, please choose from the table below");
+        alert.showAndWait();
     }
 }

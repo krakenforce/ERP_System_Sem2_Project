@@ -56,6 +56,12 @@ public class DetailOrder implements Serializable {
         this.id = detailOrderID;
     }
 
+    public DetailOrder(Date date, boolean b, Customer selectedCustomer) {
+        this.date = date;
+        this.isPay = b;
+        this.customer = selectedCustomer;
+    }
+
     public Long getId() {
         return id;
     }

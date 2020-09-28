@@ -34,6 +34,9 @@ public class Product implements Serializable {
     @Column(name  = "retail_price")
     private Long retailPrice;
 
+    @Column(name = "bar_code")
+    private Long barCode;
+
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
@@ -153,5 +156,13 @@ public class Product implements Serializable {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public Long getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(Long barCode) {
+        this.barCode = barCode;
     }
 }

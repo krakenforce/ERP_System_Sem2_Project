@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CommissionSummaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.CommissionSummaryController">
    <top>
       <AnchorPane prefHeight="118.0" prefWidth="840.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,8 +33,8 @@
                </font>
             </Label>
             <DatePicker fx:id="dpEndDay" layoutX="330.0" layoutY="73.0" />
-            <Button layoutX="513.0" layoutY="73.0" mnemonicParsing="false" onAction="#searchByDate" text="Search" />
-            <Button layoutX="576.0" layoutY="73.0" mnemonicParsing="false" onAction="#showAll" text="Show All" />
+            <Button layoutX="513.0" layoutY="73.0" mnemonicParsing="false" onAction="#searchCommissionByDate" text="Search" />
+            <Button layoutX="576.0" layoutY="73.0" mnemonicParsing="false" onAction="#showAllCommission" text="Show All" />
          </children>
       </AnchorPane>
    </top>

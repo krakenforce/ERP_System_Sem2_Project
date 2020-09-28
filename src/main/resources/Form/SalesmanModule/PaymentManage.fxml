@@ -4,11 +4,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PaymentManageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.PaymentManageController">
     <top>
         <HBox prefHeight="48.0" prefWidth="779.0" BorderPane.alignment="CENTER">
             <children>
-                <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#test" prefHeight="56.0" prefWidth="54.0" text="Save">
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="56.0" prefWidth="54.0" text="Save">
                     <graphic>
                         <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                             <image>

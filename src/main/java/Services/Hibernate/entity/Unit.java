@@ -30,15 +30,15 @@ public class Unit implements Serializable {
     @Column(name = "value_exchange")
     private Long valueExchange;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    private Product product;
+//    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    private Product product;
 
     public Unit(String unitPrimary, String unitExchange, Long valuePrimary, Long valueExchange, Product product) {
         this.unitPrimary = unitPrimary;
         this.unitExchange = unitExchange;
         this.valuePrimary = valuePrimary;
         this.valueExchange = valueExchange;
-        this.product = product;
+        //this.product = product;
     }
 
     public Unit() {
@@ -84,11 +84,11 @@ public class Unit implements Serializable {
         this.valueExchange = valueExchange;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 }

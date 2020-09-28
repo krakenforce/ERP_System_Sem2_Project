@@ -4,7 +4,7 @@ import Boxes.ConfirmBox;
 import Controller.DashBoardController;
 import Controller.LoginController;
 import Controller.MainWindowController;
-import Controller.SalesManListController;
+import Controller.SalesManageModule.SalesManListController;
 import Services.Hibernate.entity.LoginInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

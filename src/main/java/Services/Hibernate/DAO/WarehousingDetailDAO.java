@@ -82,4 +82,26 @@ public class WarehousingDetailDAO {
         }
     }
 
+    public WarehousingDetails findByProductId(Long productID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        WarehousingDetails warehousingDetails = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM WarehousingDetails session WHERE session.product.id = :productID";
+            Query query = session.createQuery(hql);
+            query.setParameter("productID", productID);
+            warehousingDetails = (WarehousingDetails) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return warehousingDetails;
+        }
+    }
+
 }

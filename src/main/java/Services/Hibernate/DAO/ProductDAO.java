@@ -93,7 +93,7 @@ public class ProductDAO implements IListBehavior {
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM Product session WHERE session.name LIKE :name";
+            hql = "SELECT session FROM Product session WHERE session.name = :name";
             Query query = session.createQuery(hql);
             query.setParameter("name", name);
             product = (Product) query.getSingleResult();
@@ -128,6 +128,28 @@ public class ProductDAO implements IListBehavior {
             return product;
         }
 
+    }
+
+    public List<Product> findByGroupProductID(Long groupProductID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Product> productList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Product session WHERE session.groupProduct.id = :groupProductID";
+            Query query = session.createQuery(hql);
+            query.setParameter("groupProductID", groupProductID );
+            productList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return productList;
+        }
     }
 
     @Override
