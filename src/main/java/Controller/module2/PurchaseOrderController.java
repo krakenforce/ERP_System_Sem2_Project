@@ -24,6 +24,7 @@ public class PurchaseOrderController implements Initializable {
 
     SimpleLongProperty sum = new SimpleLongProperty(0L);
     SimpleLongProperty discount = new SimpleLongProperty(0L);
+    Long previous_discount = 0L;
 
     ProductDaoImpl pi = new ProductDaoImpl();
     SalesManDaoImpl si = new SalesManDaoImpl();
@@ -249,6 +250,9 @@ public class PurchaseOrderController implements Initializable {
 
     public void checkSelected(MouseEvent event) {
         if (customerCheckBox.isSelected()) {
+            // reset Discount to 0:
+            previous_discount = discount.get();
+            discount.set(0L);
             customerNameField.setDisable(false);
             phoneTextField.setDisable(false);
             nameLabel.setDisable(false);
@@ -256,6 +260,9 @@ public class PurchaseOrderController implements Initializable {
             customerChoiceBox.setDisable(true);
             customerLabel.setDisable(true);
         } else {
+
+            discount.set(previous_discount);
+
             customerNameField.setDisable(true);
             phoneTextField.setDisable(true);
             nameLabel.setDisable(true);
