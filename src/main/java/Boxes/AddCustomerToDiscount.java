@@ -36,6 +36,7 @@ public class AddCustomerToDiscount {
         // set the Utils:
         AddCustomerToDiscountController ctrl = loader.getController();
         ctrl.setBox(this);
+        ctrl.my_initialize();
 
         window.setOnCloseRequest(e -> {
             e.consume();

@@ -163,12 +163,15 @@ public class TradeDiscountDaoImpl implements TradeDiscountsDao {
     }
 
     @Override
-    public Long addTradeDiscount(String name, Date start, Date end) {
+    public Long addTradeDiscount(String name, Date start, Date end, Long discount, Long limit) {
         TradeDiscounts td = new TradeDiscounts();
+
 
         td.setName(name);
         td.setDateStars(start);
         td.setDateEnd(end);
+        td.setDiscountPercentage(discount);
+        td.setLimitMoney(limit);
 
         saveTradeDiscount(td);
         return td.getId();

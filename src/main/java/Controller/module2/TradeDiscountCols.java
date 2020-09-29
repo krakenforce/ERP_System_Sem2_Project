@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class TradeDiscountCols {
     private Long id;
-    private int percentage;
+    private Long percentage;
     private String name;
     private Date start;
     private Date end;
@@ -26,11 +26,11 @@ public class TradeDiscountCols {
         this.id = id;
     }
 
-    public int getPercentage() {
+    public Long getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(int percentage) {
+    public void setPercentage(Long percentage) {
         this.percentage = percentage;
     }
 

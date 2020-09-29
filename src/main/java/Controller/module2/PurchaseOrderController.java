@@ -16,10 +16,7 @@ import org.apache.tools.ant.taskdefs.condition.Or;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class PurchaseOrderController implements Initializable {
 
@@ -57,7 +54,7 @@ public class PurchaseOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // bind sum & discount text to the variables
         sumAmount.textProperty().bind(sum.asString());
-        discountAmount.textProperty().bind(discount.asString());
+        discountAmount.textProperty().bind(discount.asString().concat("%"));
 
         List<Salesman> sms = si.getAllSalesman();
         salesmanChoiceBox.setItems(FXCollections.observableList(sms));
@@ -110,10 +107,14 @@ public class PurchaseOrderController implements Initializable {
         customerChoiceBox.setOnAction(event -> {
             // check to calculate discount
             Long id = customerChoiceBox.getValue().getId();
+            Customer c = ci.findByID(id);
+            Set<TradeDiscounts> tradeDiscounts = c.getTradeDiscountsSet();
             List<TradeDiscounts>ts = ci.getAllDiscounts(id);
-//            Long percentDiscount =  ts.get(0).getPerCent();
-//            Long dis = (sum * percentDiscount) / 100;
-//            discount.set(dis);
+            Long percentDiscount = 0L;
+            if (tradeDiscounts.size() > 0) {
+                percentDiscount = tradeDiscounts.iterator().next().getDiscountPercentage();
+            }
+            discount.set(percentDiscount);
             calculateSum();
 
         });
@@ -175,6 +176,7 @@ public class PurchaseOrderController implements Initializable {
         Date today = Date.valueOf(LocalDate.now());
         order_d.setCustomer(c);
         order_d.setDate(today);
+        System.out.println("order date" + today.toString());
         order_d.setPay(paidCheckBox.isSelected()? true : false);
 
         di.saveDetailOrder(order_d);
@@ -239,7 +241,7 @@ public class PurchaseOrderController implements Initializable {
         for (Item item : itemsTable.getItems()) {
             s += item.getTotal();
         }
-        s -= discount.getValue();
+        s = (s * (100L - discount.getValue())) / 100L;
         sum.set(s);
 
     }

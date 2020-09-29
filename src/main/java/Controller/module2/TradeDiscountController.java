@@ -80,7 +80,7 @@ public class TradeDiscountController implements Initializable {
 
         });
 
-        MenuItem addToDMenu = new MenuItem("add customers");
+        MenuItem addToDMenu = new MenuItem("set customer");
         addToDMenu.setOnAction(e -> {
             AddCustomerToDiscount box = new AddCustomerToDiscount();
             TradeDiscountCols d = discountsTabl.getSelectionModel().getSelectedItem();
@@ -113,7 +113,7 @@ public class TradeDiscountController implements Initializable {
             col.setLimit(c.getLimitMoney());
             col.setStart(c.getDateStars());
             col.setEnd(c.getDateEnd());
-//            col.setPercentage(c.get);
+            col.setPercentage(c.getDiscountPercentage());
 
             tradeDiscountCols.add(col) ;
         }

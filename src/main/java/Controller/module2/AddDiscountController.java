@@ -37,6 +37,12 @@ public class AddDiscountController {
             Long limit = Long.parseLong(limitField.getText());
             Long percent = Long.parseLong(percentField.getText());
 
+            // check percentage:
+            if (percent > 100L || percent < 0L) {
+                promptLabel.setText("Percent is between 0 and 100");
+                return;
+            }
+
             if (startDatePicker.getValue() != null && endDatePicker.getValue() != null) {
                 Date s = Date.valueOf(startDatePicker.getValue());
                 Date e = Date.valueOf(endDatePicker.getValue());
@@ -53,7 +59,7 @@ public class AddDiscountController {
 
             t.setName(name);
             t.setLimitMoney(limit);
-//            t.setPercent
+            t.setDiscountPercentage(percent);
             ti.saveTradeDiscount(t);
 
 
