@@ -1,9 +1,15 @@
 package Services.Hibernate.entity;
 
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,26 +38,39 @@ public class TradeDiscounts implements Serializable {
     @Column(name = "date_end")
     private Date dateEnd;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @Max(value = 100, message = "You cannot insert greater than 100")
+    @Min(value = 0, message = "You cannot insert less than 0")
+    @Column(name = "discount_percentage")
+    private long discountPercentage;
+
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "tradeDiscounts")
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
 
-    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd, Customer customer, Set<Payment> paymentSet) {
+    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd, long discountPercentage, Customer customer, Set<Payment> paymentSet) {
         this.name = name;
         this.limitMoney = limitMoney;
         this.dateStars = dateStars;
         this.dateEnd = dateEnd;
         this.customer = customer;
         this.paymentSet = paymentSet;
+        this.discountPercentage = discountPercentage;
     }
 
     public TradeDiscounts() {
+    }
+
+    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd) {
+        this.name = name;
+        this.limitMoney = limitMoney;
+        this.dateStars = dateStars;
+        this.dateEnd = dateEnd;
     }
 
     public Long getId() {
@@ -108,5 +127,13 @@ public class TradeDiscounts implements Serializable {
 
     public void setPaymentSet(Set<Payment> paymentSet) {
         this.paymentSet = paymentSet;
+    }
+
+    public long getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(long discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 }

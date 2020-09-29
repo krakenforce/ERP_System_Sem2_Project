@@ -130,7 +130,9 @@ public class Customer implements Serializable {
         Long tongTien = (long) 0;
         for(DetailOrder detailOrder : detailOrderSet){
             if(detailOrder.getPay()){
-               if(fromDate.after(detailOrder.getDate()) && toDate.before(detailOrder.getDate())){
+                Date order_date = detailOrder.getDate();
+                System.out.println("order date"+ order_date);
+               if(order_date.compareTo(fromDate) >= 0 && order_date.compareTo(toDate) <= 0){
                    tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
                }
             }
@@ -144,9 +146,7 @@ public class Customer implements Serializable {
             if(detailOrder.getPay()){
                 tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
             }
-
         }
-
         return tongTien;
     }
 }
