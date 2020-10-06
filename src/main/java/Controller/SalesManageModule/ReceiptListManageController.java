@@ -29,11 +29,6 @@ public class ReceiptListManageController implements Initializable {
     @FXML
     private DatePicker dpEndDay;
 
-    @FXML
-    private ComboBox<Integer> cbMonth;
-
-    @FXML
-    private ComboBox<Integer> cbYear;
 
     @FXML
     private TextField tfReceiptAmount;

@@ -13,10 +13,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,16 +40,19 @@ public class SalesManListController implements Initializable, Function {
     @FXML
     private TableView<Salesman> tbSalemanList;
     @FXML
-    private TableColumn<Long, Salesman> clID;
+    private TableColumn<Salesman, Long> clID;
 
     @FXML
-    private TableColumn<String, Salesman> clName;
+    private TableColumn<Salesman, String> clName;
 
     @FXML
-    private TableColumn<String, Salesman> clAddress;
+    private TableColumn<Salesman, String> clAddress;
 
     @FXML
-    private TableColumn<String, Salesman> clPhone;
+    private TableColumn<Salesman, String> clPhone;
+
+    @FXML
+    private TableColumn<Salesman, Void> clFunction;
 
     public void setApp(App app) {
         this.app = app;
@@ -87,6 +92,7 @@ public class SalesManListController implements Initializable, Function {
         clName.setCellValueFactory(new PropertyValueFactory<>("name"));
         clAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         clPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        addButtonToTable();
         return salesmenList;
     }
 
@@ -223,6 +229,7 @@ public class SalesManListController implements Initializable, Function {
             controller.setSalesman(getSelectedSalesMan());
             controller.setTfSalesmanName();
             controller.getCustomerList(getSelectedSalesMan().getId());
+            controller.getProductBySalesman();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -236,6 +243,37 @@ public class SalesManListController implements Initializable, Function {
     public void refreshTable(TableView tableName) {
         tableName.getItems().clear();
         tableName.setItems(getData());
+    }
+
+    private void addButtonToTable(){
+        Callback<TableColumn<Salesman, Void>, TableCell<Salesman, Void>> cellFactory = new Callback<TableColumn<Salesman, Void>, TableCell<Salesman, Void>>() {
+            @Override
+            public TableCell<Salesman, Void> call(TableColumn<Salesman, Void> salesmanVoidTableColumn) {
+                final TableCell<Salesman, Void> cell = new TableCell<Salesman, Void>(){
+
+                    private final Button btn = new Button("Delete");
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Salesman selectedSalesman = getTableView().getItems().get(getIndex());
+                            SalesManDAO dao = new SalesManDAO();
+                            dao.deleteSalesMan(selectedSalesman);
+                            refreshTable(tbSalemanList);
+                        });
+                    }
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        clFunction.setCellFactory(cellFactory);
     }
 
 

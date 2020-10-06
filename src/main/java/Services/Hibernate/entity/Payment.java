@@ -30,23 +30,31 @@ public class Payment implements Serializable {
     @JoinColumn(name = "trade_discount_id", foreignKey = @ForeignKey(name = "fk_trade_discount_Payment"))
     private TradeDiscounts tradeDiscounts;
 
-    public Payment(Date date, TradeDiscounts tradeDiscounts) {
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
+    private Customer customer;
+
+    public Payment(Date date, TradeDiscounts tradeDiscounts, Customer customer) {
         this.date = date;
         this.tradeDiscounts = tradeDiscounts;
+        this.customer = customer;
     }
 
     public Payment() {
     }
 
-    public Payment(Long id, Date date, TradeDiscounts tradeDiscounts) {
+    public Payment(Long id, Date date, Long money, TradeDiscounts tradeDiscounts) {
         this.id = id;
         this.date = date;
+        this.money = money;
         this.tradeDiscounts = tradeDiscounts;
     }
 
-    public Payment(Long id, Date date) {
+    public Payment(Long id, Date date, Long money) {
         this.id = id;
         this.date = date;
+        this.money = money;
     }
 
     public Long getId() {
@@ -79,5 +87,13 @@ public class Payment implements Serializable {
 
     public void setMoney(Long money) {
         this.money = money;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

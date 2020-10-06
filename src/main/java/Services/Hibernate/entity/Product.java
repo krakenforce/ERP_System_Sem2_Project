@@ -35,7 +35,7 @@ public class Product implements Serializable {
     private Long retailPrice;
 
     @Column(name = "bar_code")
-    private Long barCode;
+    private String barCode;
 
 
     @ManyToOne(fetch = FetchType.LAZY,
@@ -158,11 +158,11 @@ public class Product implements Serializable {
         this.unit = unit;
     }
 
-    public Long getBarCode() {
+    public String getBarCode() {
         return barCode;
     }
 
-    public void setBarCode(Long barCode) {
+    public void setBarCode(String barCode) {
         this.barCode = barCode;
     }
 }

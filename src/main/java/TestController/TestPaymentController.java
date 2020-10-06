@@ -25,6 +25,9 @@ public class TestPaymentController implements Initializable {
     private DatePicker dpPayment;
 
     @FXML
+    private TextField tfMoney;
+
+    @FXML
     private ComboBox<Long> cbTradeID;
 
     @FXML
@@ -34,6 +37,7 @@ public class TestPaymentController implements Initializable {
     void addPayment(ActionEvent event) {
         Payment payment = new Payment();
         payment.setDate(getSeletedDate());
+        payment.setMoney(Long.parseLong(tfMoney.getText()));
         payment.setTradeDiscounts(getSelectedTradeDiscount(cbTradeID.getSelectionModel().getSelectedItem()));
 
         PaymentDAO paymentDAO = new PaymentDAO();

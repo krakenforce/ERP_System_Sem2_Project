@@ -13,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class TestTradeDiscountController implements Initializable {
     private ComboBox<Long> cbCusID;
 
     @FXML
+    private TextField tfDiscountPercent;
+
+    @FXML
     private TextField tfMoneyLimit;
 
     @FXML
@@ -42,10 +47,10 @@ public class TestTradeDiscountController implements Initializable {
     void addTradeDiscount(ActionEvent event) {
         TradeDiscounts tradeDiscounts = new TradeDiscounts();
         tradeDiscounts.setName(tfName.getText());
-        tradeDiscounts.setCustomer(getSelectedCustomer(getCustomerId()));
         tradeDiscounts.setDateStars(getStartDate());
         tradeDiscounts.setDateEnd(getEndDate());
         tradeDiscounts.setLimitMoney(Long.parseLong(tfMoneyLimit.getText()));
+        tradeDiscounts.setDiscountPercentage(Long.parseLong(tfDiscountPercent.getText()));
 
         TradeDiscountDAO tradeDiscountDAO = new TradeDiscountDAO();
         tradeDiscountDAO.saveTradeDiscount(tradeDiscounts);

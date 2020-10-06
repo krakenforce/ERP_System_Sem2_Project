@@ -16,5 +16,7 @@
       <ComboBox fx:id="cbTradeID" layoutX="195.0" layoutY="146.0" onAction="#setDataToTf" prefWidth="150.0" />
       <TextField fx:id="tfTradeName" layoutX="220.0" layoutY="196.0" />
       <Button layoutX="209.0" layoutY="283.0" mnemonicParsing="false" onAction="#addPayment" text="Add" />
+      <Label layoutX="90.0" layoutY="118.0" text="Money:" />
+      <TextField fx:id="tfMoney" layoutX="146.0" layoutY="114.0" />
    </children>
 </AnchorPane>

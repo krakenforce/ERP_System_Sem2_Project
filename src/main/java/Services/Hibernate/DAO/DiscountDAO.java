@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.sql.Date;
+import java.util.List;
 
 public class DiscountDAO {
 
@@ -102,6 +103,28 @@ public class DiscountDAO {
         }finally {
             session.close();
             return discount;
+        }
+    }
+
+    public List<Discount> findByProduct(Long productId){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Discount> discountList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Discount session WHERE session.product.id = :productID";
+            Query query = session.createQuery(hql);
+            query.setParameter("productID", productId);
+            discountList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return discountList;
         }
     }
 }

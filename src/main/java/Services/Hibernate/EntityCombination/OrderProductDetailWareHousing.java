@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 public class OrderProductDetailWareHousing {
 
     String productName;
-    long productID, amount, price, total;
+    long productID, amount, price, total, salePrice;
     Boolean enoughStatus;
     Text enough;
     Product product;
@@ -77,5 +77,13 @@ public class OrderProductDetailWareHousing {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public long getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(long salePrice) {
+        this.salePrice = salePrice;
     }
 }

@@ -101,7 +101,7 @@ public class Discount implements Serializable {
         this.status = status;
     }
 
-    public Product getProduct() {
+        public Product getProduct() {
         return product;
     }
 

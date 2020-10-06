@@ -8,15 +8,22 @@ import Services.Hibernate.entity.GroupProduct;
 import Services.Hibernate.entity.Product;
 import Services.Hibernate.entity.Salesman;
 import Services.Hibernate.entity.Salesman_GroupProduct;
+import TestController.ProductInfoController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -51,6 +58,7 @@ public class SalesManProductGroupController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDataToComboBox();
+        openProductInfo();
     }
 
     public void addProductGroup(ActionEvent event) {
@@ -149,6 +157,43 @@ public class SalesManProductGroupController implements Initializable {
     public void refreshTable() {
         tbProductGroup.getItems().clear();
         tbProductGroup.setItems(getGroupProductList(salesmanID));
+    }
+
+    public void openProductInfo(){
+        lvProductList.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getClickCount() >= 2){
+                ProductDAO dao = new ProductDAO();
+                String productName = lvProductList.getSelectionModel().getSelectedItem();
+                Product product = dao.findByName(productName);
+                Long id, minInven, price, retail;
+                Double ratePro;
+                String name, groupName, barcode;
+
+                id = product.getId();
+                minInven = product.getMinimumInventory();
+                price = product.getPrice();
+                ratePro = product.getRateProfit();
+                retail = product.getRetailPrice();
+                barcode = product.getBarCode();
+                name = product.getName();
+                groupName = product.getGroupProduct().getName();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/TestForm/ProductInfo.fxml"));
+                Parent root = loader.getRoot();
+
+                try {
+                    root = loader.load();
+                    ProductInfoController controller = loader.getController();
+                    controller.testSetField(id,name,minInven,price,ratePro,retail,groupName,barcode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Second Window");
+                stage.show();
+            }
+        });
     }
 
     public Long getId() {

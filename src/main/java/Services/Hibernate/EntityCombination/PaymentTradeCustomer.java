@@ -10,7 +10,7 @@ public class PaymentTradeCustomer {
     Payment payment;
     TradeDiscounts tradeDiscounts;
     Customer customer;
-    Long paymentId,customerID,moneyLimit;
+    Long paymentId,customerID,moneyLimit, money;
     Date paymentDate,startDate,endDate;
     String tradeDiscountName,customerName;
 
@@ -82,6 +82,14 @@ public class PaymentTradeCustomer {
     public PaymentTradeCustomer(){
 
     };
+
+    public Long getMoney() {
+        return money;
+    }
+
+    public void setMoney(Long money) {
+        this.money = money;
+    }
 
     public PaymentTradeCustomer(Payment payment, TradeDiscounts tradeDiscounts, Customer customer) {
         this.payment = payment;

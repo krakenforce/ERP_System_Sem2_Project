@@ -11,9 +11,18 @@ public class AccountValidation {
     public AccountValidation(String username, String pw) {
         this.username = username;
         this.password = pw;
-
-
     }
+
+    public boolean validate() {
+        //...
+        UserDaoImpl userDao = new UserDaoImpl();
+        LoginInfo u = userDao.getUserByUsername(username);
+        if (Crypto.checkpw(password, u.getHashpw())) {
+            return true;
+        }
+        return false;
+    }
+
 
     public String getUsername() {
         return username;
@@ -31,13 +40,4 @@ public class AccountValidation {
         this.password = password;
     }
 
-    public boolean validate() {
-        //...
-        UserDaoImpl userDao = new UserDaoImpl();
-        LoginInfo u = userDao.getUserByUsername(username);
-        if (Crypto.checkpw(password, u.getHashpw())) {
-            return true;
-        }
-        return false;
-    }
 }

@@ -60,6 +60,7 @@ public class AlertBox {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(header);
         alert.setContentText(content);
+        alert.showAndWait();
     }
 
     public void nullSelectedSalesman(){

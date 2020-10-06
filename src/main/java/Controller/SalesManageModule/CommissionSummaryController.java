@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -74,15 +75,17 @@ public class CommissionSummaryController implements Initializable{
 
     @FXML
     void showAllCommission(ActionEvent event) {
-        setTableItems(getDetailOrderProductObsList(showAllOrder()));
+        setTableItems(getDetailOrderProductObsList(showAllOrderBySalesman()));
     }
 
     public void runTable(String salesmanName){
         tfSellerName.setText(salesmanName);
-        setTableItems(getDetailOrderProductObsList(showAllOrder()));
+        setTableItems(getDetailOrderProductObsList(showAllOrderBySalesman()));
+
     }
 
     public ObservableList<DetailOrderProductGroup> getDetailOrderProductObsList(List<Order> orderList){
+
         ObservableList<DetailOrderProductGroup> obsList = FXCollections.observableArrayList();
         Long productID, amount, detailOrderID, price, totalCost;
         Double commission, totalCommissions = 0.0;
@@ -151,7 +154,7 @@ public class CommissionSummaryController implements Initializable{
         return totalCommission;
     }
 
-    public List<Order> showAllOrder(){
+    public List<Order> showAllOrderBySalesman(){
         OrderDAO dao = new OrderDAO();
         List<Order> receiptsList = dao.findBySalesmanID(salesmanID);
         return receiptsList;

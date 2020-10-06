@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TestController.ProductInfoController">
+   <children>
+      <Label layoutX="26.0" layoutY="29.0" text="Product ID:" />
+      <Label layoutX="26.0" layoutY="70.0" text="Product Name:" />
+      <Label layoutX="26.0" layoutY="108.0" text="Mininum Inventory:" />
+      <Label layoutX="26.0" layoutY="151.0" text="Price:" />
+      <Label layoutX="27.0" layoutY="192.0" text="Rate Profit:" />
+      <Label layoutX="27.0" layoutY="235.0" text="Retail Price:" />
+      <Label layoutX="27.0" layoutY="271.0" text="Group Product:" />
+      <Label layoutX="272.0" layoutY="29.0" text="Barcode:" />
+      <ImageView fx:id="imgvBarcode" fitHeight="150.0" fitWidth="225.0" layoutX="295.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="tfProductID" layoutX="105.0" layoutY="25.0" />
+      <TextField fx:id="tfProductName" layoutX="116.0" layoutY="66.0" />
+      <TextField fx:id="tfMinInventory" layoutX="130.0" layoutY="104.0" />
+      <TextField fx:id="tfPrice" layoutX="78.0" layoutY="147.0" />
+      <TextField fx:id="tfRateProfit" layoutX="97.0" layoutY="188.0" />
+      <TextField fx:id="tfRetail" layoutX="97.0" layoutY="231.0" />
+      <TextField fx:id="tfGroupProduct" layoutX="116.0" layoutY="267.0" prefHeight="25.0" prefWidth="182.0" />
+      <TextField fx:id="tfBarcode" layoutX="333.0" layoutY="25.0" />
+   </children>
+</AnchorPane>

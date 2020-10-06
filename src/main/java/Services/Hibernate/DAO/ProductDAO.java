@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.List;
 
 public class ProductDAO implements IListBehavior {
@@ -74,6 +75,28 @@ public class ProductDAO implements IListBehavior {
             hql = "SELECT session FROM Product session WHERE session.id = :id";
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
+            product = (Product) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return product;
+        }
+    }
+
+    public Product findByBarcode(String barcode){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Product product = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Product session WHERE session.barCode = :barcode";
+            Query query = session.createQuery(hql);
+            query.setParameter("barcode", barcode);
             product = (Product) query.getSingleResult();
             session.getTransaction().commit();
         }catch (Exception e){

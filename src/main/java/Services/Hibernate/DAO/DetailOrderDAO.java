@@ -127,4 +127,71 @@ public class DetailOrderDAO implements IListBehavior {
         }
         return list;
     }
+
+    public List<DetailOrder> findByDateRange(Date startDate, Date endDate) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<DetailOrder> list = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM DetailOrder session WHERE session.date BETWEEN :startDate AND :endDate" ;
+            Query query = session.createQuery(hql);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            list = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
+
+    public Long countDetailOrderByCustomerID(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT count (*) FROM DetailOrder WHERE customer.id = :customerID GROUP BY customer.id";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    public List<DetailOrder> findByCustomerID(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<DetailOrder> list = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM DetailOrder WHERE customer.id = :customerID " ;
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            list = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
 }

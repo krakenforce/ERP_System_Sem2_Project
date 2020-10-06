@@ -41,7 +41,7 @@ public class Customer implements Serializable {
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "customer")
-    private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
+    private Set<Payment> paymentSet = new HashSet<Payment>(0);
 
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
@@ -49,12 +49,12 @@ public class Customer implements Serializable {
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 
 
-    public Customer(String name, String phone, String address, Salesman salesman, Set<TradeDiscounts> tradeDiscountsSet, Set<DetailOrder> detailOrderSet) {
+    public Customer(String name, String phone, String address, Salesman salesman, Set<Payment> paymentSet, Set<DetailOrder> detailOrderSet) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.salesman = salesman;
-        this.tradeDiscountsSet = tradeDiscountsSet;
+        this.paymentSet = paymentSet;
         this.detailOrderSet = detailOrderSet;
     }
 
@@ -112,13 +112,6 @@ public class Customer implements Serializable {
         this.salesman = salesman;
     }
 
-    public Set<TradeDiscounts> getTradeDiscountsSet() {
-        return tradeDiscountsSet;
-    }
-
-    public void setTradeDiscountsSet(Set<TradeDiscounts> tradeDiscountsSet) {
-        this.tradeDiscountsSet = tradeDiscountsSet;
-    }
 
     public Set<DetailOrder> getDetailOrderSet() {
         return detailOrderSet;
@@ -128,7 +121,15 @@ public class Customer implements Serializable {
         this.detailOrderSet = detailOrderSet;
     }
 
-//    public Long totalSpent(Long customerID, Date fromDate, Date toDate){
+    public Set<Payment> getPaymentSet() {
+        return paymentSet;
+    }
+
+    public void setPaymentSet(Set<Payment> paymentSet) {
+        this.paymentSet = paymentSet;
+    }
+
+    //    public Long totalSpent(Long customerID, Date fromDate, Date toDate){
 //        Long tongTien = (long) 0;
 //        for(DetailOrder detailOrder : detailOrderSet){
 //            if(!detailOrder.getPay()){

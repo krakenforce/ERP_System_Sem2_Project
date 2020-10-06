@@ -151,4 +151,25 @@ public class TradeDiscountDAO implements IListBehavior {
             return tradeDiscountsList;
         }
     }
+
+    public List<TradeDiscounts> getByDate(Date startDay, Date endDay){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<TradeDiscounts> tradeDiscountsList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM TradeDiscounts session WHERE session.dateEnd BETWEEN :startDay AND :endDay";
+            Query query = session.createQuery(hql);
+            tradeDiscountsList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return tradeDiscountsList;
+        }
+    }
 }
