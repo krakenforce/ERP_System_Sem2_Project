@@ -4,6 +4,8 @@ import Boxes.AlertBox;
 import Services.Hibernate.DAO.*;
 import Services.Hibernate.EntityCombination.OrderProductDetailWareHousing;
 import Services.Hibernate.entity.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +36,9 @@ public class CreateOrderController implements Initializable {
 
     @FXML
     private TextField tfSalesmanName;
+
+    @FXML
+    private TextField tfBarcode;
 
     @FXML
     private TextField tfCustomerName;
@@ -93,6 +99,7 @@ public class CreateOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         spinnerInit();
         dpCurrentDate.setValue(LocalDate.now());
+        testAddProduct();
     }
 
     @FXML
@@ -391,5 +398,48 @@ public class CreateOrderController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void testAddProduct(){
+        tfBarcode.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                s = "";
+                ProductDAO dao = new ProductDAO();
+                Product selectedProduct = dao.findByBarcode(t1);
+                Long amount = (long) 1;
+                Long salePrice = null;
+
+                OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+
+                object.setProductID(selectedProduct.getId());
+                object.setProductName(selectedProduct.getName());
+                object.setAmount(amount);
+                object.setPrice(selectedProduct.getPrice());
+                if(checkDiscount(selectedProduct.getId()) != null){
+                    salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
+                    object.setSalePrice(salePrice);
+                    object.setTotal(salePrice * amount);
+                }else{
+                    object.setSalePrice(selectedProduct.getPrice());
+                    object.setTotal(selectedProduct.getPrice() * amount);
+                }
+                object.setProduct(selectedProduct);
+                if(checkAmountOfProduct(amount,selectedProduct,object) == false){
+                    AlertBox alertBox = new AlertBox();
+                    alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                };
+                orderProductList.add(object);
+
+
+                calculateTotalCost(orderProductList);
+                setDataToTable(orderProductList);
+                tfBarcode.setText("");
+            }
+        });
+    }
+
+    public void testBarcode(InputMethodEvent inputMethodEvent) {
+
     }
 }

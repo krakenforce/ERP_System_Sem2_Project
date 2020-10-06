@@ -78,11 +78,16 @@
                         </Spinner>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#addProductToOrderList" text="Add Product" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Button mnemonicParsing="false" text="Add Product" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
                   </Button>
+                  <TextField fx:id="tfBarcode" onInputMethodTextChanged="#testBarcode" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="150.0" />
+                     </GridPane.margin>
+                  </TextField>
                </children>
             </GridPane>
          </center>
