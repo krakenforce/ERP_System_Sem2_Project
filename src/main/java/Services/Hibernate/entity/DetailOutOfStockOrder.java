@@ -2,7 +2,7 @@ package Services.Hibernate.entity;
 
 import javax.persistence.*;
 
-
+// chi tiết phiếu xuất kho
 @Entity
 @DiscriminatorValue("DetailOutOfStockOrder")
 public class DetailOutOfStockOrder extends DeliveryDetails {

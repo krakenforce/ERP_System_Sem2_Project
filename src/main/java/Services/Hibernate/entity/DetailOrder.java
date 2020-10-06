@@ -22,7 +22,7 @@ public class DetailOrder implements Serializable {
     @Column(name = "is_Pay")
     private Boolean isPay;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_DetailOrder"))
     private Customer customer;
@@ -31,12 +31,12 @@ public class DetailOrder implements Serializable {
     @Column(name = "date")
     private Date date;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "detailOrder")
     private Set<Receipts> receiptHashSet=  new HashSet<Receipts>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "detailOrder")
     private  Set<Order> orderSet = new HashSet<Order>(0);
@@ -50,6 +50,16 @@ public class DetailOrder implements Serializable {
     }
 
     public DetailOrder() {
+    }
+
+    public DetailOrder(Long detailOrderID) {
+        this.id = detailOrderID;
+    }
+
+    public DetailOrder(Date date, boolean b, Customer selectedCustomer) {
+        this.date = date;
+        this.isPay = b;
+        this.customer = selectedCustomer;
     }
 
     public Long getId() {
@@ -98,23 +108,5 @@ public class DetailOrder implements Serializable {
 
     public void setOrderSet(Set<Order> orderSet) {
         this.orderSet = orderSet;
-    }
-
-    public Long tinhTongTienDetailOrder(){
-        Long tongTien = (long) 0;
-
-        for(Order order : orderSet){
-            tongTien = tongTien + order.tinhTienOrder();
-        }
-
-        return tongTien;
-    }
-
-    public Long tinhTienDaTra() {
-        Long tienDaTra = (long) 0;
-        for(Receipts receipts: receiptHashSet){
-            tienDaTra = tienDaTra + receipts.getMoneyPay();
-        }
-        return tienDaTra;
     }
 }

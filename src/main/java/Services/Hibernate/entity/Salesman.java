@@ -1,10 +1,8 @@
 package Services.Hibernate.entity;
 
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,17 +29,17 @@ public class Salesman implements Serializable {
     @Column(name = "address", length = 255, nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Customer> customerSet = new HashSet<Customer>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH},
             mappedBy = "salesman")
     private Set<Salesman_GroupProduct> salesman_groupProductSet = new HashSet<Salesman_GroupProduct>(0);
@@ -56,13 +54,17 @@ public class Salesman implements Serializable {
         this.salesman_groupProductSet = salesman_groupProductSet;
     }
 
-    public Salesman(String address, String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-    }
+
 
     public Salesman() {
+    }
+
+    public Salesman(Long id, String name, String address, String phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+
     }
 
     public Long getId() {

@@ -43,23 +43,17 @@ public class TradeDiscounts implements Serializable {
     @Column(name = "discount_percentage")
     private long discountPercentage;
 
-    @ManyToOne(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
-    private Customer customer;
-
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "tradeDiscounts")
     private Set<Payment> paymentSet = new HashSet<Payment>(0);
 
-    public TradeDiscounts(String name, Long limitMoney, Date dateStars, Date dateEnd, long discountPercentage, Customer customer, Set<Payment> paymentSet) {
+    public TradeDiscounts(Long id,String name, Long limitMoney, Date dateStars, Date dateEnd, long discountPercentage) {
+        this.id = id;
         this.name = name;
         this.limitMoney = limitMoney;
         this.dateStars = dateStars;
         this.dateEnd = dateEnd;
-        this.customer = customer;
-        this.paymentSet = paymentSet;
         this.discountPercentage = discountPercentage;
     }
 
@@ -113,13 +107,6 @@ public class TradeDiscounts implements Serializable {
         this.dateEnd = dateEnd;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public Set<Payment> getPaymentSet() {
         return paymentSet;
@@ -136,4 +123,6 @@ public class TradeDiscounts implements Serializable {
     public void setDiscountPercentage(long discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
+
+
 }

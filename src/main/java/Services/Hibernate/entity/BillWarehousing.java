@@ -48,6 +48,14 @@ public class BillWarehousing {
         this.warehouse = warehouse;
     }
 
+    public Long getTransportFee() {
+        return transportFee;
+    }
+
+    public void setTransportFee(Long transportFee) {
+        this.transportFee = transportFee;
+    }
+
     public Warehouse getWarehouse() {
         return warehouse;
     }
@@ -70,13 +78,5 @@ public class BillWarehousing {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Long getTransportFee() {
-        return transportFee;
-    }
-
-    public void setTransportFee(Long transportFee) {
-        this.transportFee = transportFee;
     }
 }

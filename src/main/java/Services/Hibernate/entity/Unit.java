@@ -4,8 +4,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -32,23 +30,18 @@ public class Unit implements Serializable {
     @Column(name = "value_exchange")
     private Long valueExchange;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
-            mappedBy = "unit")
-    private Set<Product> productSet = new HashSet<Product>(0);
+//    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    private Product product;
 
-   
+    public Unit(String unitPrimary, String unitExchange, Long valuePrimary, Long valueExchange, Product product) {
+        this.unitPrimary = unitPrimary;
+        this.unitExchange = unitExchange;
+        this.valuePrimary = valuePrimary;
+        this.valueExchange = valueExchange;
+        //this.product = product;
+    }
 
     public Unit() {
-    }
-
-
-    public Set<Product> getProductSet() {
-        return productSet;
-    }
-
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
     }
 
     public Long getId() {
@@ -91,5 +84,11 @@ public class Unit implements Serializable {
         this.valueExchange = valueExchange;
     }
 
-
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 }

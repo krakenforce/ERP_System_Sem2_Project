@@ -17,7 +17,7 @@ public class LoginInfo implements Serializable {
     private Integer id;
 
     @Type(type = "org.hibernate.type.StringNVarcharType")
-    @Column(name = "username", length = 255, nullable = false)
+    @Column(name = "username",unique = true, length = 255, nullable = false)
     private String username;
 
     @Type(type = "org.hibernate.type.StringNVarcharType")

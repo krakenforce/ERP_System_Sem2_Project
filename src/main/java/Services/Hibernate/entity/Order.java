@@ -23,16 +23,16 @@ public class Order implements Serializable {
     @Column(name = "is_enough")
     private boolean isEnough;
 
-
     @Column(name = "amount")
     private Long amount;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "salesman_id" , foreignKey= @ForeignKey(name = "Fk_salesman_Order"), nullable = true)
     private Salesman salesman;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "detailOrder_id" , foreignKey= @ForeignKey(name = "Fk_detailOrder_Order"), nullable = true)
     private DetailOrder detailOrder;
@@ -42,21 +42,28 @@ public class Order implements Serializable {
     @JoinColumn(name = "product_id" , foreignKey= @ForeignKey(name = "Fk_product_Order"), nullable = true)
     private Product product;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "order")
-    private Set<Delivery_Warehousing> delivery_WarehousingSet = new HashSet<Delivery_Warehousing>(0);
-
-
+    private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
 
     public Order() {
     }
 
-    public Set<Delivery_Warehousing> getDelivery_WarehousingSet() {
-        return delivery_WarehousingSet;
+    public Order(long amount, boolean enough, DetailOrder detailOrder, Product product, Salesman salesman) {
+        this.amount = amount;
+        this.isEnough = enough;
+        this.detailOrder = detailOrder;
+        this.product = product;
+        this.salesman = salesman;
     }
 
-    public void setDelivery_WarehousingSet(Set<Delivery_Warehousing> delivery_WarehousingSet) {
-        this.delivery_WarehousingSet = delivery_WarehousingSet;
+    public Set<DetailOutOfStockOrder> getDetailOutOfStockOrderSet() {
+        return detailOutOfStockOrderSet;
+    }
+
+    public void setDetailOutOfStockOrderSet(Set<DetailOutOfStockOrder> detailOutOfStockOrderSet) {
+        this.detailOutOfStockOrderSet = detailOutOfStockOrderSet;
     }
 
     public static long getSerialVersionUID() {
@@ -73,6 +80,14 @@ public class Order implements Serializable {
 
     public boolean isEnough() {
         return isEnough;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     public void setEnough(boolean enough) {
@@ -101,17 +116,5 @@ public class Order implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
-
-    public Long tinhTienOrder(){
-        return amount*product.getPrice();
     }
 }

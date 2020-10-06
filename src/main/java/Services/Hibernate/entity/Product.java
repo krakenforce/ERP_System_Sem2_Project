@@ -34,6 +34,9 @@ public class Product implements Serializable {
     @Column(name  = "retail_price")
     private Long retailPrice;
 
+    @Column(name = "bar_code")
+    private String barCode;
+
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
@@ -55,9 +58,9 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @OneToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "unit_id", foreignKey = @ForeignKey(name = "fk_Unit_Product"))
+    @JoinColumn(name = "unit_id", unique = true, nullable = false)
     private Unit unit;
 
     public Product() {
@@ -155,12 +158,11 @@ public class Product implements Serializable {
         this.unit = unit;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 }

@@ -6,9 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,17 +25,23 @@ public class Customer implements Serializable {
     private String name;
 
     @Type(type = "org.hibernate.type.StringNVarcharType")
+    @Column(name = "address", length = 200, nullable = false)
+    private String address;
+
+
+
+    @Type(type = "org.hibernate.type.StringNVarcharType")
     @Column(name = "phone", length = 10, nullable = false)
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman_customer"))
     private Salesman salesman;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "customer")
-    private Set<TradeDiscounts> tradeDiscountsSet = new HashSet<TradeDiscounts>(0);
+    private Set<Payment> paymentSet = new HashSet<Payment>(0);
 
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
@@ -45,21 +49,37 @@ public class Customer implements Serializable {
     private Set<DetailOrder> detailOrderSet = new HashSet<DetailOrder>(0);
 
 
-    public Customer(String name, String phone, Salesman salesman, Set<TradeDiscounts> tradeDiscountsSet, Set<DetailOrder> detailOrderSet) {
+    public Customer(String name, String phone, String address, Salesman salesman, Set<Payment> paymentSet, Set<DetailOrder> detailOrderSet) {
         this.name = name;
         this.phone = phone;
+        this.address = address;
         this.salesman = salesman;
-        this.tradeDiscountsSet = tradeDiscountsSet;
+        this.paymentSet = paymentSet;
         this.detailOrderSet = detailOrderSet;
     }
 
-    public Customer(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
     public Customer() {
     }
 
+    public Customer(Long id, String name, String phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Customer(Long id, String name) {
+        this.id = id;
+        this.name =  name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public Long getId() {
         return id;
     }
@@ -92,13 +112,6 @@ public class Customer implements Serializable {
         this.salesman = salesman;
     }
 
-    public Set<TradeDiscounts> getTradeDiscountsSet() {
-        return tradeDiscountsSet;
-    }
-
-    public void setTradeDiscountsSet(Set<TradeDiscounts> tradeDiscountsSet) {
-        this.tradeDiscountsSet = tradeDiscountsSet;
-    }
 
     public Set<DetailOrder> getDetailOrderSet() {
         return detailOrderSet;
@@ -108,45 +121,34 @@ public class Customer implements Serializable {
         this.detailOrderSet = detailOrderSet;
     }
 
-    public Long calculateDebt (){
-        List<DetailOrder> detailOrderListNotPay = new ArrayList<DetailOrder>();
-
-        Long congNoDaThanhToan = (long) 0;
-        Long congNoChuaThanhToan = (long) 0;
-        for(DetailOrder detailOrder : detailOrderSet){
-            if(!detailOrder.getPay()){
-                congNoChuaThanhToan = congNoChuaThanhToan + detailOrder.tinhTongTienDetailOrder();
-                detailOrderListNotPay.add(detailOrder);
-            }
-            congNoDaThanhToan = congNoDaThanhToan + detailOrder.tinhTienDaTra();
-        }
-
-
-        return congNoChuaThanhToan - congNoDaThanhToan;
-
+    public Set<Payment> getPaymentSet() {
+        return paymentSet;
     }
 
-   public Long totalSpent(Date fromDate, Date toDate){
-        Long tongTien = (long) 0;
-        for(DetailOrder detailOrder : detailOrderSet){
-            if(detailOrder.getPay()){
-                Date order_date = detailOrder.getDate();
-                System.out.println("order date"+ order_date);
-               if(order_date.compareTo(fromDate) >= 0 && order_date.compareTo(toDate) <= 0){
-                   tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
-               }
-            }
-        }
-        return tongTien;
+    public void setPaymentSet(Set<Payment> paymentSet) {
+        this.paymentSet = paymentSet;
     }
 
-    public Long totalSpent(){
-        Long tongTien = (long) 0;
-        for(DetailOrder detailOrder : detailOrderSet){
-            if(detailOrder.getPay()){
-                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
-            }
-        }
-        return tongTien;
-    }
+    //    public Long totalSpent(Long customerID, Date fromDate, Date toDate){
+//        Long tongTien = (long) 0;
+//        for(DetailOrder detailOrder : detailOrderSet){
+//            if(!detailOrder.getPay()){
+//                if(fromDate.after(detailOrder.getDate()) && toDate.before(detailOrder.getDate())){
+//                    tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+//                }
+//            }
+//        }
+//        return tongTien;
+//    }
+//
+//    public Long totalSpent(Long customerID){
+//        Long tongTien = (long) 0;
+//        for(DetailOrder detailOrder : detailOrderSet){
+//            if(!detailOrder.getPay()){
+//                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+//            }
+//
+//        }
+//        return tongTien;
+//    }
 }

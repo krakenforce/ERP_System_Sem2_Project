@@ -13,12 +13,12 @@ public class Salesman_GroupProduct implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "salesman_id", foreignKey = @ForeignKey(name = "fk_salesman_Salesman_GroupProduct"))
     private Salesman salesman;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "groupProduct_id", foreignKey = @ForeignKey(name = "fk_groupProduct_Salesman_GroupProduct"))
     private GroupProduct groupProduct;
