@@ -30,39 +30,15 @@ public class DashBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        openSaleManageTab();
-        openStatisticsTab();
     }
 
 
     public void openSaleManage(ActionEvent actionEvent) {
-        openSaleManageTab();
-    }
-
-    public void openSaleManageTab(){
-        try {
-            Tab tab = new Tab();
-            tab.setText("Sale Manage");
-            tpMain.getTabs().add(tab);
-            tab.setContent((Node) FXMLLoader.load(this.getClass().getResource("/Form/SalesmanModule/SalesManList.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createTab("Sale Manage","Form/SalesmanModule/SalesManList.fxml" );
     }
 
     public void openStatistic(ActionEvent actionEvent) {
-        openStatisticsTab();
-    }
-
-    public void openStatisticsTab(){
-        try {
-            Tab tab = new Tab();
-            tab.setText("Statistic");
-            tpMain.getTabs().add(tab);
-            tab.setContent((Node) FXMLLoader.load(this.getClass().getResource("/Form/StatisticModule/CustomerListStatistic.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createTab("Statistic","Form/StatisticModule/CustomerListStatistic.fxml" );
     }
 
     public void openAbout(ActionEvent actionEvent) throws IOException {
@@ -72,5 +48,28 @@ public class DashBoardController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root, Color.TRANSPARENT));
         stage.show();
+    }
+
+    public void openCustomerStatis(ActionEvent actionEvent) {
+        createTab("Customer Statistic","Form/StatisticModule/CustomerListStatistic.fxml" );
+    }
+
+    public void openSaleStatistic(ActionEvent actionEvent) {
+        createTab("Sale Statistic","Form/StatisticModule/SalesStatistic.fxml" );
+    }
+
+    public void openProductGroupStatistic(ActionEvent actionEvent) {
+        createTab("Product Group Statistic","Form/StatisticModule/GroupProductStatistic.fxml" );
+    }
+
+    public void createTab(String title, String fxmlPath){
+        try {
+            Tab tab = new Tab();
+            tab.setText(title);
+            tpMain.getTabs().add(tab);
+            tab.setContent((Node) FXMLLoader.load(this.getClass().getResource("/" +  fxmlPath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

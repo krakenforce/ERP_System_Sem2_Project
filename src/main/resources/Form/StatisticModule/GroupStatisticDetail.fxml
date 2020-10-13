@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.SalesStatisticController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.GroupStatisticDetailController">
     <top>
         <BorderPane prefHeight="114.0" prefWidth="826.0" BorderPane.alignment="CENTER">
             <bottom>
@@ -55,12 +55,11 @@
         </BorderPane>
     </top>
     <center>
-        <TableView fx:id="tbSalesmanList" prefHeight="358.0" prefWidth="632.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="tbGroupProductList" prefHeight="358.0" prefWidth="1025.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="clSalesmanID" prefWidth="75.0" text="Salesman ID" />
-                <TableColumn fx:id="clSalesmanName" prefWidth="189.0" text="Salesman Name" />
-                <TableColumn fx:id="clInvoiceAmount" prefWidth="131.0" text="Amount of Invoice" />
-                <TableColumn fx:id="clTotalSpent" prefWidth="173.0" text="Sales" />
+                <TableColumn fx:id="clProductID" prefWidth="75.0" text="Product ID" />
+                <TableColumn fx:id="clProductName" prefWidth="255.0" text="Product Name" />
+                <TableColumn fx:id="clTotalSold" prefWidth="153.0" text="Total Product Sold" />
             </columns>
         </TableView>
     </center>
@@ -72,7 +71,7 @@
         </BorderPane>
     </bottom>
    <right>
-      <BarChart fx:id="bcSaleStatis" BorderPane.alignment="CENTER">
+      <BarChart fx:id="bcProductSold" prefHeight="358.0" prefWidth="547.0" BorderPane.alignment="CENTER">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
