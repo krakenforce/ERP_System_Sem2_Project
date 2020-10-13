@@ -14,6 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,6 +54,9 @@ public class SalesStatisticController implements Initializable {
     @FXML
     private TableColumn<?, ?> clShowDetail;
 
+    @FXML
+    private BarChart<String, Number> bcSaleStatis;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -67,6 +73,8 @@ public class SalesStatisticController implements Initializable {
     }
 
     public ObservableList<DetailOrderCustomer> getSalesmanList(){
+
+        bcSaleStatis.getData().clear();
         ObservableList<DetailOrderCustomer> detailOrderCustomerObservableList = FXCollections.observableArrayList();
         SalesManDAO salesManDAO = new SalesManDAO();
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
@@ -77,6 +85,8 @@ public class SalesStatisticController implements Initializable {
             Long totalMoney = calculateTotalMoney(salesman.getId());
             DetailOrderCustomer combination = new DetailOrderCustomer(salesman.getId(),count, salesman.getName(),totalMoney);
             detailOrderCustomerObservableList.add(combination);
+
+            initLineChart(salesman.getName(), totalMoney);
         }
 
         return detailOrderCustomerObservableList;
@@ -122,6 +132,14 @@ public class SalesStatisticController implements Initializable {
         LocalDate localDate = datePicker.getValue();
         return Date.valueOf(localDate);
     }
+
+    public void initLineChart(String salesmanName, Long sales){
+        XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
+        series.getData().addAll(new XYChart.Data<String, Number>(salesmanName,sales));
+
+        bcSaleStatis.getData().addAll(series);
+    }
+
 
 
 }

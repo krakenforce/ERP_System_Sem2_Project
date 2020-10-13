@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.SalesStatisticController">
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.geometry.Insets?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.GroupStatisticDetailController">
     <top>
         <BorderPane prefHeight="114.0" prefWidth="826.0" BorderPane.alignment="CENTER">
             <bottom>
@@ -55,12 +52,12 @@
         </BorderPane>
     </top>
     <center>
-        <TableView fx:id="tbSalesmanList" prefHeight="358.0" prefWidth="632.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="tbGroupProductList" prefHeight="358.0" prefWidth="1025.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="clSalesmanID" prefWidth="75.0" text="Salesman ID" />
-                <TableColumn fx:id="clSalesmanName" prefWidth="189.0" text="Salesman Name" />
-                <TableColumn fx:id="clInvoiceAmount" prefWidth="131.0" text="Amount of Invoice" />
-                <TableColumn fx:id="clTotalSpent" prefWidth="173.0" text="Sales" />
+                <TableColumn fx:id="clGroupID" prefWidth="75.0" text="Group ID" />
+                <TableColumn fx:id="clGroupName" prefWidth="255.0" text="Product Group Name" />
+                <TableColumn fx:id="clTotalSold" prefWidth="153.0" text="Total Product Sold" />
+                <TableColumn fx:id="clShowDetail" prefWidth="342.0" text="Show Detail" />
             </columns>
         </TableView>
     </center>
@@ -71,14 +68,13 @@
             </top>
         </BorderPane>
     </bottom>
-   <right>
-      <BarChart fx:id="bcSaleStatis" BorderPane.alignment="CENTER">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
-   </right>
+    <right>
+        <BarChart fx:id="bcGroupProductStatis" prefHeight="358.0" prefWidth="541.0" title="Group Sales Statistic" BorderPane.alignment="CENTER">
+            <xAxis>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </BarChart>
+    </right>
 </BorderPane>
