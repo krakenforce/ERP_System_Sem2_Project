@@ -53,6 +53,7 @@ public class DashBoardController implements Initializable {
     public void openStatistic(ActionEvent actionEvent) {
         openStatisticsTab();
     }
+
     public void openStatisticsTab(){
         try {
             Tab tab = new Tab();
