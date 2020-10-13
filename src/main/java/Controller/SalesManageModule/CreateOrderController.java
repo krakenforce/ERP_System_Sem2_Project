@@ -99,7 +99,7 @@ public class CreateOrderController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         spinnerInit();
         dpCurrentDate.setValue(LocalDate.now());
-        testAddProduct();
+        addProductByBarcodeReader();
     }
 
     @FXML
@@ -117,7 +117,7 @@ public class CreateOrderController implements Initializable {
         Salesman selectedSalesman = salesman;
         CustomerDAO customerDAO = new CustomerDAO();
         Customer selectedCustomer = customerDAO.findByID(cbCustomerID.getValue());
-        DetailOrder selectedDetailOrder = new DetailOrder(getDate(),paidChecks(), selectedCustomer);
+        DetailOrder selectedDetailOrder = new DetailOrder(getDate(),paidChecks(), selectedCustomer,getDebt(), getTotal());
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
         detailOrderDAO.saveDetailOrder(selectedDetailOrder);
 
@@ -136,6 +136,7 @@ public class CreateOrderController implements Initializable {
                 order.setProduct(productOfList);
                 order.setSalesman(selectedSalesman);
                 orderDAO.saveOrder(order);
+
             }
         }
     }
@@ -172,34 +173,6 @@ public class CreateOrderController implements Initializable {
 
         calculateTotalCost(orderProductList);
         setDataToTable(orderProductList);
-    }
-
-    public Boolean checkDuplicateProduct(){
-        for(OrderProductDetailWareHousing items : orderProductList){
-            String productName = cbProductName.getSelectionModel().getSelectedItem();
-            ProductDAO dao = new ProductDAO();
-            Product selectedProduct = dao.findByName(productName);
-            Long amount = getSpinnerValue();
-
-            OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
-            object.setProductID(selectedProduct.getId());
-            object.setProductName(productName);
-            object.setAmount(amount);
-            object.setPrice(selectedProduct.getPrice());
-            object.setProduct(selectedProduct);
-            if(object.getProductName().equals(items.getProductName())) {
-                long amountTotal = items.getAmount();
-                amountTotal += object.getAmount();
-                items.setAmount(amountTotal);
-                items.setTotal(amountTotal * items.getPrice());
-                return true;
-            }else{
-                checkAmountOfProduct(amount,selectedProduct,object);
-                orderProductList.add(object);
-            }
-        }
-        return false;
-
     }
 
     public void calculateTotalCost(ObservableList<OrderProductDetailWareHousing> list){
@@ -324,6 +297,18 @@ public class CreateOrderController implements Initializable {
         return status;
     }
 
+
+    public Long getTotal(){
+        return Long.parseLong(tfTotalCost.getText());
+    }
+
+    public Long getDebt(){
+        Long debt = Long.parseLong(tfPaid.getText()) - getTotal();
+        if(debt < 0){
+            return Math.abs(debt);
+        }
+        return 0L;
+    }
     @FXML
     void openAddProduct(ActionEvent event) throws IOException {
         getOrderProductList();
@@ -400,7 +385,7 @@ public class CreateOrderController implements Initializable {
         stage.show();
     }
 
-    public void testAddProduct(){
+    public void addProductByBarcodeReader(){
         tfBarcode.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {

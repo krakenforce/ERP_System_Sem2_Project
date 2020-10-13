@@ -103,7 +103,7 @@ public class TradeDiscountListController implements Initializable {
                 TradeDiscounts selectedTradeDiscount = tbTradeDiscountList.getSelectionModel().getSelectedItem();
                 Date startDate = selectedTradeDiscount.getDateStars();
                 Date endDate = selectedTradeDiscount.getDateEnd();
-                controller.getTradeDiscount(startDate, endDate);
+                //controller.getTradeDiscount(startDate, endDate);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));

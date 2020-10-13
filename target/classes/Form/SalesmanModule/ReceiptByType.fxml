@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.ReceiptByTypeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.ReceiptByTypeController">
    <top>
       <HBox prefHeight="48.0" prefWidth="779.0" BorderPane.alignment="CENTER">
          <children>
@@ -141,13 +144,46 @@
                </font>
             </Label>
             <DatePicker fx:id="dpDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="cbDetailOrderID" onAction="#getCustomer" prefHeight="25.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="tfCustomerName" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="tfDetailOrderID" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </center>
    <bottom>
-      <BorderPane prefHeight="47.0" prefWidth="677.0" BorderPane.alignment="CENTER" />
+      <BorderPane prefHeight="325.0" prefWidth="805.0" BorderPane.alignment="CENTER">
+         <center>
+            <TableView fx:id="tbDetailOrderList" prefHeight="195.0" prefWidth="805.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="clID" prefWidth="29.0" text="ID" />
+                <TableColumn fx:id="clDate" prefWidth="104.0" text="Date" />
+                  <TableColumn fx:id="clPaidStatus" prefWidth="75.0" text="Paid Status" />
+                  <TableColumn fx:id="clCusID" prefWidth="75.0" text="Customer ID" />
+                  <TableColumn fx:id="clCusName" prefWidth="180.0" text="Customer Name" />
+                  <TableColumn fx:id="clDebt" prefWidth="117.0" text="Debt" />
+                  <TableColumn fx:id="clTotal" prefWidth="110.0" text="Total" />
+                  <TableColumn prefWidth="114.0" text="Function" />
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <Pagination prefHeight="48.0" prefWidth="805.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <HBox prefHeight="37.0" prefWidth="805.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Search By Name">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </top></BorderPane>
    </bottom>
    <right>
       <AnchorPane prefHeight="388.0" prefWidth="77.0" BorderPane.alignment="CENTER" />

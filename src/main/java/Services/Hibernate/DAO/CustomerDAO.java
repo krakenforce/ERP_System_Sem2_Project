@@ -136,11 +136,10 @@ public class CustomerDAO {
 
         try{
             session.beginTransaction();
-            hql = "FROM Customer ";
+            hql = "FROM Customer";
             Query query = session.createQuery(hql);
             customerList = query.getResultList();
             session.getTransaction().rollback();
-
         }catch(Exception e){
             e.printStackTrace();
             session.getTransaction().rollback();

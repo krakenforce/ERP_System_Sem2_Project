@@ -277,5 +277,13 @@ public class SalesManListController implements Initializable, Function {
     }
 
 
+    public void openCreateReceipt(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/ReceiptByType.fxml"));
+        Parent root = loader.load();
 
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Second Window");
+        stage.show();
+    }
 }

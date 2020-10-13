@@ -35,10 +35,18 @@ public class Payment implements Serializable {
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_customer_TradeDiscounts"))
     private Customer customer;
 
-    public Payment(Date date, TradeDiscounts tradeDiscounts, Customer customer) {
+    @Column(name = "voucher_code")
+    private Long voucherCode;
+
+    @Column(name = "status")
+    private Boolean status;
+
+    public Payment(Date date, TradeDiscounts tradeDiscounts, Customer customer, Long voucherCode, Boolean status) {
         this.date = date;
         this.tradeDiscounts = tradeDiscounts;
         this.customer = customer;
+        this.voucherCode = voucherCode;
+        this.status = status;
     }
 
     public Payment() {
@@ -95,5 +103,21 @@ public class Payment implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Long getVoucherCode() {
+        return voucherCode;
+    }
+
+    public void setVoucherCode(Long voucherCode) {
+        this.voucherCode = voucherCode;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

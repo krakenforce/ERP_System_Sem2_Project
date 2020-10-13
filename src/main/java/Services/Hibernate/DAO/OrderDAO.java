@@ -198,4 +198,76 @@ public class OrderDAO implements IListBehavior {
             return orderList;
         }
     }
+
+    public Long countOrder(Long salesmanID) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT COUNT (*) FROM Order WHERE salesman.id = :salesmanID GROUP BY salesman.id";
+            Query query = session.createQuery(hql);
+            query.setParameter("salesmanID", salesmanID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return count;
+        }
+    }
+
+    public Long countDetailOrder(Long salesmanID) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT COUNT (*) FROM Order WHERE salesman.id = :salesmanID group by detailOrder";
+            Query query = session.createQuery(hql);
+            query.setParameter("salesmanID", salesmanID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return count;
+        }
+    }
+
+    public Long countAmount(Long groupProductID) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Order> orderList = null;
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT COUNT (amount) FROM Order WHERE product.groupProduct.id =: groupProductID group by product";
+            Query query = session.createQuery(hql);
+            query.setParameter("groupProductID", groupProductID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return count;
+        }
+    }
+
+
+
 }

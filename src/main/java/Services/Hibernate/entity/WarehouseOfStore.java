@@ -9,16 +9,7 @@ import java.util.Set;
 @DiscriminatorValue("WarehouseOfStore")
 public class WarehouseOfStore extends Warehouse{
 
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
-            mappedBy = "warehouseOfStore")
-    private Set<DeliveryDetailsOfDisplay> deliveryDetailsOfDisplaySet = new HashSet<DeliveryDetailsOfDisplay>(0);
-
-
-    public WarehouseOfStore(String address, Set<BillWarehousing> billWarehousingSet, Set<DeliveryDetailsOfDisplay> deliveryDetailsOfDisplaySet) {
-        super(address, billWarehousingSet);
-        this.deliveryDetailsOfDisplaySet = deliveryDetailsOfDisplaySet;
-    }
+    
 
     public WarehouseOfStore() {
     }

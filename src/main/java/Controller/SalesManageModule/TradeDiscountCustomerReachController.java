@@ -56,12 +56,12 @@ public class TradeDiscountCustomerReachController {
         countDetailOrders((long) 15);
     }
 
-    public List<DetailOrder> getTradeDiscount(Date startDate, Date endDate){
-        DetailOrderDAO dao = new DetailOrderDAO();
-        List<DetailOrder> detailOrdersList = dao.findByDateRange(startDate, endDate);
-        List<Customer> customerList = FXCollections.observableArrayList();
-        return detailOrdersList;
-    }
+//    public List<DetailOrder> getTradeDiscount(Date startDate, Date endDate){
+//        DetailOrderDAO dao = new DetailOrderDAO();
+//        //List<DetailOrder> detailOrdersList = dao.findByDateRange(startDate, endDate);
+//        List<Customer> customerList = FXCollections.observableArrayList();
+//        return detailOrdersList;
+//    }
 
     public void countDetailOrders(Long customerId){
         DetailOrderDAO dao = new DetailOrderDAO();

@@ -31,6 +31,12 @@ public class DetailOrder implements Serializable {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "debt")
+    private Long debt;
+
+    @Column(name = "total")
+    private Long total;
+
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "detailOrder")
@@ -48,18 +54,17 @@ public class DetailOrder implements Serializable {
         this.receiptHashSet = receiptHashSet;
         this.orderSet = orderSet;
     }
+    public DetailOrder(){};
 
-    public DetailOrder() {
-    }
-
-    public DetailOrder(Long detailOrderID) {
-        this.id = detailOrderID;
-    }
-
-    public DetailOrder(Date date, boolean b, Customer selectedCustomer) {
+    public DetailOrder(Date date, boolean b, Customer selectedCustomer, Long debt, Long total) {
         this.date = date;
         this.isPay = b;
         this.customer = selectedCustomer;
+        this.debt = debt;
+        this.total = total;
+    }
+
+    public DetailOrder(Long detailOrderID) {
     }
 
     public Long getId() {
@@ -109,4 +114,21 @@ public class DetailOrder implements Serializable {
     public void setOrderSet(Set<Order> orderSet) {
         this.orderSet = orderSet;
     }
+
+    public Long getDebt() {
+        return debt;
+    }
+
+    public void setDebt(Long debt) {
+        this.debt = debt;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
 }

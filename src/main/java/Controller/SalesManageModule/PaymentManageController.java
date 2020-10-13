@@ -64,9 +64,7 @@ public class PaymentManageController implements Initializable {
         String tradeDiscountName, customerName;
         Date paymentDate, startDate, endDate;
 
-        //for each loop to get Payment object from List
         for(Payment items : paymentList){
-            //initial object values for variable;
             paymentID = items.getId();
             moneyLimit = items.getTradeDiscounts().getLimitMoney();
             //customerID = items.getTradeDiscounts().getCustomer().getId();

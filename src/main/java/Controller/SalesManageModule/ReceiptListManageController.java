@@ -81,7 +81,7 @@ public class ReceiptListManageController implements Initializable {
             date = items.getDate();
             customerName = items.getDetailOrder().getCustomer().getName();
 
-            totalCost = calculateTotalCost(detailOrderID);
+            totalCost = items.getDetailOrder().getTotal();
             remaining = totalCost - moneyPay;
 
             Receipts receipts = new Receipts(receiptID, date , moneyPay);

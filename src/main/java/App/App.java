@@ -6,6 +6,7 @@ import Controller.LoginController;
 import Controller.MainWindowController;
 import Controller.SalesManageModule.SalesManListController;
 import Services.Hibernate.entity.LoginInfo;
+import Services.Hibernate.utils.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,17 +38,16 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
 
-        //HibernateUtil.getSessionFactory();
-        // setting up:
-//        window.setOnCloseRequest(e -> {
-//            e.consume();
-//            closeProgram();
-//        });
-//
-//
+        HibernateUtil.getSessionFactory();
+//         setting up:
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
+
+
 //        // jump to login:
-        //goToDashboard();
-        testForm();
+        goToDashboard();
         window.show();
     }
 
