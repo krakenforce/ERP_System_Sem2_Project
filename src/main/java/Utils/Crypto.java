@@ -28,6 +28,15 @@ public class Crypto extends BCrypt {
         return generateRandomChars(char_set, length);
     }
 
+    public static int generateRandomNumber(int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("length must be at least 1");
+
+        }
+        String char_set = "1234567890";
+
+        return Integer.parseInt(generateRandomChars(char_set, length));
+    }
     public static String hashpw(String pw) {
 
         String salt = gensalt();
