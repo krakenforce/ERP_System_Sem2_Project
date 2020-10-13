@@ -71,19 +71,17 @@ public class GroupProductStatisticController {
         List<Order> orderList = orderDAO.findByDetailOrderID(detailOrderID);
         Long amount = 0L;
         for(Order order: orderList){
-            //amount += order.getAmount();
-            getGroupProduct(order.getProduct().getId());
+            getGroupProductAmount(order.getProduct().getId());
         }
     }
 
-    private void getGroupProduct(Long productID){
+    private Long getGroupProductAmount(Long productID){
          OrderDAO orderDAO = new OrderDAO();
          ProductDAO productDAO = new ProductDAO();
          Product product = productDAO.findById(productID);
          GroupProduct groupProduct = product.getGroupProduct();
-
         System.out.println(orderDAO.countAmount(groupProduct.getId()));
-
+        return orderDAO.countAmount(groupProduct.getId());
     }
 
 

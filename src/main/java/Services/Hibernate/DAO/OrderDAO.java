@@ -254,7 +254,7 @@ public class OrderDAO implements IListBehavior {
 
         try{
             session.beginTransaction();
-            hql = "SELECT COUNT (amount) FROM Order WHERE product.groupProduct.id =: groupProductID group by product.groupProduct.id";
+            hql = "SELECT SUM(amount) FROM Order WHERE product.groupProduct.id =: groupProductID group by product.groupProduct.id";
             Query query = session.createQuery(hql);
             query.setParameter("groupProductID", groupProductID);
             count = (Long) query.getSingleResult();
