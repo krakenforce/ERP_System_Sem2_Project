@@ -28,9 +28,9 @@ public class PurchaseOrderController implements Initializable {
     SimpleLongProperty discount = new SimpleLongProperty(0L);
     Long previous_discount = 0L;
 
-    ProductDaoImpl pi = new ProductDaoImpl();
-    SalesManDaoImpl si = new SalesManDaoImpl();
-    CustomerDaoImpl ci = new CustomerDaoImpl();
+    ProductDAO pi = new ProductDAO();
+    SalesManDAO si = new SalesManDAO();
+    CustomerDAO ci = new CustomerDAO();
     private Payment currentVoucher;
     public TextField voucherIDTextField;
     public Label promtText;
@@ -61,7 +61,7 @@ public class PurchaseOrderController implements Initializable {
         sumAmount.textProperty().bind(sum.asString());
         discountAmount.textProperty().bind(Bindings.concat("-", discount.asString()));
 
-        List<Salesman> sms = si.getAllSalesman();
+        List<Salesman> sms = si.selectAll();
         salesmanChoiceBox.setItems(FXCollections.observableList(sms));
         salesmanChoiceBox.setConverter(new StringConverter<Salesman>() {
             @Override
@@ -82,7 +82,7 @@ public class PurchaseOrderController implements Initializable {
             }
         });
 
-        List<Product> ps = pi.getAllProducts();
+        List<Product> ps = pi.getAll();
         productChoiceBox.setItems(FXCollections.observableList(ps));
         productChoiceBox.setConverter(new StringConverter<Product>() {
             @Override
@@ -96,7 +96,7 @@ public class PurchaseOrderController implements Initializable {
             }
         });
 
-        List<Customer> cs = ci.getAllCustomers();
+        List<Customer> cs = ci.selectAllCustomer();
         customerChoiceBox.setItems(FXCollections.observableList(cs));
         customerChoiceBox.setConverter(new StringConverter<Customer>() {
             @Override
@@ -195,7 +195,7 @@ public class PurchaseOrderController implements Initializable {
         // new order detail:
         DetailOrderDAO di = new DetailOrderDAO();
         OrderDAO oi = new OrderDAO();
-        ProductDaoImpl ip = new ProductDaoImpl();
+        ProductDAO ip = new ProductDAO();
 
 
         DetailOrder order_d = new DetailOrder();

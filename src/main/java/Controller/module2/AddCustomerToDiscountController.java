@@ -2,9 +2,9 @@ package Controller.module2;
 
 import Boxes.AddCustomerToDiscount;
 import Boxes.AlertBox;
-import Services.Hibernate.DAO.CustomerDaoImpl;
+import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.PaymentDAO;
-import Services.Hibernate.DAO.TradeDiscountDaoImpl;
+import Services.Hibernate.DAO.TradeDiscountDAO;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.Payment;
 import Services.Hibernate.entity.TradeDiscounts;
@@ -39,8 +39,8 @@ public class AddCustomerToDiscountController implements Initializable {
             Date end = box.tcol.getEnd();
             Date start = box.tcol.getStart();
             Long limit = box.tcol.getLimit();
-            CustomerDaoImpl ci = new CustomerDaoImpl();
-            List<Customer> cs = ci.getAllCustomers();
+            CustomerDAO ci = new CustomerDAO();
+            List<Customer> cs = ci.selectAllCustomer();
 
             for (Customer c : cs) {
                 System.out.println("spent"+ c.totalSpent(start,end));
@@ -68,8 +68,8 @@ public class AddCustomerToDiscountController implements Initializable {
 
             Long amount = Long.parseLong(amountBox.getText());
             System.out.println(amount);
-            TradeDiscountDaoImpl ti = new TradeDiscountDaoImpl();
-            CustomerDaoImpl ci = new CustomerDaoImpl();
+            TradeDiscountDAO ti = new TradeDiscountDAO();
+            CustomerDAO ci = new CustomerDAO();
             PaymentDAO pi = new PaymentDAO();
 
             TradeDiscounts t = ti.findById(box.tcol.getId());

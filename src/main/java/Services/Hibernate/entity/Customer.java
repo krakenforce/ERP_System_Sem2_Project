@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -129,26 +131,54 @@ public class Customer implements Serializable {
         this.paymentSet = paymentSet;
     }
 
-    //    public Long totalSpent(Long customerID, Date fromDate, Date toDate){
-//        Long tongTien = (long) 0;
-//        for(DetailOrder detailOrder : detailOrderSet){
-//            if(!detailOrder.getPay()){
-//                if(fromDate.after(detailOrder.getDate()) && toDate.before(detailOrder.getDate())){
-//                    tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
-//                }
-//            }
-//        }
-//        return tongTien;
-//    }
-//
-//    public Long totalSpent(Long customerID){
-//        Long tongTien = (long) 0;
-//        for(DetailOrder detailOrder : detailOrderSet){
-//            if(!detailOrder.getPay()){
-//                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
-//            }
-//
-//        }
-//        return tongTien;
-//    }
+    public Customer(String name, String phone, String address) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Long calculateDebt (){
+        List<DetailOrder> detailOrderListNotPay = new ArrayList<DetailOrder>();
+
+        Long congNoDaThanhToan = (long) 0;
+        Long congNoChuaThanhToan = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(!detailOrder.getPay()){
+                congNoChuaThanhToan = congNoChuaThanhToan + detailOrder.tinhTongTienDetailOrder();
+                detailOrderListNotPay.add(detailOrder);
+            }
+            congNoDaThanhToan = congNoDaThanhToan + detailOrder.tinhTienDaTra();
+        }
+
+
+        return congNoChuaThanhToan - congNoDaThanhToan;
+
+    }
+
+    public Long totalSpent(Date fromDate, Date toDate){
+        Long tongTien = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(detailOrder.getPay()){
+                Date order_date = detailOrder.getDate();
+                System.out.println("order date"+ order_date);
+                if(order_date.compareTo(fromDate) >= 0 && order_date.compareTo(toDate) <= 0){
+                    tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+                }
+            }
+        }
+        return tongTien;
+    }
+
+    public Long totalSpent(){
+        Long tongTien = (long) 0;
+        for(DetailOrder detailOrder : detailOrderSet){
+            if(detailOrder.getPay()){
+                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+            }
+
+        }
+
+        return tongTien;
+    }
+
 }

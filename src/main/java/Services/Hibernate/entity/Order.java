@@ -117,4 +117,7 @@ public class Order implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
+    public Long tinhTienOrder(){
+        return amount*product.getPrice();
+    }
 }

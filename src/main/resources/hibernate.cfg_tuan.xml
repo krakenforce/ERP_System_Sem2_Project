@@ -21,7 +21,6 @@
 <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
             <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
-
         <mapping class="Services.Hibernate.entity.LoginInfo"/>
         <mapping class="Services.Hibernate.entity.DeliveryBill"/>
         <mapping class="Services.Hibernate.entity.Delivery_Warehousing"/>

@@ -1,7 +1,7 @@
 package Controller.module2;
 
 import Boxes.AddDiscount;
-import Services.Hibernate.DAO.TradeDiscountDaoImpl;
+import Services.Hibernate.DAO.TradeDiscountDAO;
 import Services.Hibernate.entity.TradeDiscounts;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class AddDiscountController {
     private AddDiscount mainBox;
-    private TradeDiscountDaoImpl ti = new TradeDiscountDaoImpl();
+    private TradeDiscountDAO ti = new TradeDiscountDAO();
 
     public TextField nameField;
     public TextField limitField;

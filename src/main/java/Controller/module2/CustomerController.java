@@ -2,7 +2,7 @@ package Controller.module2;
 
 import Boxes.ConfirmBox;
 import Boxes.MakePayReceipt;
-import Services.Hibernate.DAO.CustomerDaoImpl;
+import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.entity.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
 
-    CustomerDaoImpl ci = new CustomerDaoImpl();
+    CustomerDAO ci = new CustomerDAO();
     public TextField searchField;
     public Button searchBtn;
     public Label promptText;
@@ -114,14 +114,13 @@ public class CustomerController implements Initializable {
 
 
     private List<CustomerCols> createData(String search) {
-        ObservableList<Customer> customers = FXCollections.observableList(search.isBlank() ? ci.getAllCustomers() : ci.findByName(search));
+        ObservableList<Customer> customers = FXCollections.observableList(search.isBlank() ? ci.selectAllCustomer() : ci.findByName(search));
         List<CustomerCols> customerCols = new ArrayList<>();
         for (Customer c : customers) {
             CustomerCols col = new CustomerCols();
             col.setId(c.getId());
             col.setName(c.getName());
             col.setPhone(c.getPhone());
-
             col.setDebt(c.calculateDebt());
             col.setSpent(c.totalSpent());
             customerCols.add(col);

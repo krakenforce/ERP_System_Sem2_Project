@@ -3,7 +3,7 @@ package Controller.module2;
 import Boxes.AddCustomerToDiscount;
 import Boxes.AddDiscount;
 import Boxes.ConfirmBox;
-import Services.Hibernate.DAO.TradeDiscountDaoImpl;
+import Services.Hibernate.DAO.TradeDiscountDAO;
 import Services.Hibernate.entity.TradeDiscounts;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class TradeDiscountController implements Initializable {
 
-    TradeDiscountDaoImpl ti = new TradeDiscountDaoImpl();
+    TradeDiscountDAO ti = new TradeDiscountDAO();
     public TextField searchField;
     public Button searchBtn;
     public Label promptText;
@@ -104,7 +104,7 @@ public class TradeDiscountController implements Initializable {
     }
 
     public List<TradeDiscountCols> createData(String search) {
-        List<TradeDiscounts> tradiscounts = search.isBlank() ? ti.getAllTradeDiscounts() : ti.findByName(search);
+        List<TradeDiscounts> tradiscounts = search.isBlank() ? ti.getAll() : ti.findByName(search);
         List<TradeDiscountCols> tradeDiscountCols = new ArrayList<>();
         for (TradeDiscounts c : tradiscounts) {
             TradeDiscountCols col = new TradeDiscountCols();
