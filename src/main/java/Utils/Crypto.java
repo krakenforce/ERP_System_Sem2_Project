@@ -6,6 +6,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class Crypto extends BCrypt {
+
     private static String generateRandomChars(String set, int length) {
         Random random = new SecureRandom();
 

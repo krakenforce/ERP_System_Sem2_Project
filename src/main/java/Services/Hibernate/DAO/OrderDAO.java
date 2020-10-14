@@ -245,7 +245,7 @@ public class OrderDAO implements IListBehavior {
         }
     }
 
-    public Long countAmount(Long groupProductID) {
+    public Long countAmount(Long groupProductID, Date startDate, Date endDate) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
@@ -254,8 +254,11 @@ public class OrderDAO implements IListBehavior {
 
         try{
             session.beginTransaction();
-            hql = "SELECT COUNT (amount) FROM Order WHERE product.groupProduct.id =: groupProductID group by product";
+            hql = "SELECT SUM(amount) FROM Order WHERE detailOrder.date BETWEEN :startDate AND :endDate " +
+                    "AND product.groupProduct.id =: groupProductID group by product.groupProduct.id";
             Query query = session.createQuery(hql);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
             query.setParameter("groupProductID", groupProductID);
             count = (Long) query.getSingleResult();
             session.getTransaction().commit();

@@ -60,7 +60,11 @@ public class CustomerListStatisticModuleController implements Initializable {
     }
 
 
+    // Bị bug khi reset barchart thì tên bị chồng
     public ObservableList<DetailOrderCustomer> showAllCustomerList(){
+
+        bcCustomerList.getData().clear();
+
         ObservableList<DetailOrderCustomer> detailOrderCustomerObservableList = FXCollections.observableArrayList();
         CustomerDAO customerDAO = new CustomerDAO();
         List<Customer> customerList = customerDAO.selectAllCustomer();
@@ -108,6 +112,8 @@ public class CustomerListStatisticModuleController implements Initializable {
     @FXML
     void showAll(ActionEvent event) {
         setDataToTable(showAllCustomerList());
+        dpStartDay.setValue(null);
+        dpEndDay.setValue(null);
     }
 
     public Date getDay(DatePicker datePicker){
@@ -116,6 +122,8 @@ public class CustomerListStatisticModuleController implements Initializable {
     }
 
     public ObservableList<DetailOrderCustomer> getCustomerListByDate(){
+        bcCustomerList.getData().clear();
+
         ObservableList<DetailOrderCustomer> detailOrderCustomerObservableList = FXCollections.observableArrayList();
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
 
@@ -155,11 +163,9 @@ public class CustomerListStatisticModuleController implements Initializable {
 
     public void initLineChart(String customerName, Long amount){
         XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
-        series.getData().add(new XYChart.Data<String, Number>(customerName,amount));
+        series.getData().addAll(new XYChart.Data<String, Number>(customerName,amount));
 
-        bcCustomerList.setLegendVisible(true);
-
-        bcCustomerList.getData().add(series);
+        bcCustomerList.getData().addAll(series);
     }
 
 
