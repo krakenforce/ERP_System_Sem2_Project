@@ -14,19 +14,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class GroupProductStatisticController {
+public class GroupProductStatisticController implements Initializable {
 
     @FXML
     private DatePicker dpStartDay;
@@ -35,7 +45,7 @@ public class GroupProductStatisticController {
     private DatePicker dpEndDay;
 
     @FXML
-    private TableView<?> tbGroupProductList;
+    private TableView<GroupProductStatis> tbGroupProductList;
 
     @FXML
     private TableColumn<?, ?> clGroupID;
@@ -63,7 +73,7 @@ public class GroupProductStatisticController {
 
     }
 
-    private void getDetailOrderList(Date startDay, Date endDay){
+    private List<DetailOrder> getDetailOrderList(Date startDay, Date endDay){
         bcGroupProductStatis.getData().clear();
 
         ObservableList<GroupProductStatis> groupProductStatisObservableList = FXCollections.observableArrayList();
@@ -86,7 +96,7 @@ public class GroupProductStatisticController {
             }
         }
         setDataToTable(groupProductStatisObservableList);
-
+        return detailOrderList;
     }
 
     public boolean checkDuplicate(GroupProductStatis groupProductStatis, ObservableList<GroupProductStatis> groupProductStatisObservableList){
@@ -118,5 +128,36 @@ public class GroupProductStatisticController {
         series.getData().addAll(new XYChart.Data<String, Number>(groupName,totalSold));
 
         bcGroupProductStatis.getData().addAll(series);
+    }
+
+    // chưa làm được
+    public void selectGroupTableItem(){
+        tbGroupProductList.setOnMouseClicked(event ->{
+            if (event.getClickCount() == 2) {
+                GroupProductStatis object = tbGroupProductList.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/StatisticModule/GroupStatisticDetail.fxml"));
+                try {
+                    Parent root = loader.load();
+                    GroupStatisticDetailController controller = loader.getController();
+                    DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
+                    List<DetailOrder> detailOrderList = detailOrderDAO.findByDate(getDate(dpStartDay), getDate(dpEndDay));
+                    controller.setTextForComponent("Group Product: " + object.getName(),getDate(dpStartDay), getDate(dpEndDay));
+                    controller.getProductList(object.getId(),detailOrderList);
+
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        selectGroupTableItem();
     }
 }

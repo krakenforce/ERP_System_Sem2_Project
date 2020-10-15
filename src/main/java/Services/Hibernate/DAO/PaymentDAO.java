@@ -107,6 +107,29 @@ public class PaymentDAO implements IListBehavior {
         }
     }
 
+    public List<Payment> findPaymentByDate(Date startDate, Date endDate){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Payment> paymentList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Payment WHERE date BETWEEN :startDate AND :endDate";
+            Query query = session.createQuery(hql);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            paymentList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return paymentList;
+        }
+    }
+
     @Override
     public List<Payment> getAll() {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

@@ -30,14 +30,6 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="52.0" text="New">
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Photo/add-icon--ikons-icons--softiconsm-5.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
             <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="65.0" prefWidth="51.0" text="Edit">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -171,14 +163,19 @@
          <top>
             <HBox prefHeight="37.0" prefWidth="805.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField>
+                  <TextField fx:id="tfSearchName">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Search By Name">
+                  <Button mnemonicParsing="false" onAction="#searchCustomerName" text="Search By Name">
                      <HBox.margin>
                         <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
+                     <HBox.margin>
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
                </children>

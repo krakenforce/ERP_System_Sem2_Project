@@ -41,6 +41,11 @@ public class DashBoardController implements Initializable {
         createTab("Statistic","Form/StatisticModule/CustomerListStatistic.fxml" );
     }
 
+    public void openPayment(ActionEvent actionEvent) {
+        createTab("Sale Manage","Form/SalesmanModule/PaymentManage.fxml" );
+    }
+
+
     public void openAbout(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = FXMLLoader.load(getClass().getResource("/Form/About.fxml"));
         Parent root = loader.load();
@@ -62,6 +67,10 @@ public class DashBoardController implements Initializable {
         createTab("Product Group Statistic","Form/StatisticModule/GroupProductStatistic.fxml" );
     }
 
+    public void openProductSaleStatis(ActionEvent actionEvent) {
+        createTab("Product Sold Statistic","Form/StatisticModule/ProductSoldStatistic.fxml" );
+    }
+
     public void createTab(String title, String fxmlPath){
         try {
             Tab tab = new Tab();
@@ -72,4 +81,7 @@ public class DashBoardController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+
 }

@@ -53,7 +53,7 @@ public class App extends Application {
 
     public void goToDashboard(){
         try{
-            dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Dash Board");
+            dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Enterprise Planning Resource System - Kraken force");
             dashboard.setApp(this);
         }catch(IOException e){
             e.printStackTrace();
