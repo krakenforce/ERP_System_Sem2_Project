@@ -1,6 +1,7 @@
 package Controller.SalesManageModule;
 
 import Boxes.AlertBox;
+import Boxes.MakePayReceipt;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.ReceiptsDAO;
@@ -8,6 +9,7 @@ import Services.Hibernate.EntityCombination.DetailOrderCustomer;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.Receipts;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,8 +105,9 @@ public class ReceiptByTypeController implements Initializable {
         String moneyInWord = tfMoneyInWord.getText();
 
         Long remainingDebt =  Long.parseLong(tfLiability.getText()) - moneyPay;
-        if(remainingDebt <= 0){
+        if(remainingDebt <= 0L){
             detailOrder.setPay(true);
+            remainingDebt = 0L;
         }else{
             detailOrder.setPay(false);
         }
@@ -114,6 +117,11 @@ public class ReceiptByTypeController implements Initializable {
         Receipts receipts = new Receipts(payerName, address, reason, moneyPay, moneyInWord, date, detailOrder);
         dao.saveReceipt(receipts);
         detailOrderDAO.updateDetailOrder(detailOrder);
+
+        // update the table -- Tuan added:
+        tfLiability.setText(remainingDebt.toString());
+        tbDetailOrderList.getSelectionModel().getSelectedItem().setDebt(remainingDebt);
+        tbDetailOrderList.refresh();
     }
 
     public void getSelectedDetailOrder(){
@@ -199,5 +207,23 @@ public class ReceiptByTypeController implements Initializable {
 
     public void showAll(ActionEvent actionEvent) {
         setTableItems(getDetailOrdersObservableList());
+    }
+
+    /// for module2:
+    public Long getNewDebt(Long id) {
+        Long rs = 0L;
+        for (DetailOrderCustomer o: tbDetailOrderList.getItems()) {
+            if (o.getCustomerID().equals(id)) {
+                if (!o.getStatus()) {
+                    if (o.getDebt() != null) {
+                        Long debt = o.getDebt();
+                        rs += debt;
+
+                    }
+                }
+            }
+        }
+        System.out.println("tes: " +rs);
+        return rs;
     }
 }

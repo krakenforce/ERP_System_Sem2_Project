@@ -138,20 +138,15 @@ public class Customer implements Serializable {
     }
 
     public Long calculateDebt (){
-        List<DetailOrder> detailOrderListNotPay = new ArrayList<DetailOrder>();
-
-        Long congNoDaThanhToan = (long) 0;
-        Long congNoChuaThanhToan = (long) 0;
+        Long rs = (long) 0;
         for(DetailOrder detailOrder : detailOrderSet){
             if(!detailOrder.getPay()){
-                congNoChuaThanhToan = congNoChuaThanhToan + detailOrder.tinhTongTienDetailOrder();
-                detailOrderListNotPay.add(detailOrder);
+                if (detailOrder.getDebt() != null) {
+                    rs += detailOrder.getDebt();
+                }
             }
-            congNoDaThanhToan = congNoDaThanhToan + detailOrder.tinhTienDaTra();
         }
-
-
-        return congNoChuaThanhToan - congNoDaThanhToan;
+        return rs;
 
     }
 
@@ -162,7 +157,9 @@ public class Customer implements Serializable {
                 Date order_date = detailOrder.getDate();
                 System.out.println("order date"+ order_date);
                 if(order_date.compareTo(fromDate) >= 0 && order_date.compareTo(toDate) <= 0){
-                    tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+                    if (detailOrder.getTotal() != null) {
+                        tongTien += detailOrder.getTotal();
+                    }
                 }
             }
         }
@@ -173,11 +170,12 @@ public class Customer implements Serializable {
         Long tongTien = (long) 0;
         for(DetailOrder detailOrder : detailOrderSet){
             if(detailOrder.getPay()){
-                tongTien = tongTien + detailOrder.tinhTongTienDetailOrder();
+                if (detailOrder.getTotal() != null) {
+                    tongTien += detailOrder.getTotal();
+                }
             }
 
         }
-
         return tongTien;
     }
 

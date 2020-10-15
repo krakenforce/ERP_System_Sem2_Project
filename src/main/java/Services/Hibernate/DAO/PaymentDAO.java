@@ -19,7 +19,6 @@ public class PaymentDAO implements IListBehavior {
     public void savePayment(Payment payment){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-
         try{
             session.beginTransaction();
             session.save(payment);

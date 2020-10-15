@@ -36,5 +36,7 @@ public class MakeAPayReceiptController {
         } catch (NumberFormatException e) {
             promptLabel.setText("Invalid Number");
         }
+        PaymentDAO pi = new PaymentDAO();
+
     }
 }

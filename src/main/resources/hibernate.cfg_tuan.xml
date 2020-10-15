@@ -18,8 +18,8 @@
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 <!--        <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>-->
         <property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
-<!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
-            <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+<!--            <property name="hibernate.hbm2ddl.auto">create-drop</property>-->
 
         <mapping class="Services.Hibernate.entity.LoginInfo"/>
         <mapping class="Services.Hibernate.entity.DeliveryBill"/>

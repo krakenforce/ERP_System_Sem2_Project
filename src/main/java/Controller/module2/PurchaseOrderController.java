@@ -204,7 +204,10 @@ public class PurchaseOrderController implements Initializable {
         order_d.setDate(today);
         System.out.println("order date" + today.toString());
         order_d.setPay(paidCheckBox.isSelected()? true : false);
-
+        if (!order_d.getPay()) {
+            order_d.setDebt(sum.getValue());
+        }
+        order_d.setTotal(sum.getValue());
         di.saveDetailOrder(order_d);
 
         // make the order for each product
@@ -231,9 +234,13 @@ public class PurchaseOrderController implements Initializable {
         }
 
         // set voucher status:
-        if (currentVoucher.getStatus()) {
-            currentVoucher.setStatus(false);
+        if (currentVoucher != null) {
+            if (currentVoucher.getStatus()) {
+                PaymentDAO pi = new PaymentDAO();
+                currentVoucher.setStatus(false);
+                pi.updatePayment(currentVoucher);
 
+            }
         }
 
         // reset the items:

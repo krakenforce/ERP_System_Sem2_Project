@@ -83,5 +83,7 @@ public class DashBoardController implements Initializable {
     }
 
 
-
+    public void openCustomersManage(ActionEvent event) {
+        createTab("Customer Management", "Form/Module2/Module2_Main.fxml");
+    }
 }

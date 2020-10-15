@@ -1,5 +1,6 @@
 package Boxes;
 
+import Controller.SalesManageModule.ReceiptByTypeController;
 import Controller.module2.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,9 @@ import java.io.IOException;
 public class MakePayReceipt {
 
     public Stage window;
-    private CustomerController cc;
+    public CustomerController cc;
     public CustomerCols cl;
-    private MakeAPayReceiptController ctrl;
+    private ReceiptByTypeController ctrl;
 
     public void display() throws IOException {
 
@@ -25,15 +26,13 @@ public class MakePayReceipt {
 
         // set loader:
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../Form/Module2/MakeAPayReceipt.fxml"));
-
+        loader.setLocation(getClass().getResource("../Form/SalesmanModule/ReceiptByType.fxml"));
         Parent root = loader.load();
         window.setScene(new Scene(root));
 
 
-        // set the Utils:
-        ctrl = (MakeAPayReceiptController) loader.getController();
-        ctrl.setBox(this);
+         // set the Utils:
+        ctrl = (ReceiptByTypeController) loader.getController();
 
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -46,9 +45,8 @@ public class MakePayReceipt {
     private void close() {
         window.close();
         Platform.runLater(() -> {
-            Long debt = cl.getDebt();
-            Long currentDebt = debt > ctrl.amountPaidSoFar ? debt - ctrl.amountPaidSoFar : 0;
-            cl.setDebt(currentDebt);
+            System.out.println(ctrl);
+            cl.setDebt(ctrl.getNewDebt(cl.getId()));
         });
     }
 
