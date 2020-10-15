@@ -150,11 +150,11 @@ public class CreateOrderController implements Initializable {
         Long salePrice = null;
 
         OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
-
         object.setProductID(selectedProduct.getId());
         object.setProductName(productName);
         object.setAmount(amount);
         object.setPrice(selectedProduct.getPrice());
+
         if(checkDiscount(selectedProduct.getId()) != null){
             salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
             object.setSalePrice(salePrice);
@@ -164,15 +164,29 @@ public class CreateOrderController implements Initializable {
             object.setTotal(selectedProduct.getPrice() * amount);
         }
         object.setProduct(selectedProduct);
+
         if(checkAmountOfProduct(amount,selectedProduct,object) == false){
             AlertBox alertBox = new AlertBox();
             alertBox.warningAlert("Not enough product", "Please warehousing more product");
         };
-        orderProductList.add(object);
 
+        if(checkDuplicateProduct(object, orderProductList) == true){
+            orderProductList.add(object);
+            tbProductList.refresh();
+            setDataToTable(orderProductList);
+        }else{
+            for(int i = 0; i < orderProductList.size(); i++){
+                if(object.getProductID() == orderProductList.get(i).getProductID()){
+                    orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
+                    orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+                }
+            }
+            tbProductList.refresh();
+            setDataToTable(orderProductList);
+        }
 
         calculateTotalCost(orderProductList);
-        setDataToTable(orderProductList);
+
     }
 
     public void calculateTotalCost(ObservableList<OrderProductDetailWareHousing> list){
@@ -339,9 +353,6 @@ public class CreateOrderController implements Initializable {
         return orderProductList;
     }
 
-    public void AddProductToTable(){
-    }
-
     public Long getSpinnerValue(){
         return (long)spAmount.getValue();
     }
@@ -426,5 +437,14 @@ public class CreateOrderController implements Initializable {
 
     public void testBarcode(InputMethodEvent inputMethodEvent) {
 
+    }
+
+    public boolean checkDuplicateProduct(OrderProductDetailWareHousing object, ObservableList<OrderProductDetailWareHousing> obsList){
+        for (int i = 0; i < obsList.size(); i++){
+            if(object.getProductID() == obsList.get(i).getProductID()){
+                return false;
+            }
+        }
+        return true;
     }
 }

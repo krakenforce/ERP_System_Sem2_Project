@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.ProductSoldStatisticController">
+    <top>
+        <BorderPane prefHeight="114.0" prefWidth="826.0" BorderPane.alignment="CENTER">
+         <bottom>
+                <HBox prefHeight="46.0" prefWidth="826.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label text="Start day:">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="dpStartDay" editable="false">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </DatePicker>
+                        <Label text="End day:">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="dpEndDay" editable="false">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </DatePicker>
+                        <Button mnemonicParsing="false" onAction="#searchByDate" text="Search By Date">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+         </bottom>
+        </BorderPane>
+    </top>
+    <center>
+        <TableView fx:id="tbProductList" prefHeight="358.0" prefWidth="1025.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="clProductID" prefWidth="75.0" text="Product ID" />
+                <TableColumn fx:id="clProductName" prefWidth="255.0" text="Product Name" />
+                <TableColumn fx:id="clTotalSold" prefWidth="153.0" text="Total Product Sold" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <BorderPane prefHeight="49.0" prefWidth="826.0" BorderPane.alignment="CENTER">
+            <top>
+                <Pagination prefHeight="32.0" prefWidth="826.0" BorderPane.alignment="CENTER" />
+            </top>
+        </BorderPane>
+    </bottom>
+    <right>
+        <BarChart fx:id="bcProductSold" prefHeight="358.0" prefWidth="547.0" BorderPane.alignment="CENTER">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </BarChart>
+    </right>
+</BorderPane>

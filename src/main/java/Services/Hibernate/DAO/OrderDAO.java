@@ -272,5 +272,50 @@ public class OrderDAO implements IListBehavior {
     }
 
 
+    public Long countAllProductSold(Long productID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(amount) FROM Order WHERE product.id = :productID GROUP BY product.id";
+            Query query = session.createQuery(hql);
+            query.setParameter("productID", productID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return count;
+        }
+    }
+
+    public Long countProductSoldByOrderList(List<Order> orderList, Long productID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(amount) FROM Order session WHERE product.id = :productID AND session IN :orderList GROUP BY product.id";
+            Query query = session.createQuery(hql);
+            query.setParameter("productID", productID);
+            query.setParameter("orderList", orderList);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return count;
+        }
+    }
+
 
 }

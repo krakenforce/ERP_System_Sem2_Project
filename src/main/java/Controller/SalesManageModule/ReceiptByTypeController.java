@@ -79,6 +79,9 @@ public class ReceiptByTypeController implements Initializable {
     @FXML
     private TableColumn<?, ?> clTotal;
 
+    @FXML
+    private TextField tfSearchName;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,7 +92,6 @@ public class ReceiptByTypeController implements Initializable {
 
     @FXML
     public void addReceipt(ActionEvent actionEvent) {
-
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
         Long moneyPay = Long.parseLong(tfMoney.getText());
         LocalDate selectedDate = dpDate.getValue();
@@ -180,8 +182,22 @@ public class ReceiptByTypeController implements Initializable {
         clPaidStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         clDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
         clTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-
         tbDetailOrderList.setItems(obsList);
     }
 
+    public void searchCustomerName(ActionEvent actionEvent) {
+        String name = tfSearchName.getText();
+        ObservableList<DetailOrderCustomer> list = getDetailOrdersObservableList();
+        ObservableList<DetailOrderCustomer> secondList = FXCollections.observableArrayList();
+        for(int i = 0; i < list.size(); i++ ){
+            if(list.get(i).getCustomerName().equalsIgnoreCase(name) == true){
+                secondList.add(list.get(i));
+            }
+        }
+        setTableItems(secondList);
+    }
+
+    public void showAll(ActionEvent actionEvent) {
+        setTableItems(getDetailOrdersObservableList());
+    }
 }
