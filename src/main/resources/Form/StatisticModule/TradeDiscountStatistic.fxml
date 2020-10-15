@@ -45,7 +45,7 @@
    <top>
       <HBox prefHeight="50.0" prefWidth="1106.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField prefHeight="25.0" prefWidth="185.0" promptText="Enter TradeDiscount to Search">
+            <TextField fx:id="tfSearch" prefHeight="25.0" prefWidth="185.0" promptText="Enter TradeDiscount to Search">
                <HBox.margin>
                   <Insets left="50.0" top="10.0" />
                </HBox.margin>

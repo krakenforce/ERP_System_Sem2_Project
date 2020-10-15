@@ -5,9 +5,12 @@ import java.sql.Date;
 public class TradeDiscountCustomer {
     Long tradeDiscountID, customerAmount, totalPayment;
     Date startDate, endDate;
+    String tradeDiscountName;
 
-    public TradeDiscountCustomer(Long tradeDiscountID, Long customerAmount, Long totalPayment, Date startDate, Date endDate) {
+
+    public TradeDiscountCustomer(Long tradeDiscountID, String tradeDiscountName, Long customerAmount, Long totalPayment, Date startDate, Date endDate) {
         this.tradeDiscountID = tradeDiscountID;
+        this.tradeDiscountName = tradeDiscountName;
         this.customerAmount = customerAmount;
         this.totalPayment = totalPayment;
         this.startDate = startDate;
@@ -52,5 +55,13 @@ public class TradeDiscountCustomer {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getTradeDiscountName() {
+        return tradeDiscountName;
+    }
+
+    public void setTradeDiscountName(String tradeDiscountName) {
+        this.tradeDiscountName = tradeDiscountName;
     }
 }

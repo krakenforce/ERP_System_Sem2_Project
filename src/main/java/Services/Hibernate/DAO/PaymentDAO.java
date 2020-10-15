@@ -151,4 +151,70 @@ public class PaymentDAO implements IListBehavior {
             return paymentList;
         }
     }
+    
+    public List<Payment> getPaymentsByTradeDiscount(TradeDiscounts tradeDiscounts){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<Payment> paymentList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Payment WHERE tradeDiscounts = :tradeDiscounts";
+            Query query = session.createQuery(hql);
+            query.setParameter("tradeDiscounts", tradeDiscounts);
+            paymentList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return paymentList;
+        }
+    }
+
+    public Long countPayments(TradeDiscounts tradeDiscounts){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        Long count = 0L;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT COUNT (*) FROM Payment WHERE tradeDiscounts = :tradeDiscounts";
+            Query query = session.createQuery(hql);
+            query.setParameter("tradeDiscounts", tradeDiscounts);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return count;
+        }
+    }
+
+    public Long sumTotalMoney(TradeDiscounts tradeDiscounts){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        Long sum = 0L;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(money) FROM Payment WHERE tradeDiscounts = :tradeDiscounts";
+            Query query = session.createQuery(hql);
+            query.setParameter("tradeDiscounts", tradeDiscounts);
+            sum = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return sum;
+        }
+    }
 }
