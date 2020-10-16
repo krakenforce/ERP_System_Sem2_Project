@@ -40,14 +40,14 @@ public class App extends Application {
 
         HibernateUtil.getSessionFactory();
 //         setting up:
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram();
-        });
+//        window.setOnCloseRequest(e -> {
+//            e.consume();
+//            closeProgram();
+//        });
 
 
 //        // jump to login:
-        goToDashboard();
+        //goToDashboard();
         window.show();
     }
 

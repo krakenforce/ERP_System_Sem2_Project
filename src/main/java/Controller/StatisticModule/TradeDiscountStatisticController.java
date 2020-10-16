@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TradeDiscounStatisticController implements Initializable {
+public class TradeDiscountStatisticController implements Initializable {
 
     @FXML
     private TableView<TradeDiscountCustomer> tbTradeDiscountList;
