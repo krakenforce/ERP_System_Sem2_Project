@@ -1,5 +1,6 @@
 package Controller.StatisticModule;
 
+import Boxes.AlertBox;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.OrderDAO;
@@ -18,6 +19,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -59,12 +61,18 @@ public class SalesStatisticController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tbSalesmanList.setPlaceholder(new Label("Please select start day & end day to see result"));
 
     }
 
     @FXML
     public void searchByDay(ActionEvent actionEvent) {
-        setDataToTable(getSalesmanList());
+        if(dpStartDay.getValue() == null || dpEndDay.getValue() == null){
+            AlertBox alertBox = new AlertBox();
+            alertBox.warningAlert("Please select date", "Cannot search because you have not selected date yet");
+        }else{
+            setDataToTable(getSalesmanStatisticsInfo());
+        }
     }
 
     @FXML
@@ -72,54 +80,57 @@ public class SalesStatisticController implements Initializable {
 
     }
 
-    public ObservableList<DetailOrderCustomer> getSalesmanList(){
+    public ObservableList<DetailOrderCustomer> getSalesmanStatisticsInfo() {
 
         bcSaleStatis.getData().clear();
-        ObservableList<DetailOrderCustomer> detailOrderCustomerObservableList = FXCollections.observableArrayList();
+        //Get all salesman
         SalesManDAO salesManDAO = new SalesManDAO();
-        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
-
         List<Salesman> salesmanList = salesManDAO.selectAll();
-        for(Salesman salesman : salesmanList){
-            Long count = countCustomerDetailOrder(salesman.getId(), getDay(dpStartDay),getDay(dpEndDay));
-            Long totalMoney = calculateTotalMoney(salesman.getId());
-            DetailOrderCustomer combination = new DetailOrderCustomer(salesman.getId(),count, salesman.getName(),totalMoney);
-            detailOrderCustomerObservableList.add(combination);
-
-            initLineChart(salesman.getName(), totalMoney);
-        }
-
-        return detailOrderCustomerObservableList;
-    }
-
-    public Long countCustomerDetailOrder(Long salesmanID, Date startDate, Date endDate){
-        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
         CustomerDAO customerDAO = new CustomerDAO();
-        Long detailOrderCount = (long) 0;
-        List<Customer> customerList = customerDAO.findBySalesmanID(salesmanID);
-        for(Customer customer: customerList){
-            detailOrderCount += detailOrderDAO.countDetailOrderByCustomerIDAndDate(customer.getId(),getDay(dpStartDay), getDay(dpEndDay));
-        }
-        return detailOrderCount;
-    }
+        ObservableList<DetailOrderCustomer> observableList = FXCollections.observableArrayList();
+        for (Salesman salesman : salesmanList) {
 
-    public Long calculateTotalMoney(Long salesmanID){
-        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
-        CustomerDAO customerDAO = new CustomerDAO();
-        Long totalMoney = (long) 0;
-        List<Customer> customerList = customerDAO.findBySalesmanID(salesmanID);
-        for(Customer customer: customerList){
-            List<DetailOrder> detailOrderList = detailOrderDAO.getDetailOrderListByDate(customer.getId(),getDay(dpStartDay),getDay(dpEndDay));
-            for(DetailOrder detailOrder : detailOrderList){
-                totalMoney += detailOrder.getTotal();
+            DetailOrderCustomer combination = new DetailOrderCustomer();
+            combination.setSalesmanID(salesman.getId());
+            combination.setSalesmanName(salesman.getName());
+
+            Long amountOfDetailOrder = 0L;
+            Long totalSpent = 0L;
+            List<Customer> customerList = customerDAO.findBySalesmanID(salesman.getId());
+            for (Customer customer : customerList) {
+                amountOfDetailOrder += countAmountOfDetailOrder(customer.getId(), getDay(dpStartDay), getDay(dpEndDay));
+                totalSpent += calculateTotalSpent(customer.getId(), getDay(dpStartDay), getDay(dpEndDay));
             }
+            combination.setAmountOfInvoice(amountOfDetailOrder);
+            combination.setTotal(totalSpent);
+            observableList.add(combination);
+            initLineChart(salesman.getName(), totalSpent);
         }
-        return totalMoney;
+        return observableList;
+
+    }
+
+    public Long countAmountOfDetailOrder(Long customerID, Date startDate, Date endDate) {
+        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
+        List<DetailOrder> detailOrderList = detailOrderDAO.getDetailOrderListByDate(customerID, startDate, endDate);
+        Long detailOrderCounter = 0L;
+        detailOrderCounter = detailOrderDAO.countDetailOrderByCustomerIDAndDate(detailOrderList);
+        return detailOrderCounter;
+    }
+
+    public Long calculateTotalSpent(Long customerID, Date startDate, Date endDate) {
+        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
+        Long totalSpent = 0L;
+
+        totalSpent = detailOrderDAO.sumTotalSpent(customerID, startDate, endDate);
+        if(totalSpent != null){
+            return totalSpent;
+        }
+        return 0L;
     }
 
 
-
-    public void setDataToTable(ObservableList observableList){
+    public void setDataToTable(ObservableList observableList) {
         clSalesmanID.setCellValueFactory(new PropertyValueFactory<>("salesmanID"));
         clSalesmanName.setCellValueFactory(new PropertyValueFactory<>("salesmanName"));
         clInvoiceAmount.setCellValueFactory(new PropertyValueFactory<>("amountOfInvoice"));
@@ -128,18 +139,17 @@ public class SalesStatisticController implements Initializable {
         tbSalesmanList.setItems(observableList);
     }
 
-    public Date getDay(DatePicker datePicker){
+    public Date getDay(DatePicker datePicker) {
         LocalDate localDate = datePicker.getValue();
         return Date.valueOf(localDate);
     }
 
-    public void initLineChart(String salesmanName, Long sales){
-        XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
-        series.getData().addAll(new XYChart.Data<String, Number>(salesmanName,sales));
+    public void initLineChart(String salesmanName, Long sales) {
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        series.getData().addAll(new XYChart.Data<String, Number>(salesmanName, sales));
 
         bcSaleStatis.getData().addAll(series);
     }
-
 
 
 }

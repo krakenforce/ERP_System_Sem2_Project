@@ -63,6 +63,13 @@ public class AlertBox {
         alert.showAndWait();
     }
 
+    public void confirmAlert(String header, String content){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     public void nullSelectedSalesman(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Error");

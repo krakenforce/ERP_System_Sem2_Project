@@ -92,12 +92,12 @@ public class CustomerListStatisticModuleController implements Initializable {
         return count;
     }
 
-    public Long totalSpentByCustomer(Long customerId){
+    public Long totalSpentByCustomer(Long customerID){
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
         List<DetailOrder> detailOrdersList = null;
         Long totalSpent = (long) 0;
 
-        detailOrdersList = detailOrderDAO.findByCustomerID(customerId);
+        detailOrdersList = detailOrderDAO.findByCustomerID(customerID);
         for(DetailOrder detailOrder: detailOrdersList){
             totalSpent += detailOrder.getTotal();
         }
@@ -133,7 +133,7 @@ public class CustomerListStatisticModuleController implements Initializable {
         for(Customer items : customerList){
             DetailOrderCustomer detailOrderCustomer = new DetailOrderCustomer();
             List<DetailOrder> detailOrderList = detailOrderDAO.findByDateRange(getDay(dpStartDay), getDay(dpEndDay), items.getId());
-            Long count = detailOrderDAO.countDetailOrderByCustomerIDAndDate(items.getId(),getDay(dpStartDay), getDay(dpEndDay));
+            Long count = detailOrderDAO.countDetailOrderByCustomerIDAndDate(detailOrderList);
             Long totalSpent = 0L;
             for(DetailOrder detailOrder: detailOrderList){
                 totalSpent += detailOrder.getTotal();

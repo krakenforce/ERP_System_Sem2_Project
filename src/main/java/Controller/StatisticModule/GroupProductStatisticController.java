@@ -130,7 +130,6 @@ public class GroupProductStatisticController implements Initializable {
         bcGroupProductStatis.getData().addAll(series);
     }
 
-    // chưa làm được
     public void selectGroupTableItem(){
         tbGroupProductList.setOnMouseClicked(event ->{
             if (event.getClickCount() == 2) {

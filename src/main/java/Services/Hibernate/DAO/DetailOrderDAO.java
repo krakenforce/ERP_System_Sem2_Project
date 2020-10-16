@@ -1,6 +1,7 @@
 package Services.Hibernate.DAO;
 
 import Repositories.IListBehavior;
+import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -197,7 +198,7 @@ public class DetailOrderDAO implements IListBehavior {
         return count;
     }
 
-    public Long countDetailOrderByCustomerIDAndDate(Long customerID, Date startDate, Date endDate){
+    public Long countDetailOrderByCustomerIDAndDate(List<DetailOrder> detailOrderList){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
@@ -205,7 +206,29 @@ public class DetailOrderDAO implements IListBehavior {
 
         try{
             session.beginTransaction();
-            hql = "SELECT count (*) FROM DetailOrder WHERE customer.id = :customerID AND date BETWEEN :startDate AND :endDate GROUP BY customer.id";
+            hql = "SELECT count (*) FROM DetailOrder session WHERE session IN :detailOrderList";
+            Query query = session.createQuery(hql);
+            query.setParameter("detailOrderList", detailOrderList);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    public Long sumTotalSpent(Long customerID, Date startDate, Date endDate){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(total) FROM DetailOrder WHERE customer.id = :customerID AND date BETWEEN :startDate AND :endDate";
             Query query = session.createQuery(hql);
             query.setParameter("customerID", customerID);
             query.setParameter("startDate", startDate);

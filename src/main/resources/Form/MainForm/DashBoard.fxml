@@ -98,8 +98,8 @@
                   <Button mnemonicParsing="false" onAction="#openSaleStatistic" prefHeight="46.0" prefWidth="206.0" text="Sales Statistic" />
                   <Button mnemonicParsing="false" onAction="#openProductGroupStatistic" prefHeight="49.0" prefWidth="210.0" text="Product Group Statistic" />
                   <Button mnemonicParsing="false" onAction="#openProductSaleStatis" prefHeight="45.0" prefWidth="213.0" text="Product Sale Statistic" />
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="217.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="223.0" text="Button" />
+                  <Button mnemonicParsing="false" onAction="#openTradeDiscountStatis" prefHeight="46.0" prefWidth="217.0" text="Trade Discount Statistic" />
+                  <Button mnemonicParsing="false" onAction="#openCustomerTradeDiscountStatis" prefHeight="46.0" prefWidth="223.0" text="Customer Trade Discount Statistic" />
                </children>
             </VBox>
          </left>

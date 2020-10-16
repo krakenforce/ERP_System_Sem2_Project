@@ -217,4 +217,48 @@ public class PaymentDAO implements IListBehavior {
             return sum;
         }
     }
+
+    public Long totalPayment(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        Long totalPayment = 0L;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(money) FROM Payment session WHERE customer.id = :customerID GROUP BY customer ";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            totalPayment = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return totalPayment;
+        }
+    }
+
+    public List<Payment> getPaymentByCustomer(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<Payment> paymentList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Payment session WHERE customer.id = :customerID";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            paymentList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return paymentList;
+        }
+    }
 }

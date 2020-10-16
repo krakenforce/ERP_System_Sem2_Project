@@ -71,6 +71,11 @@ public class DashBoardController implements Initializable {
         createTab("Product Sold Statistic","Form/StatisticModule/ProductSoldStatistic.fxml" );
     }
 
+    @FXML
+    void openTradeDiscountStatis(ActionEvent event) {
+        createTab(" Trade Discount Statistic","Form/StatisticModule/TradeDiscountStatistic.fxml" );
+    }
+
     public void createTab(String title, String fxmlPath){
         try {
             Tab tab = new Tab();
@@ -83,5 +88,7 @@ public class DashBoardController implements Initializable {
     }
 
 
-
+    public void openCustomerTradeDiscountStatis(ActionEvent actionEvent) {
+        createTab(" Customer Trade Discount Statistic","Form/StatisticModule/CustomerTradeStatistic.fxml" );
+    }
 }

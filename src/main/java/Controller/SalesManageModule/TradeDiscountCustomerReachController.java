@@ -53,7 +53,7 @@ public class TradeDiscountCustomerReachController {
 
     @FXML
     void showCustomerTradeDiscount(ActionEvent event) {
-        countDetailOrders((long) 15);
+        //countDetailOrders((long) 15);
     }
 
 //    public List<DetailOrder> getTradeDiscount(Date startDate, Date endDate){
@@ -63,9 +63,9 @@ public class TradeDiscountCustomerReachController {
 //        return detailOrdersList;
 //    }
 
-    public void countDetailOrders(Long customerId){
+    public void countDetailOrders(Long customerID){
         DetailOrderDAO dao = new DetailOrderDAO();
-        List<DetailOrder> detailOrdersList = dao.findByCustomerID(customerId);
+        List<DetailOrder> detailOrdersList = dao.findByCustomerID(customerID);
         OrderDAO orderDAO = new OrderDAO();
 
         long totalCostOrder = 0;
@@ -79,7 +79,7 @@ public class TradeDiscountCustomerReachController {
             System.out.println("total: " + totalCostOrder);
 
         }
-        System.out.println(dao.countDetailOrderByCustomerID(customerId));
+        System.out.println(dao.countDetailOrderByCustomerID(customerID));
 
     }
 

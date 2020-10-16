@@ -120,6 +120,7 @@ public class CreateOrderController implements Initializable {
         DetailOrder selectedDetailOrder = new DetailOrder(getDate(),paidChecks(), selectedCustomer,getDebt(), getTotal());
         DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
         detailOrderDAO.saveDetailOrder(selectedDetailOrder);
+        WarehousingDetailDAO warehousingDetailDAO = new WarehousingDetailDAO();
 
         //fix this bug, it still insert into DB if another product is enough, when not enough, cannot create Order;
         for(int i = 0; i < orderProductList.size(); i++){
@@ -135,10 +136,17 @@ public class CreateOrderController implements Initializable {
                 order.setEnough(orderProductList.get(i).getEnoughStatus());
                 order.setProduct(productOfList);
                 order.setSalesman(selectedSalesman);
-                orderDAO.saveOrder(order);
 
+                WarehousingDetails warehousingDetails = warehousingDetailDAO.findByProductId(orderProductList.get(i).getProductID());
+                warehousingDetails.setAmount(warehousingDetails.getAmount() - orderProductList.get(i).getAmount());
+                warehousingDetailDAO.updateWarehousingDetail(warehousingDetails);
+
+                orderDAO.saveOrder(order);
             }
         }
+        AlertBox alertBox = new AlertBox();
+        alertBox.confirmAlert("Create Order Successfully", "complete creating order");
+        clearInfo();
     }
 
     @FXML
@@ -446,5 +454,16 @@ public class CreateOrderController implements Initializable {
             }
         }
         return true;
+    }
+
+    public void clearInfo(){
+        cbCustomerID.setPromptText("Please select customer");
+        tfCustomerName.clear();
+        cbProductName.setPromptText("Please select product");
+        tfTotalCost.clear();
+        tfPaid.clear();
+        tfChange.clear();
+        orderProductList.clear();
+        setDataToTable(orderProductList);
     }
 }

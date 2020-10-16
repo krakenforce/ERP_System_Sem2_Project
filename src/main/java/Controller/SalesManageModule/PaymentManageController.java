@@ -67,7 +67,7 @@ public class PaymentManageController implements Initializable {
         for(Payment items : paymentList){
             paymentID = items.getId();
             moneyLimit = items.getTradeDiscounts().getLimitMoney();
-            //customerID = items.getTradeDiscounts().getCustomer().getId();
+            customerID = items.getCustomer().getId();
             money = items.getMoney();
             tradeDiscountName = items.getTradeDiscounts().getName();
            // customerName = items.getTradeDiscounts().getCustomer().getName();
@@ -75,27 +75,22 @@ public class PaymentManageController implements Initializable {
             startDate = items.getTradeDiscounts().getDateStars();
             endDate = items.getTradeDiscounts().getDateEnd();
 
-            //create 3 object for combination class
-            Payment payment = new Payment(paymentID,paymentDate,money);
-            TradeDiscounts tradeDiscounts = new TradeDiscounts(tradeDiscountName,moneyLimit, startDate,endDate);
-            //Customer customer = new Customer(customerID, customerName);
-
             //set parameters for PaymentTradeCustomer combination object
-//            PaymentTradeCustomer combination = new PaymentTradeCustomer(payment,tradeDiscounts);
+            PaymentTradeCustomer combination = new PaymentTradeCustomer();
 //
 //            //set value for object
-//            combination.setPaymentId(paymentID);
-//            combination.setPaymentDate(paymentDate);
-//            combination.setMoney(money);
-//            combination.setTradeDiscountName(tradeDiscountName);
-//            combination.setMoneyLimit(moneyLimit);
-//            combination.setStartDate(startDate);
-//            combination.setEndDate(endDate);
-////            combination.setCustomerID(customerID);
-////            combination.setCustomerName(customerName
+            combination.setPaymentId(paymentID);
+            combination.setPaymentDate(paymentDate);
+            combination.setMoney(money);
+            combination.setTradeDiscountName(tradeDiscountName);
+            combination.setMoneyLimit(moneyLimit);
+            combination.setStartDate(startDate);
+            combination.setEndDate(endDate);
+            combination.setCustomerID(customerID);
+            combination.setCustomerName(items.getCustomer().getName());
 
 
-           // obsList.add(combination);
+            obsList.add(combination);
         }
         return obsList;
     }
