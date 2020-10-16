@@ -400,6 +400,7 @@ public class CreateOrderController implements Initializable {
         controller.setSalesmanData();
 
         Stage stage = new Stage();
+        stage.setTitle("Add customer");
         stage.setScene(new Scene(root));
         stage.show();
     }

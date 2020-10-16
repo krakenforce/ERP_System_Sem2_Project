@@ -1,5 +1,6 @@
 package Controller.SalesManageModule;
 
+import Boxes.AlertBox;
 import Services.Hibernate.DAO.GroupProductDAO;
 import Services.Hibernate.DAO.ProductDAO;
 import Services.Hibernate.DAO.SalesManDAO;
@@ -74,9 +75,17 @@ public class SalesManProductGroupController implements Initializable {
         salesman_groupProduct.setSalesman(selectedSalesman);
         salesman_groupProduct.setGroupProduct(selectedGroup);
         Salesman_ProductGroupDAO salesmanProGroup = new Salesman_ProductGroupDAO();
-        salesmanProGroup.saveGroup(salesman_groupProduct);
 
-        refreshTable();
+        if(checkGroupExist(selectedSalesman, selectedGroup) == true){
+            salesmanProGroup.saveGroup(salesman_groupProduct);
+            refreshTable();
+        }else{
+            AlertBox alertBox = new AlertBox();
+            alertBox.warningAlert("Cannot insert product group", "This group have existed, you don't need to add it again");
+        }
+
+
+
 
     }
     public void updateSellerProGroup(ActionEvent event) {
@@ -194,6 +203,17 @@ public class SalesManProductGroupController implements Initializable {
                 stage.show();
             }
         });
+    }
+
+    public Boolean checkGroupExist(Salesman salesman, GroupProduct groupProduct){
+        Salesman_ProductGroupDAO salesman_productGroupDAO = new Salesman_ProductGroupDAO();
+        List<Salesman_GroupProduct> salesman_groupProductList = salesman_productGroupDAO.selectBySalesmanID(salesman.getId());
+        for(int i = 0; i< salesman_groupProductList.size(); i++){
+            if(groupProduct.getId() == salesman_groupProductList.get(i).getGroupProduct().getId()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public Long getId() {

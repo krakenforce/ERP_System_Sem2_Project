@@ -106,6 +106,7 @@ public class TradeDiscountListController implements Initializable {
                 //controller.getTradeDiscount(startDate, endDate);
 
                 Stage stage = new Stage();
+                stage.setTitle("Customer Discount List");
                 stage.setScene(new Scene(root));
                 stage.show();
             }

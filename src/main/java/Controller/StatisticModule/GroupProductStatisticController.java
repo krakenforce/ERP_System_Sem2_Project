@@ -146,6 +146,7 @@ public class GroupProductStatisticController implements Initializable {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    stage.setTitle("Product Group Detail Statistic");
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -54,6 +54,9 @@ public class SalesManListController implements Initializable, Function {
     @FXML
     private TableColumn<Salesman, Void> clFunction;
 
+    @FXML
+    private Pagination pgSalesmanList;
+
     public void setApp(App app) {
         this.app = app;
     }
@@ -167,7 +170,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
+            stage.setTitle("Salesman Product Group");
             stage.show();
         }
     }
@@ -190,7 +193,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
+            stage.setTitle("Salesman Customer List");
             stage.show();
         }
     }
@@ -212,7 +215,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
+            stage.setTitle("Commission Summary");
             stage.show();
         }
     }
@@ -233,7 +236,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Second Window");
+            stage.setTitle("Create Order");
             stage.show();
         }
 
@@ -283,7 +286,7 @@ public class SalesManListController implements Initializable, Function {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Second Window");
+        stage.setTitle("Create Receipt");
         stage.show();
     }
 }
