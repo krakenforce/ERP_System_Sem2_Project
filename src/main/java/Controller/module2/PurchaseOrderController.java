@@ -1,5 +1,6 @@
 package Controller.module2;
 
+import Boxes.AlertBox;
 import Services.Hibernate.DAO.*;
 import Services.Hibernate.entity.*;
 import javafx.beans.binding.Bindings;
@@ -177,7 +178,7 @@ public class PurchaseOrderController implements Initializable {
             String name = customerNameField.getText();
             String phone = phoneTextField.getText();
             if (name.isBlank() || phone.isBlank()) {
-                promtText.setText("Name or Phone of New-Customer is invalid!");
+                AlertBox.display("Name or Phone of New-Customer is invalid!", "Error");
                 return;
             }
             Long salesman = 0L;
@@ -190,6 +191,16 @@ public class PurchaseOrderController implements Initializable {
             c = ci.findByID(cid);
         } else {
             c = customerChoiceBox.getValue();
+        }
+
+        // check for other edge cases:
+        if (customerChoiceBox.getValue() == null) {
+            AlertBox.display("Please choose customer!", "Error");
+            return;
+        }
+        if (itemsTable.getItems().size() == 0) {
+            AlertBox.display("No Products Chosen", "Error");
+            return;
         }
 
         // new order detail:

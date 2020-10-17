@@ -33,6 +33,7 @@ public class MakePayReceipt {
 
          // set the Utils:
         ctrl = (ReceiptByTypeController) loader.getController();
+        ctrl.setCustomerController(cc);
 
         window.setOnCloseRequest(e -> {
             e.consume();

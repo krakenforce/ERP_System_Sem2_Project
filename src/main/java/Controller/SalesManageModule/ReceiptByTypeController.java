@@ -2,6 +2,8 @@ package Controller.SalesManageModule;
 
 import Boxes.AlertBox;
 import Boxes.MakePayReceipt;
+import Controller.module2.CustomerCols;
+import Controller.module2.CustomerController;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.ReceiptsDAO;
@@ -30,6 +32,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ReceiptByTypeController implements Initializable {
+
+    CustomerController cc;
+
     @FXML
     private TextField tfPayerName;
 
@@ -122,6 +127,25 @@ public class ReceiptByTypeController implements Initializable {
         tfLiability.setText(remainingDebt.toString());
         tbDetailOrderList.getSelectionModel().getSelectedItem().setDebt(remainingDebt);
         tbDetailOrderList.refresh();
+        // and also update on the main window:
+        Long cusID = 0L;
+        if (cc != null) {
+            for (DetailOrderCustomer dc: tbDetailOrderList.getItems() ) {
+                if (dc.getDetailOrderID().equals(Long.parseLong(tfDetailOrderID.getText()))) {
+                   cusID = dc.getCustomerID();
+                   break;
+                }
+            }
+            for (CustomerCols c : cc.customerTabl.getItems()) {
+                if (c.getId().equals(cusID)) {
+                    System.out.println("it RUNS");
+                    Long new_debt = c.getDebt() - moneyPay;
+                    c.setDebt(new_debt < 0?0: new_debt);
+                    cc.customerTabl.refresh();
+                    return;
+                }
+            }
+        }
     }
 
     public void getSelectedDetailOrder(){
@@ -225,5 +249,9 @@ public class ReceiptByTypeController implements Initializable {
         }
         System.out.println("tes: " +rs);
         return rs;
+    }
+
+    public void setCustomerController(CustomerController cc) {
+        this.cc = cc;
     }
 }
