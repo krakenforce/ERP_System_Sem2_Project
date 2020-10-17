@@ -18,7 +18,7 @@
                <children>
                   <AnchorPane prefHeight="47.0" prefWidth="422.0">
                      <children>
-                        <Label layoutX="105.0" layoutY="16.0" prefHeight="16.0" prefWidth="237.0" text="GENERATE AN INVOICE/RECEIPT">
+                        <Label layoutX="105.0" layoutY="16.0" prefHeight="16.0" prefWidth="237.0" text="GENERATE NEW ORDERS">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>

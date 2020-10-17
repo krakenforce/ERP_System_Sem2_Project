@@ -113,8 +113,7 @@ public class PurchaseOrderController implements Initializable {
         customerChoiceBox.setOnAction(event -> {
             // check to calculate discount
 
-
-            checkDiscount(new ActionEvent());
+            checkDiscount(event);
 
         });
 
@@ -145,18 +144,20 @@ public class PurchaseOrderController implements Initializable {
 
 
     public void checkDiscount(ActionEvent e) {
-
+        if (customerChoiceBox.getValue()  ==null) {
+            return;
+        }
         Long id = customerChoiceBox.getValue().getId();
         PaymentDAO pi = new PaymentDAO();
         Long voucherID = 0L;
         try {
+            if (voucherIDTextField.getText().strip().equals("")) {
+                return;
+            }
             voucherID = Long.parseLong(voucherIDTextField.getText().strip());
-            System.out.println(voucherID);
             List<Payment> vouchers = pi.findByCustomer(id);
-            System.out.println(vouchers);
                 for (Payment v : vouchers) {
                     if (v.getVoucherCode().equals(voucherID)) {
-                        System.out.println("run");
                         discount.set(v.getMoney());
                         currentVoucher = v;
                         calculateSum();
@@ -166,8 +167,10 @@ public class PurchaseOrderController implements Initializable {
             throw new NumberFormatException();
 
         } catch(NumberFormatException e1) {
-
-            this.promtText.setText("Invalid Voucher ID");
+            if (e.getSource().equals(customerChoiceBox)) {
+                return;
+            }
+            AlertBox.display("Invalid Voucher ID", "Error!");
         }
     }
 

@@ -43,7 +43,7 @@ public class TradeDiscountController implements Initializable {
         limitCol.setCellValueFactory(new PropertyValueFactory<>("limit"));
         limitCol.setPrefWidth(100);
 
-        TableColumn<TradeDiscountCols, String> percentCol = new TableColumn<>("Discount (Percent)");
+        TableColumn<TradeDiscountCols, String> percentCol = new TableColumn<>("Discount");
         percentCol.setCellValueFactory(new PropertyValueFactory<>("percentage"));
         percentCol.setPrefWidth(150);
 
