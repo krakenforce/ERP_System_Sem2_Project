@@ -8,7 +8,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,8 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DashBoardController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DashBoardController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -31,7 +33,7 @@
                       <Menu mnemonicParsing="false" text="File">
                         <items>
                           <MenuItem mnemonicParsing="false" text="Close" />
-                              <MenuItem mnemonicParsing="false" text="Exit" />
+                              <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit">
@@ -59,25 +61,48 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Username:" />
-                        <Label text="Employee ID:" GridPane.rowIndex="1" />
+                        <Label text="Username:">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
+                        <Label text="Employee ID:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Label>
                         <Label text="toan158n" GridPane.columnIndex="1" />
                         <Label text="0012" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
+                     <BorderPane.margin>
+                        <Insets left="20.0" />
+                     </BorderPane.margin>
                   </GridPane>
                </left>
                <right>
-                  <HBox prefHeight="93.0" prefWidth="163.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="69.0" prefWidth="96.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" text="Notification">
+                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="43.0" prefWidth="47.0" style="-fx-background-color: transparent;">
                            <HBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Photo/bell-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" text="Logout">
+                        <Button contentDisplay="TOP" mnemonicParsing="false" style="-fx-background-color: transparent;">
                            <HBox.margin>
-                              <Insets left="20.0" top="20.0" />
+                              <Insets left="10.0" top="10.0" />
                            </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Photo/Apps-Dialog-Shutdown-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                   </HBox>
@@ -85,24 +110,78 @@
             </BorderPane>
          </top>
          <left>
-            <VBox prefHeight="685.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="439.0" prefWidth="220.0" BorderPane.alignment="CENTER">
                <children>
-                  <TitledPane animated="false" prefHeight="176.0" prefWidth="203.0" text="Modules">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
+                  <TitledPane animated="false" expanded="false" prefHeight="176.0" prefWidth="203.0" text="Module List">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="198.0" text="Warehousing Module">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="198.0" text="Customer Manage Module">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="198.0" text="Sale Manage Module">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="198.0" text="Statistic Module">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
                   </TitledPane>
-                  <Button mnemonicParsing="false" onAction="#openSaleManage" prefHeight="42.0" prefWidth="210.0" text="Sales Manage" />
-                  <Button mnemonicParsing="false" onAction="#openPayment" prefHeight="46.0" prefWidth="218.0" text="Payment Manage" />
-                  <Button mnemonicParsing="false" onAction="#openCustomerStatis" prefHeight="44.0" prefWidth="212.0" text="Customer Statistic" />
-                  <Button mnemonicParsing="false" onAction="#openSaleStatistic" prefHeight="46.0" prefWidth="206.0" text="Sales Statistic" />
-                  <Button mnemonicParsing="false" onAction="#openProductGroupStatistic" prefHeight="49.0" prefWidth="210.0" text="Product Group Statistic" />
-                  <Button mnemonicParsing="false" onAction="#openProductSaleStatis" prefHeight="45.0" prefWidth="213.0" text="Product Sale Statistic" />
-                  <Button mnemonicParsing="false" onAction="#openTradeDiscountStatis" prefHeight="46.0" prefWidth="217.0" text="Trade Discount Statistic" />
-                  <Button mnemonicParsing="false" onAction="#openCustomerTradeDiscountStatis" prefHeight="46.0" prefWidth="223.0" text="Customer Trade Discount Statistic" />
+                  <Button mnemonicParsing="false" onAction="#openSaleManage" prefHeight="37.0" prefWidth="220.0" text="Sales Manage">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openPayment" prefHeight="35.0" prefWidth="220.0" text="Payment Manage">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openCustomerStatis" prefHeight="36.0" prefWidth="220.0" text="Customer Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openSaleStatistic" prefHeight="38.0" prefWidth="228.0" text="Sales Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openProductGroupStatistic" prefHeight="38.0" prefWidth="220.0" text="Product Group Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openProductSaleStatis" prefHeight="39.0" prefWidth="232.0" text="Product Sale Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openTradeDiscountStatis" prefHeight="35.0" prefWidth="220.0" text="Trade Discount Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#openCustomerTradeDiscountStatis" prefHeight="34.0" prefWidth="220.0" text="Customer Trade Discount Statistic">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                </children>
             </VBox>
          </left>
+         <bottom>
+            <StackPane prefHeight="23.0" prefWidth="828.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="KrakenForce 2020, ERP System Application. Copyright" />
+               </children>
+            </StackPane>
+         </bottom>
       </BorderPane>
    </children>
 </StackPane>

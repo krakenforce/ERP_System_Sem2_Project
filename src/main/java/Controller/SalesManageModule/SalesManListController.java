@@ -17,6 +17,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -170,6 +171,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Salesman Product Group");
             stage.show();
         }
@@ -193,6 +195,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Salesman Customer List");
             stage.show();
         }
@@ -215,6 +218,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Commission Summary");
             stage.show();
         }
@@ -236,6 +240,7 @@ public class SalesManListController implements Initializable, Function {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Create Order");
             stage.show();
         }
@@ -287,6 +292,7 @@ public class SalesManListController implements Initializable, Function {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Receipt");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 }

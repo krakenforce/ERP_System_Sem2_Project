@@ -1,6 +1,7 @@
 package Controller;
 
 import App.App;
+import Boxes.ConfirmBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +43,7 @@ public class DashBoardController implements Initializable {
     }
 
     public void openPayment(ActionEvent actionEvent) {
-        createTab("Sale Manage","Form/SalesmanModule/PaymentManage.fxml" );
+        createTab("Payment Manage","Form/SalesmanModule/PaymentManage.fxml" );
     }
 
 
@@ -91,4 +92,20 @@ public class DashBoardController implements Initializable {
     public void openCustomerTradeDiscountStatis(ActionEvent actionEvent) {
         createTab(" Customer Trade Discount Statistic","Form/StatisticModule/CustomerTradeStatistic.fxml" );
     }
+
+    public void exitProgram(ActionEvent actionEvent) {
+        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setOnCloseRequest(e -> {
+            e.consume();
+            try {
+                boolean answer = ConfirmBox.display("Closing Application", "Do you want to quit?");
+                if (answer) {
+                    stage.close();
+                }
+            } catch (IOException exception) {
+                System.out.println(exception.getMessage());
+            }
+        });
+    }
+
 }

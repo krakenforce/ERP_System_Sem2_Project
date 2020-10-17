@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -147,6 +148,7 @@ public class GroupProductStatisticController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(scene);
                     stage.setTitle("Product Group Detail Statistic");
+                    stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
