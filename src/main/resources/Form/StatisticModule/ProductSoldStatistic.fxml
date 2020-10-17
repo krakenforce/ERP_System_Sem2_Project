@@ -10,6 +10,7 @@
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.ProductSoldStatisticController">
     <top>
@@ -21,6 +22,9 @@
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Label>
                         <DatePicker fx:id="dpStartDay" editable="false">
                             <HBox.margin>
@@ -31,6 +35,9 @@
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Label>
                         <DatePicker fx:id="dpEndDay" editable="false">
                             <HBox.margin>
@@ -41,11 +48,17 @@
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Button>
                     </children>
                 </HBox>

@@ -196,4 +196,8 @@ public class CommissionSummaryController implements Initializable{
     public void setSalesmanID(Long salesmanID) {
         this.salesmanID = salesmanID;
     }
+
+    public void LamMoi(){
+
+    }
 }

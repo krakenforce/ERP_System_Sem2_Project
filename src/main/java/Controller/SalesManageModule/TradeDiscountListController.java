@@ -112,6 +112,9 @@ public class TradeDiscountListController implements Initializable {
             }
         });
     }
+    public void LamMoi(){
+
+    }
 
 
 }

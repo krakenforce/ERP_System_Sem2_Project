@@ -161,5 +161,8 @@ public class SalesStatisticController implements Initializable {
         bcSaleStatis.getData().addAll(series);
     }
 
+    public void LamMoi(){
+
+    }
 
 }

@@ -92,11 +92,6 @@ public class GroupStatisticDetailController implements Initializable {
         setUpPagination(list2);
     }
 
-    @FXML
-    void showAll(ActionEvent event) {
-
-    }
-
     public void setTextForComponent(String text, Date startDay, Date endDay){
         lbGroupName.setText(text);
         lbDateInfo.setText("Results are searched from " + startDay.toString() + " to "+ endDay.toString());
@@ -155,5 +150,13 @@ public class GroupStatisticDetailController implements Initializable {
         return true;
     }
 
+    public void LamMoi(){
 
+    }
+
+
+    public void reset(ActionEvent actionEvent) {
+        tfFloorLimit.setText("");
+        setUpPagination(obsList);
+    }
 }

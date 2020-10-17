@@ -72,6 +72,9 @@ public class CreateOrderController implements Initializable {
     private BorderPane bpMain;
 
     @FXML
+    private TextField tfVoucherCode;
+
+    @FXML
     private TableView<OrderProductDetailWareHousing> tbProductList;
 
     @FXML
@@ -95,6 +98,12 @@ public class CreateOrderController implements Initializable {
     @FXML
     private TableColumn<?, ?> clEnough;
 
+    @FXML
+    private ComboBox<String> cbSearchType;
+
+    @FXML
+    private TextField tfSearchCustomer;
+
     Product product;
     Long amount;
     private ObservableList<OrderProductDetailWareHousing> orderProductList = FXCollections.observableArrayList();
@@ -107,6 +116,8 @@ public class CreateOrderController implements Initializable {
         spinnerInit();
         dpCurrentDate.setValue(LocalDate.now());
         addProductByBarcodeReader();
+        setDataForCBSearchType();
+        //test();
     }
 
     @FXML
@@ -476,5 +487,62 @@ public class CreateOrderController implements Initializable {
         tfChange.clear();
         orderProductList.clear();
         setDataToTable(orderProductList);
+    }
+
+    public void setDataForCBSearchType(){
+        ObservableList<String> observableList = FXCollections.observableArrayList("Name", "Phone");
+        cbSearchType.setItems(observableList);
+    }
+
+    @FXML
+    void searchCustomer(ActionEvent event) {
+        AlertBox alertBox = new AlertBox();
+        if(cbSearchType.getSelectionModel().getSelectedItem().equalsIgnoreCase("Name")){
+            String customerName = tfSearchCustomer.getText();
+            CustomerDAO customerDAO = new CustomerDAO();
+            List<Customer> customerList = customerDAO.findBySalesmanIDAndCustomer(getSalesman().getId(),customerName);
+            if(customerList.size() == 0){
+                alertBox.warningAlert("Unknown Customer", "You can add this new customer");
+            }else{
+                alertBox.warningAlert("Customer have exist", "You don't need to add this customer");
+            }
+        }else if(cbSearchType.getSelectionModel().getSelectedItem().equals("Phone")){
+            String phone = tfSearchCustomer.getText();
+            CustomerDAO customerDAO = new CustomerDAO();
+            List<Customer> customerList = customerDAO.findBySalesmanIDAndCustomerPhone(getSalesman().getId(),phone);
+            if(customerList.size() == 0){
+                alertBox.warningAlert("Unknown Customer", "You can add this new customer");
+            }else{
+                alertBox.warningAlert("Customer have exist", "You don't need to add this customer");
+            }
+        }else if(cbSearchType.getSelectionModel().getSelectedItem().equals(null)){
+            alertBox.warningAlert("Cannot Search", "Please select search Type");
+        }
+    }
+
+    public void test(){
+        if(tfVoucherCode.getText().length() >= 9){
+            tfVoucherCode.textProperty().addListener((obs, oldText, newText) -> {
+                System.out.println("Text changed from "+oldText+" to "+newText);
+                // ...
+                if(newText.equals("")){
+                    tfTotalCost.setText(getTotal().toString());
+                }
+                PaymentDAO paymentDAO = new PaymentDAO();
+                Payment payment = paymentDAO.findByVoucherCode(Long.parseLong(newText));
+                if(payment != null){
+                    Long money = payment.getMoney();
+                    Long total = getTotal() - money;
+                    if(total > 0){
+                        tfTotalCost.setText(total.toString());
+                    }
+                }
+
+            });
+        }
+
+    }
+
+    public void searchVoucher(InputMethodEvent inputMethodEvent) {
     }
 }

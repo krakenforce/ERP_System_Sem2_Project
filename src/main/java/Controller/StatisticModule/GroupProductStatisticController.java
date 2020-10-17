@@ -180,5 +180,9 @@ public class GroupProductStatisticController implements Initializable {
         });
     }
 
+    public void LamMoi(){
+
+    }
+
 
 }

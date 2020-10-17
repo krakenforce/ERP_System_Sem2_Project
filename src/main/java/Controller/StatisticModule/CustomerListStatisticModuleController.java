@@ -181,5 +181,9 @@ public class CustomerListStatisticModuleController implements Initializable {
         bcCustomerList.getData().addAll(series);
     }
 
+    public void LamMoi(){
+
+    }
+
 
 }

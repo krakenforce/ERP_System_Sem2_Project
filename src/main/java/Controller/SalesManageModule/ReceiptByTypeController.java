@@ -246,4 +246,8 @@ public class ReceiptByTypeController implements Initializable {
         }
         setUpPagination(secondList);
     }
+
+    public void LamMoi(){
+
+    }
 }

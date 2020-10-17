@@ -180,6 +180,9 @@ public class CustomerTradeStatisticController implements Initializable {
 
         bcTradeDiscount.getData().addAll(series);
     }
+    public void LamMoi(){
+
+    }
 
 
 

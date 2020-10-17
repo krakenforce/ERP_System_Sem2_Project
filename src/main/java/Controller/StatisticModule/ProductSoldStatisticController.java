@@ -162,5 +162,9 @@ public class ProductSoldStatisticController implements Initializable {
         bcProductSold.getData().addAll(series);
     }
 
+    public void LamMoi(){
+
+    }
+
 
 }

@@ -107,4 +107,7 @@ public class PaymentManageController implements Initializable {
         clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         tbPaymentTable.setItems(obsList);
     }
+    public void LamMoi(){
+
+    }
 }

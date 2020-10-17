@@ -127,6 +127,8 @@ public class TradeDiscountStatisticController implements Initializable {
         bcTradeDiscount.getData().addAll(series);
     }
 
+    public void LamMoi(){
 
+    }
 
 }

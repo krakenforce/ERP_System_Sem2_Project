@@ -178,4 +178,8 @@ public class ReceiptListManageController implements Initializable {
     public void showAll(ActionEvent actionEvent) {
         setUpPagination(getObservableList(showAllReceipts()));
     }
+
+    public void LamMoi(){
+
+    }
 }

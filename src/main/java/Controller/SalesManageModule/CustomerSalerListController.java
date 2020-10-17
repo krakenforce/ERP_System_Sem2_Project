@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerSalerListController implements Initializable,Function{
 
@@ -46,6 +47,7 @@ public class CustomerSalerListController implements Initializable,Function{
 
     private TableColumn<Customer, String> clCusAddress;
 
+    @FXML
     private Pagination pgCustomerList;
 
     PaginationService<Customer> paginationService = new PaginationService<>();
@@ -71,11 +73,12 @@ public class CustomerSalerListController implements Initializable,Function{
         tbCusInfo.getColumns().addAll(clCusID,clCusName, clCusPhone, clCusAddress);
     }
 
-    public void setUpPagination(Long salesmanID){
+    public void setUpPagination(ObservableList<Customer> customerObservableList){
         paginationService.setPagination(pgCustomerList);
         paginationService.setTableView(tbCusInfo);
         paginationService.setSopt(10);
-        paginationService.createPagination(getDataCustomer(salesmanID));
+        List<Customer> customerList = customerObservableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(customerList);
     }
 
     private void selectRowTable() {
@@ -137,11 +140,7 @@ public class CustomerSalerListController implements Initializable,Function{
         for(Customer items: customerList){
             list.add(new Customer(items.getId(), items.getName(), items.getPhone(), items.getAddress()));
         }
-        clCusID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        clCusName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clCusAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        clCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        tbCusInfo.setItems(list);
+        setUpPagination(list);
         return list;
     }
 

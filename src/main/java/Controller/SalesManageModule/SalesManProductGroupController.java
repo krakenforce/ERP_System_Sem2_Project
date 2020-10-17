@@ -240,5 +240,9 @@ public class SalesManProductGroupController implements Initializable {
         this.productGroupName = productGroupName;
     }
 
+    public void LamMoi(){
+
+    }
+
 
 }

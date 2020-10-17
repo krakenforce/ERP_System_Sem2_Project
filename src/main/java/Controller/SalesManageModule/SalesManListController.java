@@ -234,7 +234,7 @@ public class SalesManListController implements Initializable, Function {
 
             CustomerSalerListController controller = loader.getController();
             controller.setSalesmanInfo(id);
-            controller.setUpPagination(id);
+            controller.getDataCustomer(id);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -306,5 +306,9 @@ public class SalesManListController implements Initializable, Function {
         stage.setTitle("Create Receipt");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
+    }
+
+    public void LamMoi(){
+
     }
 }

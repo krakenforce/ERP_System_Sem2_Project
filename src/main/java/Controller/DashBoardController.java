@@ -49,14 +49,14 @@ public class DashBoardController implements Initializable {
 
 
     public void openSaleManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
-        tabPaneService.addTab(tpMain,saleManageTab,"Form/SalesmanModule/SalesManList.fxml");
+        tabPaneService.addTab(tpMain,saleManageTab,"/Form/SalesmanModule/SalesManList.fxml");
     }
 
     public void openStatistic(ActionEvent actionEvent) {
     }
 
     public void openPayment(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
-        tabPaneService.addTab(tpMain,paymentManageTab,"Form/SalesmanModule/PaymentManage.fxml");
+        tabPaneService.addTab(tpMain,paymentManageTab,"/Form/SalesmanModule/PaymentManage.fxml");
     }
 
 

@@ -261,4 +261,26 @@ public class PaymentDAO implements IListBehavior {
             return paymentList;
         }
     }
+
+    public Payment findByVoucherCode(Long voucherCode){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        Payment payment = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Payment session WHERE voucherCode = :voucherCode";
+            Query query = session.createQuery(hql);
+            query.setParameter("voucherCode", voucherCode);
+            payment = (Payment) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return payment;
+        }
+    }
 }

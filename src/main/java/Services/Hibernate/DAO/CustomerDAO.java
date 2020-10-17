@@ -125,9 +125,56 @@ public class CustomerDAO {
             session.close();
             return customerList;
         }
-
-
     }
+
+    public List<Customer> findBySalesmanIDAndCustomer(Long salesmanID, String customerName){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+        String hql = "";
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Customer session WHERE session.name =: customerName AND session.salesman.id = :salesmanID ";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerName", customerName);
+            query.setParameter("salesmanID", salesmanID);
+            customerList = query.getResultList();
+            session.getTransaction().rollback();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return customerList;
+        }
+    }
+    public List<Customer> findBySalesmanIDAndCustomerPhone(Long salesmanID, String phone){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+        String hql = "";
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Customer session WHERE session.phone = :phone AND session.salesman.id = :salesmanID ";
+            Query query = session.createQuery(hql);
+            query.setParameter("phone", phone);
+            query.setParameter("salesmanID", salesmanID);
+            customerList = query.getResultList();
+            session.getTransaction().rollback();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return customerList;
+        }
+    }
+
+
     public List<Customer> selectAllCustomer(){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();

@@ -15,18 +15,24 @@
             <children>
                 <Label layoutX="15.0" layoutY="77.0" prefHeight="21.0" prefWidth="68.0" text="Start day:">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
                 <DatePicker fx:id="dpStartDay" layoutX="88.0" layoutY="75.0" />
                 <Label layoutX="274.0" layoutY="77.0" text="End day:">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
-                <DatePicker fx:id="dpEndDay" layoutX="330.0" layoutY="73.0" />
-            <Button layoutX="571.0" layoutY="73.0" mnemonicParsing="false" onAction="#searchReceipt" text="Search" />
-            <Button layoutX="647.0" layoutY="73.0" mnemonicParsing="false" onAction="#showAll" text="Show All" />
+                <DatePicker fx:id="dpEndDay" layoutX="339.0" layoutY="75.0" />
+            <Button layoutX="562.0" layoutY="75.0" mnemonicParsing="false" onAction="#searchReceipt" text="Search">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Button>
+            <Button layoutX="643.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAll" text="Show All">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Button>
             </children>
         </AnchorPane>
     </top>
@@ -53,6 +59,6 @@
         </BorderPane>
     </bottom>
    <center>
-      <Pagination fx:id="pgReceiptList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pagination fx:id="pgReceiptList" prefHeight="450.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
