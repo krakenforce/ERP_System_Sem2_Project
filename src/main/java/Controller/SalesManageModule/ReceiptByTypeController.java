@@ -142,7 +142,7 @@ public class ReceiptByTypeController implements Initializable {
                     Long new_debt = c.getDebt() - moneyPay;
                     c.setDebt(new_debt < 0?0: new_debt);
                     cc.customerTabl.refresh();
-                    return;
+                    break;
                 }
             }
         }
