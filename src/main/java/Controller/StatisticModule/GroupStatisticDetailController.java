@@ -1,7 +1,9 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.DAO.ProductDAO;
+import Services.Hibernate.EntityCombination.DetailOrderCustomer;
 import Services.Hibernate.EntityCombination.GroupProductDetailStatistic;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.Order;
@@ -10,17 +12,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-public class GroupStatisticDetailController {
+public class GroupStatisticDetailController implements Initializable {
 
     @FXML
     private Label lbDateInfo;
@@ -31,34 +37,59 @@ public class GroupStatisticDetailController {
     @FXML
     private Label lbGroupName;
 
-    @FXML
-    private TableView<?> tbProductList;
+    private TableView<GroupProductDetailStatistic> tbProductList;
 
-    @FXML
-    private TableColumn<?, ?> clProductID;
+    private TableColumn<GroupProductDetailStatistic, Long> clProductID;
 
-    @FXML
-    private TableColumn<?, ?> clProductName;
+    private TableColumn<GroupProductDetailStatistic, String> clProductName;
 
-    @FXML
-    private TableColumn<?, ?> clTotalSold;
+    private TableColumn<GroupProductDetailStatistic, Long> clTotalSold;
 
     @FXML
     private BarChart<String, Number> bcProductSold;
 
     ObservableList<GroupProductDetailStatistic> obsList = FXCollections.observableArrayList();
 
+    @FXML
+    private Pagination pgGroupStatisDetail;
+    PaginationService<GroupProductDetailStatistic> paginationService = new PaginationService<>();
 
-    //chỉ xoá mỗi lần 1 cái
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTableView();
+    }
+
+    public void setUpTableView(){
+        tbProductList = new TableView<GroupProductDetailStatistic>();
+        clProductID = new TableColumn<GroupProductDetailStatistic, Long>("Product ID");
+        clProductName = new TableColumn<GroupProductDetailStatistic, String>("Product Name");
+        clTotalSold = new TableColumn<GroupProductDetailStatistic, Long>("Total Sold");
+
+        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("soldAmount"));
+
+        tbProductList.getColumns().addAll(clProductID, clProductName, clTotalSold);
+    }
+
+    public void setUpPagination(ObservableList<GroupProductDetailStatistic> observableList){
+        paginationService.setPagination(pgGroupStatisDetail);
+        paginationService.setTableView(tbProductList);
+        paginationService.setSopt(10);
+        List<GroupProductDetailStatistic> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
+
     @FXML
     void filter(ActionEvent event) {
         Long limit  = Long.parseLong(tfFloorLimit.getText());
+        ObservableList<GroupProductDetailStatistic> list2 = FXCollections.observableArrayList();
         for(int i = 0; i<obsList.size(); i++){
-            if(obsList.get(i).getSoldAmount() < limit){
-                obsList.remove(obsList.get(i));
+            if(obsList.get(i).getSoldAmount() >= limit){
+                list2.add(obsList.get(i));
             }
         }
-        setDataToTable(obsList);
+        setUpPagination(list2);
     }
 
     @FXML
@@ -97,7 +128,7 @@ public class GroupStatisticDetailController {
                 }
             }
         }
-        setDataToTable(obsList);
+        setUpPagination(obsList);
 
 
     }
@@ -124,11 +155,5 @@ public class GroupStatisticDetailController {
         return true;
     }
 
-    public void setDataToTable(ObservableList observableList){
-        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("soldAmount"));
 
-        tbProductList.setItems(observableList);
-    }
 }

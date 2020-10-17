@@ -8,8 +8,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -54,16 +52,6 @@
             </bottom>
         </BorderPane>
     </top>
-    <center>
-        <TableView fx:id="tbSalesmanList" prefHeight="358.0" prefWidth="632.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="clSalesmanID" prefWidth="75.0" text="Salesman ID" />
-                <TableColumn fx:id="clSalesmanName" prefWidth="189.0" text="Salesman Name" />
-                <TableColumn fx:id="clInvoiceAmount" prefWidth="131.0" text="Amount of Invoice" />
-                <TableColumn fx:id="clTotalSpent" prefWidth="173.0" text="Sales" />
-            </columns>
-        </TableView>
-    </center>
     <bottom>
         <BorderPane prefHeight="49.0" prefWidth="826.0" BorderPane.alignment="CENTER">
             <top>
@@ -81,4 +69,7 @@
         </yAxis>
       </BarChart>
    </right>
+   <left>
+      <Pagination fx:id="statisTable" prefHeight="358.0" prefWidth="543.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

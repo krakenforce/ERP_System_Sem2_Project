@@ -1,7 +1,9 @@
 package Controller.SalesManageModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.DAO.ReceiptsDAO;
+import Services.Hibernate.EntityCombination.DetailOrderCustomer;
 import Services.Hibernate.EntityCombination.ReceiptDetailOrderCustomer;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.DetailOrder;
@@ -20,6 +22,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ReceiptListManageController implements Initializable {
 
@@ -33,37 +36,66 @@ public class ReceiptListManageController implements Initializable {
     @FXML
     private TextField tfReceiptAmount;
 
-    @FXML
-    private TableView<?> tbRecieptList;
 
-    @FXML
-    private TableColumn<?, ?> clID;
+    private TableView<ReceiptDetailOrderCustomer> tbRecieptList;
 
-    @FXML
-    private TableColumn<?, ?> clDate;
 
-    @FXML
-    private TableColumn<?, ?> clMoneyPay;
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clID;
 
-    @FXML
-    private TableColumn<?, ?> clDetailOrderID;
+    private TableColumn<ReceiptDetailOrderCustomer, Date> clDate;
 
-    @FXML
-    private TableColumn<?, ?> clCustomerID;
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clMoneyPay;
 
-    @FXML
-    private TableColumn<?, ?> clCustomerName;
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clDetailOrderID;
 
-    @FXML
-    private TableColumn<?, ?> clTotalCost;
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clCustomerID;
 
+    private TableColumn<ReceiptDetailOrderCustomer, String> clCustomerName;
+
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clTotalCost;
+
+    private TableColumn<ReceiptDetailOrderCustomer, Long> clRemaining;
     @FXML
-    private TableColumn<?, ?> clRemaining;
+    private Pagination pgReceiptList;
+
+    PaginationService<ReceiptDetailOrderCustomer> paginationService = new PaginationService<>();
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setTableItems(getObservableList(showAllReceipts()));
+        setUpTable();
+        setUpPagination(getObservableList(showAllReceipts()));
+    }
+
+    public void setUpPagination(ObservableList<ReceiptDetailOrderCustomer> observableList){
+        paginationService.setPagination(pgReceiptList);
+        paginationService.setTableView(tbRecieptList);
+        paginationService.setSopt(10);
+        List<ReceiptDetailOrderCustomer> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
+    public void setUpTable(){
+        tbRecieptList = new TableView<ReceiptDetailOrderCustomer>();
+        clID = new TableColumn<ReceiptDetailOrderCustomer, Long>("Receipt ID");
+        clDate = new TableColumn<ReceiptDetailOrderCustomer, Date>("Date");
+        clDetailOrderID = new TableColumn<ReceiptDetailOrderCustomer, Long>("Invoice ID");
+        clMoneyPay = new TableColumn<ReceiptDetailOrderCustomer, Long>("Money Pay");
+        clCustomerID = new TableColumn<ReceiptDetailOrderCustomer, Long>("Customer ID");
+        clCustomerName = new TableColumn<ReceiptDetailOrderCustomer, String>("Customer Name");
+        clTotalCost = new TableColumn<ReceiptDetailOrderCustomer, Long>("Total Cost");
+        clRemaining = new TableColumn<ReceiptDetailOrderCustomer, Long>("Remaining");
+
+        clID.setCellValueFactory(new PropertyValueFactory<>("receiptID"));
+        clDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clDetailOrderID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
+        clMoneyPay.setCellValueFactory(new PropertyValueFactory<>("moneyPay"));
+        clCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        clCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        clTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+        clRemaining.setCellValueFactory(new PropertyValueFactory<>("remaining"));
+
+        tbRecieptList.getColumns().addAll(clID, clDate, clDetailOrderID, clMoneyPay, clCustomerID, clCustomerName, clTotalCost, clRemaining );
     }
 
     public ObservableList<ReceiptDetailOrderCustomer> getObservableList(List<Receipts> receiptsList){
@@ -106,18 +138,6 @@ public class ReceiptListManageController implements Initializable {
         return obsList;
     }
 
-    public void setTableItems(ObservableList obsList){
-        clID.setCellValueFactory(new PropertyValueFactory<>("receiptID"));
-        clDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        clDetailOrderID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
-        clMoneyPay.setCellValueFactory(new PropertyValueFactory<>("moneyPay"));
-        clCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        clCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        clTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-        clRemaining.setCellValueFactory(new PropertyValueFactory<>("remaining"));
-
-        tbRecieptList.setItems(obsList);
-    }
 
     public Long calculateTotalCost(Long detailOrderID){
         long totalCost = 0, remaining = 0;
@@ -152,10 +172,10 @@ public class ReceiptListManageController implements Initializable {
     }
 
     public void searchReceipt(ActionEvent actionEvent) {
-        setTableItems(getObservableList(showByDate()));
+        setUpPagination(getObservableList(showByDate()));
     }
 
     public void showAll(ActionEvent actionEvent) {
-        setTableItems(getObservableList(showAllReceipts()));
+        setUpPagination(getObservableList(showAllReceipts()));
     }
 }

@@ -1,5 +1,6 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.EntityCombination.DetailOrderCustomer;
@@ -15,6 +16,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +26,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerListStatisticModuleController implements Initializable {
 
@@ -33,34 +36,54 @@ public class CustomerListStatisticModuleController implements Initializable {
     @FXML
     private DatePicker dpEndDay;
 
-    @FXML
     private TableView<DetailOrderCustomer> tbCustomerList;
 
-    @FXML
-    private TableColumn<?, ?> clCusID;
+    private TableColumn<DetailOrderCustomer, Long> clCusID;
+
+    private TableColumn<DetailOrderCustomer, String> clCusName;
+
+    private TableColumn<DetailOrderCustomer, Long> clInvoiceAmount;
+
+    private TableColumn<DetailOrderCustomer, Long> clTotalSpent;
+
 
     @FXML
-    private TableColumn<?, ?> clCusName;
-
-    @FXML
-    private TableColumn<?, ?> clInvoiceAmount;
-
-    @FXML
-    private TableColumn<?, ?> clTotalSpent;
-
-    @FXML
-    private TableColumn<?, ?> clShowDetail;
+    private Pagination pgCustomerStatistic;
 
     @FXML
     private BarChart<String, Number> bcCustomerList;
 
+    PaginationService<DetailOrderCustomer> paginationService = new PaginationService<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataToTable(showAllCustomerList());
+        setUpTableView();
+        setUpPagination(showAllCustomerList());
     }
 
+    public void setUpPagination(ObservableList<DetailOrderCustomer> observableList){
+        paginationService.setPagination(pgCustomerStatistic);
+        paginationService.setTableView(tbCustomerList);
+        paginationService.setSopt(10);
+        List<DetailOrderCustomer> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
 
-    // Bị bug khi reset barchart thì tên bị chồng
+    public void setUpTableView(){
+        tbCustomerList = new TableView<DetailOrderCustomer>();
+        clCusID = new TableColumn<DetailOrderCustomer, Long>("Customer ID");
+        clCusName = new TableColumn<DetailOrderCustomer, String>("Customer Name");
+        clInvoiceAmount = new TableColumn<DetailOrderCustomer, Long>("Invoice Amount");
+        clTotalSpent = new TableColumn<DetailOrderCustomer, Long>("Total Spent");
+
+        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        clInvoiceAmount.setCellValueFactory(new PropertyValueFactory<>("count"));
+        clTotalSpent.setCellValueFactory(new PropertyValueFactory<>("totalSpent"));
+
+        tbCustomerList.getColumns().addAll(clCusID, clCusName, clInvoiceAmount, clTotalSpent);
+    }
+
     public ObservableList<DetailOrderCustomer> showAllCustomerList(){
 
         bcCustomerList.getData().clear();
@@ -106,12 +129,12 @@ public class CustomerListStatisticModuleController implements Initializable {
 
     @FXML
     void searchByDay(ActionEvent event) {
-        setDataToTable(getCustomerListByDate());
+        setUpPagination(getCustomerListByDate());
     }
 
     @FXML
     void showAll(ActionEvent event) {
-        setDataToTable(showAllCustomerList());
+        setUpPagination(showAllCustomerList());
         dpStartDay.setValue(null);
         dpEndDay.setValue(null);
     }
@@ -149,16 +172,6 @@ public class CustomerListStatisticModuleController implements Initializable {
         }
 
         return detailOrderCustomerObservableList;
-    }
-
-
-    public void setDataToTable(ObservableList observableList){
-        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        clInvoiceAmount.setCellValueFactory(new PropertyValueFactory<>("count"));
-        clTotalSpent.setCellValueFactory(new PropertyValueFactory<>("totalSpent"));
-
-        tbCustomerList.setItems(observableList);
     }
 
     public void initLineChart(String customerName, Long amount){

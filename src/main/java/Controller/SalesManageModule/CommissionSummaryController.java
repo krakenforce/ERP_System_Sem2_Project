@@ -1,5 +1,6 @@
 package Controller.SalesManageModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.EntityCombination.DetailOrderProductGroup;
 import Services.Hibernate.entity.*;
@@ -8,10 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -35,52 +33,80 @@ public class CommissionSummaryController implements Initializable{
     @FXML
     private TextField tfSummary;
 
-    @FXML
-    private TableView<?> tbCommissionSum;
+    private TableView<DetailOrderProductGroup> tbCommissionSum;
+
+    private TableColumn<DetailOrderProductGroup, Long> clProductID;
+
+    private TableColumn<DetailOrderProductGroup, String> clProductName;
+
+    private TableColumn<DetailOrderProductGroup, Long> clAmount;
+
+    private TableColumn<DetailOrderProductGroup, Long> clDetailOrderID;
+
+    private TableColumn<DetailOrderProductGroup, Date> clDetailOrderDate;
+
+    private TableColumn<DetailOrderProductGroup, Long> clPrice;
+
+    private TableColumn<DetailOrderProductGroup, Long> clTotalCost;
+
+    private TableColumn<DetailOrderProductGroup, Long> clCommission;
 
     @FXML
-    private TableColumn<?, ?> clProductID;
-
-    @FXML
-    private TableColumn<?, ?> clProductName;
-
-    @FXML
-    private TableColumn<?, ?> clAmount;
-
-    @FXML
-    private TableColumn<?, ?> clDetailOrderID;
-
-    @FXML
-    private TableColumn<?, ?> clDetailOrderDate;
-
-    @FXML
-    private TableColumn<?, ?> clPrice;
-
-    @FXML
-    private TableColumn<?, ?> clTotalCost;
-
-    @FXML
-    private TableColumn<?, ?> clCommission;
+    private Pagination pgCommissionSum;
+    PaginationService<DetailOrderProductGroup> paginationService = new PaginationService<>();
 
     Long salesmanID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTableView();
+    }
+
+    public void setUpPagination(List list){
+        paginationService.setPagination(pgCommissionSum);
+        paginationService.setTableView(tbCommissionSum);
+        paginationService.setSopt(10);
+        paginationService.createPagination(list);
+    }
+
+    public void setUpTableView(){
+        tbCommissionSum = new TableView<DetailOrderProductGroup>();
+        clProductID = new TableColumn<DetailOrderProductGroup, Long>("Product ID");
+        clProductName = new TableColumn<DetailOrderProductGroup, String>("Product Name");
+        clAmount = new TableColumn<DetailOrderProductGroup, Long>("Amount");
+        clDetailOrderID = new TableColumn<DetailOrderProductGroup, Long>("Invoice ID");
+        clDetailOrderDate = new TableColumn<DetailOrderProductGroup, Date>("Date");
+        clPrice = new TableColumn<DetailOrderProductGroup, Long>("Price");
+        clTotalCost = new TableColumn<DetailOrderProductGroup, Long>("Total");
+        clCommission = new TableColumn<DetailOrderProductGroup, Long>("Commission");
+
+        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        clDetailOrderID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
+        clDetailOrderDate.setCellValueFactory(new PropertyValueFactory<>("detailOrderDate"));
+        clAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        clPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        clTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+        clCommission.setCellValueFactory(new PropertyValueFactory<>("commission"));
+
+        tbCommissionSum.getColumns().addAll(clProductID, clProductName, clDetailOrderID
+                , clDetailOrderDate, clAmount, clPrice, clTotalCost, clCommission);
+
     }
 
     @FXML
     void searchCommissionByDate(ActionEvent event) {
-        setTableItems(getDetailOrderProductObsList(showByDate()));
+        setUpPagination(getDetailOrderProductObsList(showByDate()));
     }
 
     @FXML
     void showAllCommission(ActionEvent event) {
-        setTableItems(getDetailOrderProductObsList(showAllOrderBySalesman()));
+        setUpPagination(getDetailOrderProductObsList(showAllOrderBySalesman()));
     }
 
     public void runTable(String salesmanName){
         tfSellerName.setText(salesmanName);
-        setTableItems(getDetailOrderProductObsList(showAllOrderBySalesman()));
+        setUpPagination(getDetailOrderProductObsList(showAllOrderBySalesman()));
 
     }
 
@@ -127,18 +153,6 @@ public class CommissionSummaryController implements Initializable{
         return obsList;
     }
 
-    public void setTableItems(ObservableList obsList){
-        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        clDetailOrderID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
-        clDetailOrderDate.setCellValueFactory(new PropertyValueFactory<>("detailOrderDate"));
-        clAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        clPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        clTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
-        clCommission.setCellValueFactory(new PropertyValueFactory<>("commission"));
-
-        tbCommissionSum.setItems(obsList);
-    }
 
     public Long calculateTotalCost(Long OrderID){
         long totalCost = 0;

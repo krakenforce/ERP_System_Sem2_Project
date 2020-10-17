@@ -1,6 +1,7 @@
 package Controller.StatisticModule;
 
 import Boxes.AlertBox;
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.OrderDAO;
@@ -18,10 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -38,31 +36,49 @@ public class SalesStatisticController implements Initializable {
     @FXML
     private DatePicker dpEndDay;
 
-    @FXML
+
     private TableView<DetailOrderCustomer> tbSalesmanList;
 
-    @FXML
-    private TableColumn<?, ?> clSalesmanID;
+
+    private TableColumn<DetailOrderCustomer, Long> clSalesmanID;
+
+
+    private TableColumn<DetailOrderCustomer, String> clSalesmanName;
+
+
+    private TableColumn<DetailOrderCustomer, Long> clInvoiceAmount;
+
+
+    private TableColumn<DetailOrderCustomer, Long> clTotalSpent;
+
+    private TableColumn<DetailOrderCustomer, ?> clShowDetail;
 
     @FXML
-    private TableColumn<?, ?> clSalesmanName;
-
-    @FXML
-    private TableColumn<?, ?> clInvoiceAmount;
-
-    @FXML
-    private TableColumn<?, ?> clTotalSpent;
-
-    @FXML
-    private TableColumn<?, ?> clShowDetail;
+    private Pagination statisTable;
+    PaginationService<DetailOrderCustomer> paginationService = new PaginationService<>();
 
     @FXML
     private BarChart<String, Number> bcSaleStatis;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tbSalesmanList.setPlaceholder(new Label("Please select start day & end day to see result"));
+       setUpTableView();
+    }
 
+    public void setUpTableView(){
+        tbSalesmanList = new TableView<DetailOrderCustomer>();
+        clSalesmanID = new TableColumn<DetailOrderCustomer, Long>("Salesman ID");
+        clSalesmanName = new TableColumn<DetailOrderCustomer, String>("Salesman Name");
+        clInvoiceAmount = new TableColumn<DetailOrderCustomer, Long>("Invoice amount");
+        clTotalSpent = new TableColumn<DetailOrderCustomer, Long>("Sales");
+
+        clSalesmanID.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, Long>("salesmanID"));
+        clSalesmanName.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, String>("salesmanName"));
+        clInvoiceAmount.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, Long>("amountOfInvoice"));
+        clTotalSpent.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, Long>("total"));
+
+        tbSalesmanList.setPlaceholder(new Label("Please select start day & end day to see result"));
+        tbSalesmanList.getColumns().addAll(clSalesmanID,clSalesmanName, clInvoiceAmount, clTotalSpent);
     }
 
     @FXML
@@ -71,7 +87,11 @@ public class SalesStatisticController implements Initializable {
             AlertBox alertBox = new AlertBox();
             alertBox.warningAlert("Please select date", "Cannot search because you have not selected date yet");
         }else{
-            setDataToTable(getSalesmanStatisticsInfo());
+
+            paginationService.setPagination(statisTable);
+            paginationService.setTableView(tbSalesmanList);
+            paginationService.setSopt(10);
+            paginationService.createPagination(getSalesmanStatisticsInfo());
         }
     }
 
@@ -127,16 +147,6 @@ public class SalesStatisticController implements Initializable {
             return totalSpent;
         }
         return 0L;
-    }
-
-
-    public void setDataToTable(ObservableList observableList) {
-        clSalesmanID.setCellValueFactory(new PropertyValueFactory<>("salesmanID"));
-        clSalesmanName.setCellValueFactory(new PropertyValueFactory<>("salesmanName"));
-        clInvoiceAmount.setCellValueFactory(new PropertyValueFactory<>("amountOfInvoice"));
-        clTotalSpent.setCellValueFactory(new PropertyValueFactory<>("total"));
-
-        tbSalesmanList.setItems(observableList);
     }
 
     public Date getDay(DatePicker datePicker) {

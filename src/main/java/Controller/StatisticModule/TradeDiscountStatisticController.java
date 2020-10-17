@@ -1,8 +1,10 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.PaymentDAO;
 import Services.Hibernate.DAO.TradeDiscountDAO;
 import Services.Hibernate.EntityCombination.DetailOrderCustomer;
+import Services.Hibernate.EntityCombination.GroupProductDetailStatistic;
 import Services.Hibernate.EntityCombination.TradeDiscountCustomer;
 import Services.Hibernate.entity.Payment;
 import Services.Hibernate.entity.TradeDiscounts;
@@ -13,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -20,37 +23,70 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.PropertyValue;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class TradeDiscountStatisticController implements Initializable {
 
-    @FXML
     private TableView<TradeDiscountCustomer> tbTradeDiscountList;
 
-    @FXML
-    private TableColumn<?, ?> clID;
+    private TableColumn<TradeDiscountCustomer, Long> clID;
+
+    private TableColumn<TradeDiscountCustomer, String> clName;
+
+    private TableColumn<TradeDiscountCustomer, Date> clStartDate;
+
+    private TableColumn<TradeDiscountCustomer, Date> clEndDate;
+
+    private TableColumn<TradeDiscountCustomer, Long> clCustomerAmount;
+
+    private TableColumn<TradeDiscountCustomer, Long> clTotalPayment;
 
     @FXML
-    private TableColumn<?, ?> clName;
-
-    @FXML
-    private TableColumn<?, ?> clStartDate;
-
-    @FXML
-    private TableColumn<?, ?> clEndDate;
-
-    @FXML
-    private TableColumn<?, ?> clCustomerAmount;
-
-    @FXML
-    private TableColumn<?, ?> clTotalPayment;
+    private Pagination pgTradeDiscountStat;
 
     @FXML
     private BarChart<String, Number> bcTradeDiscount;
 
     @FXML
     private TextField tfSearch;
+
+    PaginationService<TradeDiscountCustomer> paginationService = new PaginationService<>();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTableView();
+        setUpPagination(getTradeDiscountList());
+    }
+
+    public void setUpTableView(){
+        tbTradeDiscountList = new TableView<TradeDiscountCustomer>();
+        clID = new TableColumn<TradeDiscountCustomer, Long>("TD ID");
+        clName = new TableColumn<TradeDiscountCustomer, String>("Name");
+        clStartDate = new TableColumn<TradeDiscountCustomer, Date>("Start Date");
+        clEndDate = new TableColumn<TradeDiscountCustomer, Date>("End Date");
+        clCustomerAmount = new TableColumn<TradeDiscountCustomer, Long>("Customer Amount");
+        clTotalPayment = new TableColumn<TradeDiscountCustomer, Long>("Total Payment");
+
+        clID.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountID"));
+        clName.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountName"));
+        clStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        clEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        clCustomerAmount.setCellValueFactory(new PropertyValueFactory<>("customerAmount"));
+        clTotalPayment.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
+
+        tbTradeDiscountList.getColumns().addAll(clID, clName, clStartDate, clEndDate, clCustomerAmount, clTotalPayment);
+    }
+
+    public void setUpPagination(ObservableList<TradeDiscountCustomer> observableList){
+        paginationService.setPagination(pgTradeDiscountStat);
+        paginationService.setTableView(tbTradeDiscountList);
+        paginationService.setSopt(15);
+        List<TradeDiscountCustomer> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
 
     @FXML
     void searchTradeDiscount(ActionEvent event) {
@@ -62,7 +98,7 @@ public class TradeDiscountStatisticController implements Initializable {
                 secondList.add(list.get(i));
             }
         }
-        setDataToTable(secondList);
+        setUpPagination(secondList);
 
     }
 
@@ -84,19 +120,6 @@ public class TradeDiscountStatisticController implements Initializable {
         return obsList;
     }
 
-
-
-    public void setDataToTable(ObservableList observableList){
-        clID.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountID"));
-        clName.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountName"));
-        clStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        clEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        clCustomerAmount.setCellValueFactory(new PropertyValueFactory<>("customerAmount"));
-        clTotalPayment.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
-
-        tbTradeDiscountList.setItems(observableList);
-    }
-
     public void initLineChart(String tradeDiscountName, Long totalPayment){
         XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
         series.getData().addAll(new XYChart.Data<String, Number>(tradeDiscountName,totalPayment));
@@ -105,8 +128,5 @@ public class TradeDiscountStatisticController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataToTable(getTradeDiscountList());
-    }
+
 }

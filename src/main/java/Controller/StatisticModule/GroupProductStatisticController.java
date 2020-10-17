@@ -1,9 +1,11 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.GroupProductDAO;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.DAO.ProductDAO;
+import Services.Hibernate.EntityCombination.DetailOrderCustomer;
 import Services.Hibernate.EntityCombination.GroupProductStatis;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.GroupProduct;
@@ -22,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +39,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class GroupProductStatisticController implements Initializable {
 
@@ -45,20 +49,46 @@ public class GroupProductStatisticController implements Initializable {
     @FXML
     private DatePicker dpEndDay;
 
-    @FXML
     private TableView<GroupProductStatis> tbGroupProductList;
 
-    @FXML
-    private TableColumn<?, ?> clGroupID;
+    private TableColumn<GroupProductStatis, Long> clGroupID;
+
+    private TableColumn<GroupProductStatis, String> clGroupName;
+
+    private TableColumn<GroupProductStatis, Long> clTotalSold;
+
 
     @FXML
-    private TableColumn<?, ?> clGroupName;
+    private Pagination pgProductGroupStat;
 
-    @FXML
-    private TableColumn<?, ?> clTotalSold;
+    PaginationService<GroupProductStatis> paginationService = new PaginationService<>();
 
-    @FXML
-    private TableColumn<?, ?> clShowDetail;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTable();
+        selectGroupTableItem();
+    }
+
+    public void setUpPagination(ObservableList<GroupProductStatis> observableList){
+        paginationService.setPagination(pgProductGroupStat);
+        paginationService.setTableView(tbGroupProductList);
+        paginationService.setSopt(10);
+        List<GroupProductStatis> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
+
+    public void setUpTable(){
+        tbGroupProductList = new TableView<GroupProductStatis>();
+        clGroupID = new TableColumn<GroupProductStatis, Long>("Group ID");
+        clGroupName = new TableColumn<GroupProductStatis, String>("Group Name");
+        clTotalSold = new TableColumn<GroupProductStatis, Long>("Total Sold");
+
+        clGroupID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clGroupName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("totalSold"));
+
+        tbGroupProductList.getColumns().addAll(clGroupID,clGroupName, clTotalSold);
+    }
 
     @FXML
     private BarChart<String, Number> bcGroupProductStatis;
@@ -96,7 +126,7 @@ public class GroupProductStatisticController implements Initializable {
 
             }
         }
-        setDataToTable(groupProductStatisObservableList);
+        setUpPagination(groupProductStatisObservableList);
         return detailOrderList;
     }
 
@@ -112,14 +142,6 @@ public class GroupProductStatisticController implements Initializable {
     public Date getDate(DatePicker datePicker){
         LocalDate localDate = datePicker.getValue();
         return Date.valueOf(localDate);
-    }
-
-    public void setDataToTable(ObservableList observableList){
-        clGroupID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        clGroupName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("totalSold"));
-
-        tbGroupProductList.setItems(observableList);
     }
 
 
@@ -158,8 +180,5 @@ public class GroupProductStatisticController implements Initializable {
         });
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        selectGroupTableItem();
-    }
+
 }

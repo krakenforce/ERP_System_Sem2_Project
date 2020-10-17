@@ -1,10 +1,12 @@
 package Controller.SalesManageModule;
 
 import Boxes.AlertBox;
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.ReceiptsDAO;
 import Services.Hibernate.EntityCombination.DetailOrderCustomer;
+import Services.Hibernate.EntityCombination.DetailOrderProductGroup;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.Receipts;
@@ -27,6 +29,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReceiptByTypeController implements Initializable {
     @FXML
@@ -48,6 +51,9 @@ public class ReceiptByTypeController implements Initializable {
     private TextField tfLiability;
 
     @FXML
+    private ComboBox<String> cbStatus;
+
+    @FXML
     private TextField tfCustomerName;
 
     @FXML
@@ -56,38 +62,68 @@ public class ReceiptByTypeController implements Initializable {
     @FXML
     private TextField tfDetailOrderID;
 
-    @FXML
     private TableView<DetailOrderCustomer> tbDetailOrderList;
 
-    @FXML
-    private TableColumn<?, ?> clID;
+    private TableColumn<DetailOrderCustomer, Long> clID;
 
-    @FXML
-    private TableColumn<?, ?> clDate;
+    private TableColumn<DetailOrderCustomer, Date> clDate;
 
-    @FXML
-    private TableColumn<?, ?> clPaidStatus;
+    private TableColumn<DetailOrderCustomer, Boolean> clPaidStatus;
 
-    @FXML
-    private TableColumn<?, ?> clCusID;
+    private TableColumn<DetailOrderCustomer, Long> clCusID;
 
-    @FXML
-    private TableColumn<?, ?> clCusName;
+    private TableColumn<DetailOrderCustomer, String> clCusName;
 
-    @FXML
-    private TableColumn<?, ?> clDebt;
+    private TableColumn<DetailOrderCustomer, Long> clDebt;
 
-    @FXML
-    private TableColumn<?, ?> clTotal;
+    private TableColumn<DetailOrderCustomer, Long> clTotal;
 
     @FXML
     private TextField tfSearchName;
 
+    @FXML
+    private Pagination pgReceiptList;
+
+    PaginationService<DetailOrderCustomer> paginationService = new PaginationService<>();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTableView();
+        setUpPagination(getDetailOrdersObservableList());
+        setDataForCbStatus();
         getSelectedDetailOrder();
-        setTableItems(getDetailOrdersObservableList());
+    }
+
+    public void setUpPagination(ObservableList<DetailOrderCustomer> observableList){
+        paginationService.setPagination(pgReceiptList);
+        paginationService.setTableView(tbDetailOrderList);
+        paginationService.setSopt(10);
+        List<DetailOrderCustomer> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
+
+    public void setUpTableView(){
+        tbDetailOrderList = new TableView<DetailOrderCustomer>();
+        clID = new TableColumn<DetailOrderCustomer, Long>("Invoice ID");
+        clDate = new TableColumn<DetailOrderCustomer, Date>("Date");
+        clCusID = new TableColumn<DetailOrderCustomer, Long>("Customer ID");
+        clCusName = new TableColumn<DetailOrderCustomer, String>("Customer Name");
+        clPaidStatus = new TableColumn<DetailOrderCustomer, Boolean>("Status");
+        clDebt = new TableColumn<DetailOrderCustomer, Long>("Debt");
+        clTotal = new TableColumn<DetailOrderCustomer, Long>("Total");
+
+        clID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
+        clDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        clPaidStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        clDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
+        clTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+        tbDetailOrderList.getColumns().addAll(clID, clDate, clCusID, clCusName, clPaidStatus, clDebt, clTotal);
+
     }
 
 
@@ -176,16 +212,6 @@ public class ReceiptByTypeController implements Initializable {
 
         return detailOrderCustomerObservableList;
     }
-    public void setTableItems(ObservableList obsList){
-        clID.setCellValueFactory(new PropertyValueFactory<>("detailOrderID"));
-        clDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        clPaidStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        clDebt.setCellValueFactory(new PropertyValueFactory<>("debt"));
-        clTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-        tbDetailOrderList.setItems(obsList);
-    }
 
     public void searchCustomerName(ActionEvent actionEvent) {
         String name = tfSearchName.getText();
@@ -196,10 +222,28 @@ public class ReceiptByTypeController implements Initializable {
                 secondList.add(list.get(i));
             }
         }
-        setTableItems(secondList);
+        setUpPagination(secondList);
+    }
+
+    public void setDataForCbStatus(){
+        ObservableList<String> statusList = FXCollections.observableArrayList("true", "false");
+        cbStatus.setItems(statusList);
     }
 
     public void showAll(ActionEvent actionEvent) {
-        setTableItems(getDetailOrdersObservableList());
+        setUpPagination(getDetailOrdersObservableList());
+    }
+
+    public void searchByStatus(ActionEvent actionEvent) {
+
+        Boolean status = Boolean.parseBoolean(cbStatus.getSelectionModel().getSelectedItem());
+        ObservableList<DetailOrderCustomer> list = getDetailOrdersObservableList();
+        ObservableList<DetailOrderCustomer> secondList = FXCollections.observableArrayList();
+        for(int i = 0; i < list.size(); i++ ){
+            if(Boolean.compare(list.get(i).getStatus(), status) == 0){
+                secondList.add(list.get(i));
+            }
+        }
+        setUpPagination(secondList);
     }
 }

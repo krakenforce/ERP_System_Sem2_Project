@@ -8,8 +8,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -54,23 +52,6 @@
             </bottom>
         </BorderPane>
     </top>
-    <center>
-        <TableView fx:id="tbGroupProductList" prefHeight="358.0" prefWidth="1025.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="clGroupID" prefWidth="75.0" text="Group ID" />
-                <TableColumn fx:id="clGroupName" prefWidth="255.0" text="Product Group Name" />
-                <TableColumn fx:id="clTotalSold" prefWidth="153.0" text="Total Product Sold" />
-                <TableColumn fx:id="clShowDetail" prefWidth="342.0" text="Show Detail" />
-            </columns>
-        </TableView>
-    </center>
-    <bottom>
-        <BorderPane prefHeight="49.0" prefWidth="826.0" BorderPane.alignment="CENTER">
-            <top>
-                <Pagination prefHeight="32.0" prefWidth="826.0" BorderPane.alignment="CENTER" />
-            </top>
-        </BorderPane>
-    </bottom>
    <right>
       <BarChart fx:id="bcGroupProductStatis" prefHeight="358.0" prefWidth="541.0" title="Group Sales Statistic" BorderPane.alignment="CENTER">
         <xAxis>
@@ -81,4 +62,7 @@
         </yAxis>
       </BarChart>
    </right>
+   <left>
+      <Pagination fx:id="pgProductGroupStat" prefHeight="358.0" prefWidth="521.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

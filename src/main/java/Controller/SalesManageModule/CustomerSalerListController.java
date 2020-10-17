@@ -1,5 +1,6 @@
 package Controller.SalesManageModule;
 
+import NodeService.PaginationService;
 import Repositories.Function;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.SalesManDAO;
@@ -35,27 +36,46 @@ public class CustomerSalerListController implements Initializable,Function{
     @FXML
     private TextField tfID;
 
-    @FXML
-    private Pagination pgPage;
-
-    @FXML
     private TableView<Customer> tbCusInfo;
 
-    @FXML
-    private TableColumn<Long, Customer> clCusID;
+    private TableColumn<Customer, Long> clCusID;
 
-    @FXML
-    private TableColumn<String, Customer> clCusName;
+    private TableColumn<Customer, String> clCusName;
 
-    @FXML
-    private TableColumn<String, Customer> clCusPhone;
+    private TableColumn<Customer, String> clCusPhone;
 
-    @FXML
-    private TableColumn<String, Customer> clCusAddress;
+    private TableColumn<Customer, String> clCusAddress;
+
+    private Pagination pgCustomerList;
+
+    PaginationService<Customer> paginationService = new PaginationService<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpTableView();
         selectRowTable();
+    }
+
+    public void setUpTableView() {
+        tbCusInfo = new TableView<Customer>();
+        clCusID = new TableColumn<Customer, Long>("Customer ID");
+        clCusName = new TableColumn<Customer, String>("Customer Name");
+        clCusPhone = new TableColumn<Customer, String>("Phone");
+        clCusAddress = new TableColumn<Customer, String>("Address");
+
+        clCusID.setCellValueFactory(new PropertyValueFactory<Customer, Long>("id"));
+        clCusName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+        clCusPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
+        clCusAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("address"));
+
+        tbCusInfo.getColumns().addAll(clCusID,clCusName, clCusPhone, clCusAddress);
+    }
+
+    public void setUpPagination(Long salesmanID){
+        paginationService.setPagination(pgCustomerList);
+        paginationService.setTableView(tbCusInfo);
+        paginationService.setSopt(10);
+        paginationService.createPagination(getDataCustomer(salesmanID));
     }
 
     private void selectRowTable() {

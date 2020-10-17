@@ -4,8 +4,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -33,10 +31,7 @@
         </AnchorPane>
     </top>
     <bottom>
-        <BorderPane prefHeight="126.0" prefWidth="840.0" BorderPane.alignment="CENTER">
-            <top>
-                <Pagination prefHeight="22.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
-            </top>
+        <BorderPane prefHeight="86.0" prefWidth="840.0" BorderPane.alignment="CENTER">
             <left>
                 <Label prefHeight="25.0" prefWidth="184.0" text="Reciept Amount:" BorderPane.alignment="CENTER">
                     <font>
@@ -58,17 +53,6 @@
         </BorderPane>
     </bottom>
    <center>
-      <TableView fx:id="tbRecieptList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="clID" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="clDate" prefWidth="130.0" text="Date" />
-            <TableColumn fx:id="clMoneyPay" prefWidth="134.0" text="Proceed" />
-            <TableColumn fx:id="clDetailOrderID" prefWidth="75.0" text="Invoice ID" />
-            <TableColumn fx:id="clCustomerID" prefWidth="84.0" text="Customer ID" />
-            <TableColumn fx:id="clCustomerName" prefWidth="182.0" text="Customer Name" />
-            <TableColumn fx:id="clTotalCost" prefWidth="88.0" text="Total Cost" />
-            <TableColumn fx:id="clRemaining" prefWidth="72.0" text="Remaining" />
-        </columns>
-      </TableView>
+      <Pagination fx:id="pgReceiptList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

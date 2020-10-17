@@ -1,9 +1,11 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.PaymentDAO;
 import Services.Hibernate.EntityCombination.CustomerTotalPayment;
+import Services.Hibernate.EntityCombination.DetailOrderCustomer;
 import Services.Hibernate.EntityCombination.TradeDiscountCustomer;
 import Services.Hibernate.EntityCombination.TradeDiscountPayment;
 import Services.Hibernate.entity.Customer;
@@ -16,14 +18,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerTradeStatisticController implements Initializable {
 
@@ -33,32 +38,90 @@ public class CustomerTradeStatisticController implements Initializable {
     @FXML
     private TextField tfSearch;
 
-    @FXML
     private TableView<CustomerTotalPayment> tbCusInfo;
 
-    @FXML
-    private TableColumn<?, ?> clCusID;
+    private TableColumn<CustomerTotalPayment, Long> clCusID;
 
-    @FXML
-    private TableColumn<?, ?> clCusName;
+    private TableColumn<CustomerTotalPayment, String> clCusName;
 
-    @FXML
-    private TableColumn<?, ?> clTotalPayment;
+    private TableColumn<CustomerTotalPayment, Long> clTotalPayment;
 
-    @FXML
     private TableView<TradeDiscountPayment> tbTradeDiscountInfo;
 
-    @FXML
-    private TableColumn<?, ?> clTDID;
+    private TableColumn<TradeDiscountPayment, Long> clTDID;
+
+    private TableColumn<TradeDiscountPayment, Date> clStartDate;
+
+    private TableColumn<TradeDiscountPayment, Date> clEndDate;
+
+    private TableColumn<TradeDiscountPayment, Long> clPayment;
 
     @FXML
-    private TableColumn<?, ?> clStartDate;
+    private Pagination pgCusInfo;
 
     @FXML
-    private TableColumn<?, ?> clEndDate;
+    private Pagination pgTradeDiscountInfo;
 
-    @FXML
-    private TableColumn<?, ?> clPayment;
+    PaginationService<CustomerTotalPayment> customerTotalPaymentPaginationService = new PaginationService<>();
+    PaginationService<TradeDiscountPayment> tradeDiscountPaymentPaginationService = new PaginationService<>();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setUpCusInfoTable();
+        setUpTradeDiscountInfo();
+
+        setUpPaginationCusInfo(getTotalPaymentCustomer());
+        setDataToTableTradeDiscount();
+    }
+
+    public void setUpPaginationCusInfo( ObservableList<CustomerTotalPayment> observableList){
+        customerTotalPaymentPaginationService.setPagination(pgCusInfo);
+        customerTotalPaymentPaginationService.setTableView(tbCusInfo);
+        customerTotalPaymentPaginationService.setSopt(10);
+        List<CustomerTotalPayment> list = observableList.stream().collect(Collectors.toList());
+        customerTotalPaymentPaginationService.createPagination(list);
+    }
+
+    public void setUpPaginationTradeDiscount( ObservableList<TradeDiscountPayment> observableList){
+        tradeDiscountPaymentPaginationService.setPagination(pgTradeDiscountInfo);
+        tradeDiscountPaymentPaginationService.setTableView(tbTradeDiscountInfo);
+        tradeDiscountPaymentPaginationService.setSopt(10);
+        List<TradeDiscountPayment> list = observableList.stream().collect(Collectors.toList());
+        tradeDiscountPaymentPaginationService.createPagination(list);
+    }
+
+    public void setUpCusInfoTable(){
+        tbCusInfo = new TableView<CustomerTotalPayment>();
+        clCusID = new TableColumn<CustomerTotalPayment, Long>("Customer ID");
+        clCusName = new TableColumn<CustomerTotalPayment, String>("Customer Name");
+        clTotalPayment = new TableColumn<CustomerTotalPayment, Long>("Total Payment");
+
+
+        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        clTotalPayment.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
+
+        tbCusInfo.getColumns().addAll(clCusID, clCusName, clTotalPayment);
+    }
+
+    public void setUpTradeDiscountInfo(){
+        tbTradeDiscountInfo = new TableView<TradeDiscountPayment>();
+        clTDID = new TableColumn<TradeDiscountPayment, Long>("TD ID");
+        clStartDate = new TableColumn<TradeDiscountPayment, Date>("Start date");
+        clEndDate = new TableColumn<TradeDiscountPayment, Date>("End date");
+        clPayment = new TableColumn<TradeDiscountPayment, Long>("Payment");
+
+        clTDID.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountID"));
+        clStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        clEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        clPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
+
+
+        tbTradeDiscountInfo.getColumns().addAll(clTDID, clStartDate, clEndDate, clPayment);
+    }
+
+
+
 
     @FXML
     public void searchTradeDiscount(ActionEvent actionEvent) {
@@ -88,15 +151,6 @@ public class CustomerTradeStatisticController implements Initializable {
         return observableList;
     }
 
-    public void setDataToTableCustomerInfo(ObservableList observableList){
-        clCusID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        clCusName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        clTotalPayment.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
-
-        tbCusInfo.setItems(observableList);
-
-    }
-
     public void setDataToTableTradeDiscount(){
         PaymentDAO paymentDAO = new PaymentDAO();
 
@@ -115,11 +169,8 @@ public class CustomerTradeStatisticController implements Initializable {
                     observableList.add(combination);
                 }
             }
-            clTDID.setCellValueFactory(new PropertyValueFactory<>("tradeDiscountID"));
-            clStartDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-            clEndDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-            clPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
-            tbTradeDiscountInfo.setItems(observableList);
+
+            setUpPaginationTradeDiscount(observableList);
         });
     }
 
@@ -131,9 +182,5 @@ public class CustomerTradeStatisticController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataToTableCustomerInfo(getTotalPaymentCustomer());
-        setDataToTableTradeDiscount();
-    }
+
 }

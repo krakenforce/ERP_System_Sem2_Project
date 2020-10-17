@@ -4,8 +4,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -39,10 +37,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <BorderPane prefHeight="126.0" prefWidth="840.0" BorderPane.alignment="CENTER">
-         <top>
-            <Pagination prefHeight="22.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
-         </top>
+      <BorderPane prefHeight="89.0" prefWidth="782.0" BorderPane.alignment="CENTER">
          <left>
             <Label prefHeight="25.0" prefWidth="184.0" text="Commission Summary:" BorderPane.alignment="CENTER">
                <font>
@@ -63,17 +58,6 @@
       </BorderPane>
    </bottom>
    <center>
-      <TableView fx:id="tbCommissionSum" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="clProductID" prefWidth="68.0" text="Product id" />
-          <TableColumn fx:id="clProductName" prefWidth="172.0" text="Product name" />
-            <TableColumn fx:id="clAmount" prefWidth="58.0" text="Amount" />
-            <TableColumn fx:id="clDetailOrderID" prefWidth="66.0" text="Invoice ID" />
-            <TableColumn fx:id="clDetailOrderDate" prefWidth="112.0" text="Invoice Date" />
-            <TableColumn fx:id="clPrice" prefWidth="100.0" text="Price" />
-            <TableColumn fx:id="clTotalCost" prefWidth="103.0" text="Total Cost" />
-            <TableColumn fx:id="clCommission" prefWidth="102.0" text="Commission" />
-        </columns>
-      </TableView>
+      <Pagination fx:id="pgCommissionSum" prefHeight="417.0" prefWidth="782.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

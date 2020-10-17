@@ -6,20 +6,11 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StatisticModule.CustomerTradeStatisticController">
-    <bottom>
-        <BorderPane prefHeight="49.0" prefWidth="826.0" BorderPane.alignment="CENTER">
-            <top>
-                <Pagination prefHeight="32.0" prefWidth="826.0" BorderPane.alignment="CENTER" />
-            </top>
-        </BorderPane>
-    </bottom>
     <right>
         <BarChart fx:id="bcTradeDiscount" prefHeight="472.0" prefWidth="452.0" BorderPane.alignment="CENTER">
             <xAxis>
@@ -49,24 +40,8 @@
    <left>
       <HBox prefHeight="422.0" prefWidth="657.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tbCusInfo" prefHeight="422.0" prefWidth="304.0">
-              <columns>
-                <TableColumn fx:id="clCusID" prefWidth="75.0" text="Customer ID" />
-                <TableColumn fx:id="clCusName" prefWidth="105.0" text="Customer Name" />
-                  <TableColumn fx:id="clTotalPayment" prefWidth="123.0" text="Total Payment" />
-              </columns>
-            </TableView>
-            <TableView fx:id="tbTradeDiscountInfo" prefHeight="422.0" prefWidth="345.0">
-              <columns>
-                <TableColumn fx:id="clTDID" prefWidth="75.0" text="TD ID" />
-                <TableColumn fx:id="clStartDate" prefWidth="75.0" text="Start Date" />
-                  <TableColumn fx:id="clEndDate" prefWidth="92.0" text="End Date" />
-                  <TableColumn fx:id="clPayment" prefWidth="96.0" text="Payment" />
-              </columns>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </TableView>
+            <Pagination fx:id="pgCusInfo" prefHeight="422.0" prefWidth="295.0" />
+            <Pagination fx:id="pgTradeDiscountInfo" prefHeight="422.0" prefWidth="359.0" />
          </children>
       </HBox>
    </left>

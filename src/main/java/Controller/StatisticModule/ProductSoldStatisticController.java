@@ -1,5 +1,6 @@
 package Controller.StatisticModule;
 
+import NodeService.PaginationService;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.DAO.ProductDAO;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +28,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ProductSoldStatisticController implements Initializable {
 
@@ -35,33 +38,55 @@ public class ProductSoldStatisticController implements Initializable {
     @FXML
     private DatePicker dpEndDay;
 
-    @FXML
-    private TableView<?> tbProductList;
+    private TableView<GroupProductDetailStatistic> tbProductList;
+
+    private TableColumn<GroupProductDetailStatistic, Long> clProductID;
+
+    private TableColumn<GroupProductDetailStatistic, String> clProductName;
+
+    private TableColumn<GroupProductDetailStatistic, Long> clTotalSold;
 
     @FXML
-    private TableColumn<?, ?> clProductID;
-
-    @FXML
-    private TableColumn<?, ?> clProductName;
-
-    @FXML
-    private TableColumn<?, ?> clTotalSold;
+    private Pagination pgProductSold;
 
     @FXML
     private BarChart<String, Number> bcProductSold;
 
+    PaginationService<GroupProductDetailStatistic> paginationService = new PaginationService<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDataToTable(getAllSoldInfo());
+        setUpTableView();
+        setUpPagination(getAllSoldInfo());
     }
+
+    public void setUpTableView(){
+        tbProductList = new TableView<GroupProductDetailStatistic>();
+        clProductID = new TableColumn<GroupProductDetailStatistic, Long>("Product ID");
+        clProductName = new TableColumn<GroupProductDetailStatistic, String>("Product Name");
+        clTotalSold = new TableColumn<GroupProductDetailStatistic, Long>("Total Sold");
+
+        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("soldAmount"));
+        tbProductList.getColumns().addAll(clProductID, clProductName, clTotalSold);
+    }
+
+    public void setUpPagination(ObservableList<GroupProductDetailStatistic> observableList){
+        paginationService.setPagination(pgProductSold);
+        paginationService.setTableView(tbProductList);
+        paginationService.setSopt(15);
+        List<GroupProductDetailStatistic> list = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(list);
+    }
+
 
     public void searchByDate(ActionEvent actionEvent) {
         showInfoByDate();
     }
 
     public void showAll(ActionEvent actionEvent) {
-        setDataToTable(getAllSoldInfo());
+        setUpPagination(getAllSoldInfo());
     }
 
     public ObservableList<GroupProductDetailStatistic> getAllSoldInfo(){
@@ -112,7 +137,7 @@ public class ProductSoldStatisticController implements Initializable {
                 }
             }
         }
-        setDataToTable(obsList);
+        setUpPagination(obsList);
     }
 
     public Date getDate(DatePicker datePicker){
@@ -129,15 +154,6 @@ public class ProductSoldStatisticController implements Initializable {
         return true;
     }
 
-
-
-    public void setDataToTable(ObservableList observableList){
-        clProductID.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        clProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        clTotalSold.setCellValueFactory(new PropertyValueFactory<>("soldAmount"));
-
-        tbProductList.setItems(observableList);
-    }
 
     public void initLineChart(String productName, Long totalSold){
         XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
