@@ -83,7 +83,7 @@
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </Button>
-                  <TextField fx:id="tfBarcode" onInputMethodTextChanged="#testBarcode" promptText="Barcode" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <TextField fx:id="tfBarcode" promptText="Barcode" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="150.0" />
                      </GridPane.margin>
@@ -102,26 +102,35 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Button>
                   <Label text="Type of Search: ">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
                   </Label>
                   <ComboBox fx:id="cbSearchType" prefWidth="150.0" promptText="Select Type">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </ComboBox>
                   <TextField fx:id="tfSearchCustomer">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#searchCustomer" text="Search Customer">
+                  <Button mnemonicParsing="false" onAction="#searchCustomer" style="-fx-background-color: #1E90FF;" text="Search Customer" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Button>
                </children>
             </HBox>
@@ -142,7 +151,7 @@
             <Label layoutX="11.0" layoutY="210.0" text="Change:" />
             <TextField fx:id="tfChange" layoutX="10.0" layoutY="233.0" />
             <Label layoutX="12.0" layoutY="14.0" text="Voucher Code:" />
-            <TextField fx:id="tfVoucherCode" layoutX="10.0" layoutY="31.0" onInputMethodTextChanged="#searchVoucher" />
+            <TextField fx:id="tfVoucherCode" layoutX="10.0" layoutY="31.0" />
             <Label fx:id="lbVoucherInfo" layoutX="13.0" layoutY="67.0" />
          </children>
       </AnchorPane>

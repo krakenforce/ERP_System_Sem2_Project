@@ -28,7 +28,7 @@
          <top>
             <BorderPane prefHeight="91.0" prefWidth="828.0" BorderPane.alignment="CENTER">
                <top>
-                  <MenuBar BorderPane.alignment="CENTER">
+                  <MenuBar style="-fx-background-color: #00BFFF;" BorderPane.alignment="CENTER">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -44,7 +44,7 @@
                       <Menu mnemonicParsing="false" text="Help">
                         <items>
                           <MenuItem mnemonicParsing="false" text="Check for update" />
-                              <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+                              <MenuItem fx:id="mnitAbout" mnemonicParsing="false" onAction="#openAbout" text="About" />
                         </items>
                       </Menu>
                     </menus>

@@ -90,7 +90,7 @@ public class SalesStatisticController implements Initializable {
 
             paginationService.setPagination(statisTable);
             paginationService.setTableView(tbSalesmanList);
-            paginationService.setSopt(10);
+            paginationService.setSopt(16);
             paginationService.createPagination(getSalesmanStatisticsInfo());
         }
     }

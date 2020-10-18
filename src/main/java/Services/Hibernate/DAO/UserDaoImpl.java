@@ -32,8 +32,6 @@ public class UserDaoImpl implements UserDao {
         }finally {
             s.close();
         }
-
-
         return u;
     }
 

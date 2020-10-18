@@ -160,12 +160,12 @@
          <top>
             <HBox prefHeight="37.0" prefWidth="805.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="tfSearchName">
+                  <TextField fx:id="tfSearchName" promptText="Enter Customer Name">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#searchCustomerName" text="Search By Name">
+                  <Button mnemonicParsing="false" onAction="#searchCustomerName" style="-fx-background-color: #1E90FF;" text="Search By Name" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -173,7 +173,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
+                  <Button mnemonicParsing="false" onAction="#showAll" style="-fx-background-color: green;" text="Show All" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -181,12 +181,12 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="cbStatus" prefWidth="150.0">
+                  <ComboBox fx:id="cbStatus" prefWidth="150.0" promptText="Select Paid Status">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" onAction="#searchByStatus" text="Search By Status">
+                  <Button mnemonicParsing="false" onAction="#searchByStatus" style="-fx-background-color: #1E90FF;" text="Search By Status" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>

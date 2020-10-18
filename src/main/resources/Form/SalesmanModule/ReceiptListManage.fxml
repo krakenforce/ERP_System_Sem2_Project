@@ -25,11 +25,11 @@
                     </font>
                 </Label>
                 <DatePicker fx:id="dpEndDay" layoutX="339.0" layoutY="75.0" />
-            <Button layoutX="562.0" layoutY="75.0" mnemonicParsing="false" onAction="#searchReceipt" text="Search">
+            <Button layoutX="541.0" layoutY="75.0" mnemonicParsing="false" onAction="#searchReceipt" style="-fx-background-color: #1E90FF;" text="Search By Date" textFill="#fffdfd">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
-            <Button layoutX="643.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAll" text="Show All">
+            <Button layoutX="661.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAll" style="-fx-background-color: green;" text="Show All" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>

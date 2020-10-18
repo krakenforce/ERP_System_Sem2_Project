@@ -75,7 +75,7 @@ public class GroupStatisticDetailController implements Initializable {
     public void setUpPagination(ObservableList<GroupProductDetailStatistic> observableList){
         paginationService.setPagination(pgGroupStatisDetail);
         paginationService.setTableView(tbProductList);
-        paginationService.setSopt(10);
+        paginationService.setSopt(14);
         List<GroupProductDetailStatistic> list = observableList.stream().collect(Collectors.toList());
         paginationService.createPagination(list);
     }

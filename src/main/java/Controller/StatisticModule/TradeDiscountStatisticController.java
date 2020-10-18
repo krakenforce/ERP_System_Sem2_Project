@@ -83,7 +83,7 @@ public class TradeDiscountStatisticController implements Initializable {
     public void setUpPagination(ObservableList<TradeDiscountCustomer> observableList){
         paginationService.setPagination(pgTradeDiscountStat);
         paginationService.setTableView(tbTradeDiscountList);
-        paginationService.setSopt(15);
+        paginationService.setSopt(19);
         List<TradeDiscountCustomer> list = observableList.stream().collect(Collectors.toList());
         paginationService.createPagination(list);
     }

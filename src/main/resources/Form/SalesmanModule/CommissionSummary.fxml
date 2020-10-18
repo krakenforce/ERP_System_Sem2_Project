@@ -31,11 +31,11 @@
                </font>
             </Label>
             <DatePicker fx:id="dpEndDay" layoutX="337.0" layoutY="75.0" />
-            <Button layoutX="524.0" layoutY="75.0" mnemonicParsing="false" onAction="#searchCommissionByDate" text="Search">
+            <Button layoutX="524.0" layoutY="75.0" mnemonicParsing="false" onAction="#searchCommissionByDate" style="-fx-background-color: #1E90FF;" text="Search" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button layoutX="590.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAllCommission" text="Show All">
+            <Button layoutX="590.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAllCommission" style="-fx-background-color: green;" text="Show All" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -57,7 +57,10 @@
          <right>
             <AnchorPane prefHeight="81.0" prefWidth="354.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="170.0" layoutY="17.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="97.0" text="Save To File" />
+                  <Button layoutX="118.0" layoutY="23.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="97.0" style="-fx-background-color: yellow;" text="Save To File" textFill="#ee0303">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </right>

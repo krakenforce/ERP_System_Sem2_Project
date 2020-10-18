@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.paint.Color;
@@ -29,6 +30,9 @@ public class DashBoardController implements Initializable {
     }
 
     @FXML
+    private MenuItem mnitAbout;
+
+    @FXML
     private TabPane tpMain;
 
     TabPaneService tabPaneService = new TabPaneService();
@@ -45,6 +49,7 @@ public class DashBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
 
@@ -64,8 +69,10 @@ public class DashBoardController implements Initializable {
         FXMLLoader loader = FXMLLoader.load(getClass().getResource("/Form/About.fxml"));
         Parent root = loader.load();
 
+
+
         Stage stage = new Stage();
-        stage.setScene(new Scene(root, Color.TRANSPARENT));
+        stage = (Stage) root.getScene().getWindow();
         stage.show();
     }
 

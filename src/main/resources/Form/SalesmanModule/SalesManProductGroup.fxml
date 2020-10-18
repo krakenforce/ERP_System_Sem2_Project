@@ -90,7 +90,7 @@
                   <Font size="17.0" />
                </font></Label>
                 <TextField fx:id="tfName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cbProGroup" prefHeight="25.0" prefWidth="228.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbProGroup" prefHeight="25.0" prefWidth="228.0" promptText="Select Product Group" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label layoutX="10.0" layoutY="60.0" text="Saler ID:">
                <font>
                   <Font size="17.0" />

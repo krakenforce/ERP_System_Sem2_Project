@@ -44,7 +44,7 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </DatePicker>
-                        <Button mnemonicParsing="false" onAction="#searchByDate" text="Search By Date">
+                        <Button mnemonicParsing="false" onAction="#searchByDate" style="-fx-background-color: #1E90FF;" text="Search By Date" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -52,7 +52,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
+                        <Button mnemonicParsing="false" onAction="#showAll" style="-fx-background-color: green;" text="Show All" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>

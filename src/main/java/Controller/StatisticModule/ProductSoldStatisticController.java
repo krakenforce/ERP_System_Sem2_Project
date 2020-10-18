@@ -75,7 +75,7 @@ public class ProductSoldStatisticController implements Initializable {
     public void setUpPagination(ObservableList<GroupProductDetailStatistic> observableList){
         paginationService.setPagination(pgProductSold);
         paginationService.setTableView(tbProductList);
-        paginationService.setSopt(15);
+        paginationService.setSopt(16);
         List<GroupProductDetailStatistic> list = observableList.stream().collect(Collectors.toList());
         paginationService.createPagination(list);
     }

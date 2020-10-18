@@ -1,6 +1,7 @@
 package Controller;
 
 import App.App;
+import Boxes.AlertBox;
 import Boxes.ForgetPassword;
 import Services.Hibernate.DAO.UserDaoImpl;
 import Services.Hibernate.entity.LoginInfo;
@@ -56,9 +57,9 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userDao = new UserDaoImpl();
 
-        // setup the 2 password fields:
-        //pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
-        //showPassword();
+         //setup the 2 password fields:
+        pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
+        showPassword();
 
         btnLogin.setDefaultButton(true);
 
@@ -69,7 +70,6 @@ public class LoginController implements Initializable {
 
     @FXML
     public void showPassword() {
-
         if (tgbtnShowPW.isSelected()) {
             pfPW.setVisible(false);
             tfShowPW.setVisible(true);
@@ -86,11 +86,12 @@ public class LoginController implements Initializable {
 
     @FXML
     public void logIn(ActionEvent event) {
+        AlertBox alertBox = new AlertBox();
         String username = tfUsername.getText();
         String pw = pfPW.getText();
 
         if (username.isBlank() | pw.isBlank()) {
-            prompt.setText("Empty username or password");
+            alertBox.warningAlert("Cannot Log in", "Please enter username and password");
             return;
         }
 

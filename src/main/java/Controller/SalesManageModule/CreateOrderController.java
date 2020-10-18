@@ -4,12 +4,14 @@ import Boxes.AlertBox;
 import Services.Hibernate.DAO.*;
 import Services.Hibernate.EntityCombination.OrderProductDetailWareHousing;
 import Services.Hibernate.entity.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ModifiableObservableListBase;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -121,6 +123,7 @@ public class CreateOrderController implements Initializable {
         addProductByBarcodeReader();
         setDataForCBSearchType();
         voucherOption();
+        removeProduct();
     }
 
     @FXML
@@ -143,6 +146,8 @@ public class CreateOrderController implements Initializable {
         detailOrderDAO.saveDetailOrder(selectedDetailOrder);
         WarehousingDetailDAO warehousingDetailDAO = new WarehousingDetailDAO();
 
+
+        //làm sao để kiểm tra chỉ cần có 1 phần tử có trạng thái là NO thì ko cho tạo Order
         //fix this bug, it still insert into DB if another product is enough, when not enough, cannot create Order;
         for(int i = 0; i < orderProductList.size(); i++){
             if(orderProductList.get(i).getEnoughStatus() == false){
@@ -177,44 +182,53 @@ public class CreateOrderController implements Initializable {
         Product selectedProduct = dao.findByName(productName);
         Long amount = getSpinnerValue();
         Long salePrice = null;
+        if(amount > 0){
+            OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+            object.setProductID(selectedProduct.getId());
+            object.setProductName(productName);
+            object.setAmount(amount);
+            object.setPrice(selectedProduct.getPrice());
 
-        OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
-        object.setProductID(selectedProduct.getId());
-        object.setProductName(productName);
-        object.setAmount(amount);
-        object.setPrice(selectedProduct.getPrice());
-
-        if(checkDiscount(selectedProduct.getId()) != null){
-            salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
-            object.setSalePrice(salePrice);
-            object.setTotal(salePrice * amount);
-        }else{
-            object.setSalePrice(selectedProduct.getPrice());
-            object.setTotal(selectedProduct.getPrice() * amount);
-        }
-        object.setProduct(selectedProduct);
-
-        if(checkAmountOfProduct(amount,selectedProduct,object) == false){
-            AlertBox alertBox = new AlertBox();
-            alertBox.warningAlert("Not enough product", "Please warehousing more product");
-        };
-
-        if(checkDuplicateProduct(object, orderProductList) == true){
-            orderProductList.add(object);
-            tbProductList.refresh();
-            setDataToTable(orderProductList);
-        }else{
-            for(int i = 0; i < orderProductList.size(); i++){
-                if(object.getProductID() == orderProductList.get(i).getProductID()){
-                    orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
-                    orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+            if(checkDuplicateProduct(object, orderProductList) == true){
+                if(checkDiscount(selectedProduct.getId()) != null){
+                    salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
+                    object.setSalePrice(salePrice);
+                    object.setTotal(salePrice * amount);
+                }else{
+                    object.setSalePrice(selectedProduct.getPrice());
+                    object.setTotal(selectedProduct.getPrice() * amount);
                 }
+                object.setProduct(selectedProduct);
+
+                if(checkAmountOfProduct(amount,selectedProduct,object) == false){
+                    AlertBox alertBox = new AlertBox();
+                    alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                };
+                orderProductList.add(object);
+                tbProductList.refresh();
+                setDataToTable(orderProductList);
+            }else{
+                for(int i = 0; i < orderProductList.size(); i++){
+                    if(object.getProductID() == orderProductList.get(i).getProductID()){
+                        orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
+                        orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+                        if(checkAmountOfProduct(orderProductList.get(i).getAmount(),orderProductList.get(i).getProduct(),orderProductList.get(i)) == false ){
+                            AlertBox alertBox = new AlertBox();
+                            alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                        }
+                    }
+                }
+                tbProductList.refresh();
+                setDataToTable(orderProductList);
             }
-            tbProductList.refresh();
-            setDataToTable(orderProductList);
+
+            calculateTotalCost(orderProductList);
+        }else{
+            AlertBox alertBox = new AlertBox();
+            alertBox.warningAlert("Please set amount", "You cannot add product because product amount is 0");
         }
 
-        calculateTotalCost(orderProductList);
+
 
     }
 
@@ -429,48 +443,72 @@ public class CreateOrderController implements Initializable {
     }
 
     public void addProductByBarcodeReader(){
-
-
         tfBarcode.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                s = "";
-                ProductDAO dao = new ProductDAO();
-                Product selectedProduct = dao.findByBarcode(t1);
-                Long amount = (long) 1;
-                Long salePrice = null;
+                //String subString = t1.substring(0, t1.length()-1);
+                //Will you when use barcode scanner
 
-                OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+                if(t1.length() >= 12){
+                    ProductDAO dao = new ProductDAO();
+                    Product selectedProduct = dao.findByBarcode(t1);
+                    Long amount = (long) 1;
+                    Long salePrice = null;
 
-                object.setProductID(selectedProduct.getId());
-                object.setProductName(selectedProduct.getName());
-                object.setAmount(amount);
-                object.setPrice(selectedProduct.getPrice());
-                if(checkDiscount(selectedProduct.getId()) != null){
-                    salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
-                    object.setSalePrice(salePrice);
-                    object.setTotal(salePrice * amount);
-                }else{
-                    object.setSalePrice(selectedProduct.getPrice());
-                    object.setTotal(selectedProduct.getPrice() * amount);
+                    OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+
+                    object.setProductID(selectedProduct.getId());
+                    object.setProductName(selectedProduct.getName());
+                    object.setAmount(amount);
+                    object.setPrice(selectedProduct.getPrice());
+                    object.setProductID(selectedProduct.getId());
+                    object.setProductName(selectedProduct.getName());
+                    object.setAmount(amount);
+                    object.setPrice(selectedProduct.getPrice());
+
+                    if(checkDuplicateProduct(object, orderProductList) == true){
+                        orderProductList.add(object);
+                        tbProductList.refresh();
+                        setDataToTable(orderProductList);
+
+                        if(checkDiscount(selectedProduct.getId()) != null){
+                            salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
+                            object.setSalePrice(salePrice);
+                            object.setTotal(salePrice * amount);
+                        }else{
+                            object.setSalePrice(selectedProduct.getPrice());
+                            object.setTotal(selectedProduct.getPrice() * amount);
+                        }
+                        object.setProduct(selectedProduct);
+
+                        if(checkAmountOfProduct(amount,selectedProduct,object) == false){
+                            AlertBox alertBox = new AlertBox();
+                            alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                        }
+
+                    }else{
+                        for(int i = 0; i < orderProductList.size(); i++){
+                            if(object.getProductID() == orderProductList.get(i).getProductID()){
+                                orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
+                                orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+
+                            }
+                        }
+                        tbProductList.refresh();
+                        setDataToTable(orderProductList);
+                    }
+
+
+                    calculateTotalCost(orderProductList);
+                    setDataToTable(orderProductList);
+                    Platform.runLater(() -> {
+                        tfBarcode.clear();
+                    });
+                }else if(t1.length() < 12){
                 }
-                object.setProduct(selectedProduct);
-                if(checkAmountOfProduct(amount,selectedProduct,object) == false){
-                    AlertBox alertBox = new AlertBox();
-                    alertBox.warningAlert("Not enough product", "Please warehousing more product");
-                };
-                orderProductList.add(object);
 
-
-                calculateTotalCost(orderProductList);
-                setDataToTable(orderProductList);
-                tfBarcode.setText("");
             }
         });
-    }
-
-    public void testBarcode(InputMethodEvent inputMethodEvent) {
-
     }
 
     public boolean checkDuplicateProduct(OrderProductDetailWareHousing object, ObservableList<OrderProductDetailWareHousing> obsList){
@@ -549,6 +587,16 @@ public class CreateOrderController implements Initializable {
 
     }
 
-    public void searchVoucher(InputMethodEvent inputMethodEvent) {
+    public void removeProduct(){
+        tbProductList.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                OrderProductDetailWareHousing object = tbProductList.getSelectionModel().getSelectedItem();
+                if(keyEvent.getCode() == KeyCode.DELETE){
+                    orderProductList.remove(object);
+                    tfTotalCost.setText(calculateTotalCost(orderProductList).toString());
+                }
+            }
+        });
     }
 }

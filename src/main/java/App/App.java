@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,10 +41,10 @@ public class App extends Application {
 
         HibernateUtil.getSessionFactory();
 //         setting up:
-//        window.setOnCloseRequest(e -> {
-//            e.consume();
-//            closeProgram();
-//        });
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
 
 
 //        // jump to login:
@@ -59,19 +60,10 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
-    public void testForm(){
-        try{
-            SalesManListController test = new SalesManListController();
-            test = (SalesManListController) changeScene("/Form/SalesmanModule/SalesManList.fxml", "Test");
-            test.setApp(this);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
 
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("/Form/Login.fxml", "Main window");
+            mainw = (MainWindowController) changeScene("/Form/MainForm/DashBoard.fxml", "Enterprise Planning Resource System - Kraken force");
             mainw.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +73,7 @@ public class App extends Application {
     private void goToLogin() {
 
         try {
-            login = (LoginController) changeScene("/Form/Login.fxml", "Login");
+            login = (LoginController) changeScene("/Form/Login.fxml", "ERP System - Kraken Force");
             login.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +90,8 @@ public class App extends Application {
 
         window.setScene(new Scene(root));
         window.setTitle(title);
+        window.getIcons().add(new Image("/Photo/customer-segment-1792155-1522474.png"));
+        //window.setResizable(false);
 
         return (Initializable) loader.getController();
     }

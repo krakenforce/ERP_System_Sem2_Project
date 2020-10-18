@@ -77,7 +77,7 @@ public class CustomerTradeStatisticController implements Initializable {
     public void setUpPaginationCusInfo( ObservableList<CustomerTotalPayment> observableList){
         customerTotalPaymentPaginationService.setPagination(pgCusInfo);
         customerTotalPaymentPaginationService.setTableView(tbCusInfo);
-        customerTotalPaymentPaginationService.setSopt(10);
+        customerTotalPaymentPaginationService.setSopt(19);
         List<CustomerTotalPayment> list = observableList.stream().collect(Collectors.toList());
         customerTotalPaymentPaginationService.createPagination(list);
     }
@@ -85,7 +85,7 @@ public class CustomerTradeStatisticController implements Initializable {
     public void setUpPaginationTradeDiscount( ObservableList<TradeDiscountPayment> observableList){
         tradeDiscountPaymentPaginationService.setPagination(pgTradeDiscountInfo);
         tradeDiscountPaymentPaginationService.setTableView(tbTradeDiscountInfo);
-        tradeDiscountPaymentPaginationService.setSopt(10);
+        tradeDiscountPaymentPaginationService.setSopt(19);
         List<TradeDiscountPayment> list = observableList.stream().collect(Collectors.toList());
         tradeDiscountPaymentPaginationService.createPagination(list);
     }

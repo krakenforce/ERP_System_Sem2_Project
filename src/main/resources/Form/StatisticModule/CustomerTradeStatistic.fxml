@@ -30,7 +30,7 @@
                         <Insets left="50.0" top="10.0" />
                     </HBox.margin>
                 </TextField>
-                <Button mnemonicParsing="false" onAction="#searchTradeDiscount" text="Search">
+                <Button mnemonicParsing="false" onAction="#searchTradeDiscount" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #1E90FF;" text="Search" textFill="WHITE">
                     <HBox.margin>
                         <Insets left="50.0" top="10.0" />
                     </HBox.margin>

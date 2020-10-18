@@ -64,7 +64,7 @@ public class CustomerListStatisticModuleController implements Initializable {
     public void setUpPagination(ObservableList<DetailOrderCustomer> observableList){
         paginationService.setPagination(pgCustomerStatistic);
         paginationService.setTableView(tbCustomerList);
-        paginationService.setSopt(10);
+        paginationService.setSopt(17);
         List<DetailOrderCustomer> list = observableList.stream().collect(Collectors.toList());
         paginationService.createPagination(list);
     }
@@ -95,15 +95,17 @@ public class CustomerListStatisticModuleController implements Initializable {
 
 
         for(Customer items: customerList){
-            DetailOrderCustomer combination = new DetailOrderCustomer();
-            combination.setCustomerID(items.getId());
-            combination.setCustomerName(items.getName());
-            combination.setCount(countAmountOfDetailOrder(items.getId()));
-            combination.setTotalSpent(totalSpentByCustomer(items.getId()));
+            if(countAmountOfDetailOrder(items.getId()) != null && totalSpentByCustomer(items.getId()) != null){
+                DetailOrderCustomer combination = new DetailOrderCustomer();
+                combination.setCustomerID(items.getId());
+                combination.setCustomerName(items.getName());
+                combination.setCount(countAmountOfDetailOrder(items.getId()));
+                combination.setTotalSpent(totalSpentByCustomer(items.getId()));
 
-            initLineChart(items.getName(),totalSpentByCustomer(items.getId()));
+                initLineChart(items.getName(),totalSpentByCustomer(items.getId()));
 
-            detailOrderCustomerObservableList.add(combination);
+                detailOrderCustomerObservableList.add(combination);
+            }
         }
 
         return detailOrderCustomerObservableList;

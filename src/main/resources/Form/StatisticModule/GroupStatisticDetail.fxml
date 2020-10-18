@@ -38,22 +38,22 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfFloorLimit">
+                  <TextField fx:id="tfFloorLimit" promptText="Enter Floor Limit">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#filter" text="Filter">
+                  <Button mnemonicParsing="false" onAction="#filter" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: yellow;" text="Filter" textFill="#eb0c0c">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#reset" text="Reset">
+                  <Button mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #1E90FF;" text="Reset" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                      <font>
                         <Font name="System Bold" size="12.0" />
