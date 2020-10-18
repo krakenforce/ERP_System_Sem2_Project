@@ -104,6 +104,9 @@ public class CreateOrderController implements Initializable {
     @FXML
     private TextField tfSearchCustomer;
 
+    @FXML
+    private Label lbVoucherInfo;
+
     Product product;
     Long amount;
     private ObservableList<OrderProductDetailWareHousing> orderProductList = FXCollections.observableArrayList();
@@ -117,7 +120,7 @@ public class CreateOrderController implements Initializable {
         dpCurrentDate.setValue(LocalDate.now());
         addProductByBarcodeReader();
         setDataForCBSearchType();
-        //test();
+        voucherOption();
     }
 
     @FXML
@@ -215,12 +218,13 @@ public class CreateOrderController implements Initializable {
 
     }
 
-    public void calculateTotalCost(ObservableList<OrderProductDetailWareHousing> list){
+    public Long calculateTotalCost(ObservableList<OrderProductDetailWareHousing> list){
         long totalCost = 0;
         for(OrderProductDetailWareHousing items: list){
             totalCost += items.getTotal();
         }
         tfTotalCost.setText(String.valueOf(totalCost));
+        return totalCost;
     }
 
     public ObservableList<Customer> getCustomerList(Long salesmanID){
@@ -486,6 +490,8 @@ public class CreateOrderController implements Initializable {
         tfPaid.clear();
         tfChange.clear();
         orderProductList.clear();
+        tfVoucherCode.clear();
+        lbVoucherInfo.setText("");
         setDataToTable(orderProductList);
     }
 
@@ -520,26 +526,26 @@ public class CreateOrderController implements Initializable {
         }
     }
 
-    public void test(){
-        if(tfVoucherCode.getText().length() >= 9){
+    public void voucherOption(){
             tfVoucherCode.textProperty().addListener((obs, oldText, newText) -> {
-                System.out.println("Text changed from "+oldText+" to "+newText);
-                // ...
-                if(newText.equals("")){
-                    tfTotalCost.setText(getTotal().toString());
-                }
-                PaymentDAO paymentDAO = new PaymentDAO();
-                Payment payment = paymentDAO.findByVoucherCode(Long.parseLong(newText));
-                if(payment != null){
-                    Long money = payment.getMoney();
-                    Long total = getTotal() - money;
-                    if(total > 0){
-                        tfTotalCost.setText(total.toString());
+                if(newText.length() >= 9){
+                    PaymentDAO paymentDAO = new PaymentDAO();
+                    Payment payment = paymentDAO.findByVoucherCode(Long.parseLong(newText));
+                    if(payment != null){
+
+                        Long money = payment.getMoney();
+                        lbVoucherInfo.setText("Money Reduction: " + money);
+                        Long total = getTotal() - money;
+                        if(total > 0){
+                            tfTotalCost.setText(total.toString());
+                        }
                     }
                 }
-
+                if(newText.length() < 9){
+                    lbVoucherInfo.setText("");
+                    tfTotalCost.setText(calculateTotalCost(orderProductList).toString());
+                }
             });
-        }
 
     }
 
