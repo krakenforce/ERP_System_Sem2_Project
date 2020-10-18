@@ -189,17 +189,17 @@ public class CreateOrderController implements Initializable {
             object.setAmount(amount);
             object.setPrice(selectedProduct.getPrice());
 
-            if(checkDuplicateProduct(object, orderProductList) == true){
-                if(checkDiscount(selectedProduct.getId()) != null){
-                    salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
-                    object.setSalePrice(salePrice);
-                    object.setTotal(salePrice * amount);
-                }else{
-                    object.setSalePrice(selectedProduct.getPrice());
-                    object.setTotal(selectedProduct.getPrice() * amount);
-                }
-                object.setProduct(selectedProduct);
+            if(checkDiscount(selectedProduct.getId()) != null){
+                salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
+                object.setSalePrice(salePrice);
+                object.setTotal(salePrice * amount);
+            }else{
+                object.setSalePrice(selectedProduct.getPrice());
+                object.setTotal(selectedProduct.getPrice() * amount);
+            }
 
+            if(checkDuplicateProduct(object, orderProductList) == true){
+                object.setProduct(selectedProduct);
                 if(checkAmountOfProduct(amount,selectedProduct,object) == false){
                     AlertBox alertBox = new AlertBox();
                     alertBox.warningAlert("Not enough product", "Please warehousing more product");
@@ -212,16 +212,17 @@ public class CreateOrderController implements Initializable {
                     if(object.getProductID() == orderProductList.get(i).getProductID()){
                         orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
                         orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+
                         if(checkAmountOfProduct(orderProductList.get(i).getAmount(),orderProductList.get(i).getProduct(),orderProductList.get(i)) == false ){
                             AlertBox alertBox = new AlertBox();
                             alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                            orderProductList.remove(i);
                         }
                     }
                 }
                 tbProductList.refresh();
                 setDataToTable(orderProductList);
             }
-
             calculateTotalCost(orderProductList);
         }else{
             AlertBox alertBox = new AlertBox();
