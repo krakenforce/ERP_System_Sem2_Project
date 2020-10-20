@@ -45,6 +45,7 @@ public class DashBoardController implements Initializable {
     TabService tradeDiscountStatisticTab = new TabService("Trade Discount Statistic");
     TabService customerTradeDiscountStatTab = new TabService("Customer Trade Discount Statistic");
     TabService customerManageTab = new TabService("Customer Manage");
+    TabService tradeDiscountManageTab = new TabService("Trade Discount Manage");
 
 
 
@@ -120,5 +121,9 @@ public class DashBoardController implements Initializable {
     public void openCustomersManage(ActionEvent event) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
         tabPaneService.addTab(tpMain, customerManageTab, "/Form/CustomerManageModule/CustomerList.fxml");
         //createTab("Customer Management", "Form/Module2/Module2_Main.fxml");
+    }
+
+    public void openTradeDiscountManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabPaneService.addTab(tpMain, tradeDiscountManageTab, "/Form/SalesmanModule/TradeDiscountList.fxml");
     }
 }

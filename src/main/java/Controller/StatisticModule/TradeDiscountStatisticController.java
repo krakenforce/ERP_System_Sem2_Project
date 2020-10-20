@@ -112,10 +112,14 @@ public class TradeDiscountStatisticController implements Initializable {
         for(TradeDiscounts tradeDiscounts : tradeDiscountsList){
             Long count = paymentDAO.countPayments(tradeDiscounts);
             Long sum = paymentDAO.sumTotalMoney(tradeDiscounts);
-            TradeDiscountCustomer combination = new TradeDiscountCustomer(tradeDiscounts.getId(),tradeDiscounts.getName()
-                    ,count, sum, tradeDiscounts.getDateStars(), tradeDiscounts.getDateEnd());
-            initLineChart(tradeDiscounts.getName(), sum);
-            obsList.add(combination);
+
+            if(count != null && sum != null){
+                TradeDiscountCustomer combination = new TradeDiscountCustomer(tradeDiscounts.getId(),tradeDiscounts.getName()
+                        ,count, sum, tradeDiscounts.getDateStars(), tradeDiscounts.getDateEnd());
+                initLineChart(tradeDiscounts.getName(), sum);
+                obsList.add(combination);
+            }
+
         }
         return obsList;
     }

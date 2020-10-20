@@ -31,12 +31,6 @@ public class CustomerDetailDebtInfoController implements Initializable {
     private Label lbCustomerName;
 
     @FXML
-    private DatePicker dpStartDay;
-
-    @FXML
-    private DatePicker dpEndDate;
-
-    @FXML
     private Pagination pgDetailOrderList;
 
     private TableView<DetailOrderCustomer> tbDetailOrderList;
@@ -105,16 +99,18 @@ public class CustomerDetailDebtInfoController implements Initializable {
         tbDetailOrderList.setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getClickCount() == 2){
                 DetailOrderCustomer object = tbDetailOrderList.getSelectionModel().getSelectedItem();
+                DetailOrder detailOrder = object.getDetailOrder();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/ReceiptByType.fxml"));
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/ReceiptByType.fxml"));
 
-                ReceiptByTypeController controller = fxmlLoader.getController();
                 if(object.getDebt() == 0){
                     AlertBox alertBox = new AlertBox();
                     alertBox.warningAlert("Cannot create Receipt", "Cannot create Receipt for paid invoice");
                 }else{
                     try {
-                        Parent root = fxmlLoader.load();
+                        Parent root = loader.load();
+                        ReceiptByTypeController controller = (ReceiptByTypeController)loader.getController();
+                        controller.setDataToReceiptCreation(detailOrder);
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));
                         stage.initModality(Modality.APPLICATION_MODAL);
@@ -122,7 +118,6 @@ public class CustomerDetailDebtInfoController implements Initializable {
                     } catch (IOException exception) {
                         exception.printStackTrace();
                     }
-                    controller.setDataToReceiptCreation(tbDetailOrderList.getSelectionModel().getSelectedItem().getDetailOrder());
                 }
             }
         });

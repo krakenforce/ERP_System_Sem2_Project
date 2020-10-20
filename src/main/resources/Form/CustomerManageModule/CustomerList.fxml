@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerManageModule.CustomerListController">
     <top>
@@ -16,8 +17,11 @@
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
-            <DatePicker fx:id="dpStartDay">
+            <DatePicker fx:id="dpStartDay" promptText="Select Start Day">
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
@@ -26,21 +30,30 @@
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
-            <DatePicker fx:id="dpEndDate">
+            <DatePicker fx:id="dpEndDate" promptText="Select End Day">
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
             </DatePicker>
-            <Button mnemonicParsing="false" onAction="#searchCustomerByDate" text="Search By Date">
+            <Button mnemonicParsing="false" onAction="#searchCustomerByDate" style="-fx-background-color: #1E90FF;" text="Search By Date" textFill="WHITE">
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#showAll" text="Show All">
+            <Button mnemonicParsing="false" onAction="#showAll" style="-fx-background-color: green;" text="Show All" textFill="WHITE">
                <HBox.margin>
                   <Insets left="20.0" top="20.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
             </Button>
          </children>
         </HBox>

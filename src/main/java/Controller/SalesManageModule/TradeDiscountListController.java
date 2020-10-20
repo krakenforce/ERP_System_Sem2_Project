@@ -161,6 +161,8 @@ public class TradeDiscountListController implements Initializable {
                 Date startDate = selectedTradeDiscount.getDateStars();
                 Date endDate = selectedTradeDiscount.getDateEnd();
                 controller.setDataToLabel(selectedTradeDiscount.getName(), startDate, endDate);
+                controller.setUpPagination(controller.getCustomerListByDate(startDate, endDate, selectedTradeDiscount.getLimitMoney()));
+                controller.setSelectedTradeDiscounts(selectedTradeDiscount);
 
                 Stage stage = new Stage();
                 stage.setTitle("Customer Discount List");

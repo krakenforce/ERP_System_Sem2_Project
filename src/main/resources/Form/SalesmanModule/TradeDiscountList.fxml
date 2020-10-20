@@ -19,8 +19,11 @@
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Label>
-                        <DatePicker fx:id="dpStartDay">
+                        <DatePicker fx:id="dpStartDay" promptText="Select Start Day">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -29,13 +32,16 @@
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                         </Label>
-                        <DatePicker fx:id="dpEndDay">
+                        <DatePicker fx:id="dpEndDay" promptText="Select End Day">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </DatePicker>
-                        <Button mnemonicParsing="false" onAction="#showTradeDiscount" text="Show">
+                        <Button mnemonicParsing="false" onAction="#showTradeDiscount" style="-fx-background-color: #1E90FF;" text="Show By Date" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -43,7 +49,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#openAddTradeDiscount" text="Add Trade Discount">
+                        <Button mnemonicParsing="false" onAction="#openAddTradeDiscount" style="-fx-background-color: yellow;" text="Add Trade Discount" textFill="#fc0000">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
