@@ -1,7 +1,6 @@
 package Boxes;
 
-import Controller.ForgetPWController;
-import Controller.module2.AddDiscountController;
+import Controller.CustomerManageModule.AddDiscountController;
 import Controller.module2.TradeDiscountController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,7 +24,7 @@ public class AddDiscount {
 
         // set loader:
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../Form/Module2/addDiscount.fxml"));
+        loader.setLocation(getClass().getResource("../Form/Module2/AddDiscount.fxml"));
 
         Parent root = loader.load();
         window.setScene(new Scene(root));

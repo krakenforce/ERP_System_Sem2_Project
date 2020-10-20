@@ -1,4 +1,4 @@
-package Controller.module2;
+package Controller.CustomerManageModule;
 
 import Boxes.AddDiscount;
 import Services.Hibernate.DAO.TradeDiscountDAO;

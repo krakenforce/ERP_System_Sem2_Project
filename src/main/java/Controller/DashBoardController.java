@@ -118,7 +118,7 @@ public class DashBoardController implements Initializable {
     }
 
     public void openCustomersManage(ActionEvent event) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
-        tabPaneService.addTab(tpMain, customerManageTab, "/Form/Module2/Module2_Main.fxml");
+        tabPaneService.addTab(tpMain, customerManageTab, "/Form/CustomerManageModule/CustomerList.fxml");
         //createTab("Customer Management", "Form/Module2/Module2_Main.fxml");
     }
 }

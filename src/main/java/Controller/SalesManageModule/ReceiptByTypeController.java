@@ -202,6 +202,12 @@ public class ReceiptByTypeController implements Initializable {
         });
     }
 
+    public void setDataToReceiptCreation(DetailOrder detailOrder){
+        tfDetailOrderID.setText(detailOrder.getId().toString());
+        tfCustomerName.setText(detailOrder.getCustomer().getName());
+        tfLiability.setText(detailOrder.getDebt().toString());
+    }
+
     public void openReceiptManage(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/ReceiptListManage.fxml"));
         Parent root = loader.load();

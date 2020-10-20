@@ -42,6 +42,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "product_id" , foreignKey= @ForeignKey(name = "Fk_product_Order"), nullable = true)
     private Product product;
 
+    //bảng này có thể xoá
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "order")

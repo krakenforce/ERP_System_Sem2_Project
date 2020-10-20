@@ -1,11 +1,14 @@
 package Services.Hibernate.EntityCombination;
 
+import Services.Hibernate.entity.Customer;
+
 import java.sql.Date;
 
 public class TradeDiscountCustomer {
-    Long tradeDiscountID, customerAmount, totalPayment;
+    Customer customer;
+    Long tradeDiscountID, customerAmount, totalPayment, customerID, totalSpent;
     Date startDate, endDate;
-    String tradeDiscountName;
+    String tradeDiscountName, customerName;
 
 
     public TradeDiscountCustomer(Long tradeDiscountID, String tradeDiscountName, Long customerAmount, Long totalPayment, Date startDate, Date endDate) {
@@ -63,5 +66,37 @@ public class TradeDiscountCustomer {
 
     public void setTradeDiscountName(String tradeDiscountName) {
         this.tradeDiscountName = tradeDiscountName;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
+    }
+
+    public Long getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(Long totalSpent) {
+        this.totalSpent = totalSpent;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerManageModule.CustomerDetailDebtInfoController">
+    <top>
+        <HBox prefHeight="66.0" prefWidth="895.0" BorderPane.alignment="CENTER">
+            <children>
+            <Label fx:id="lbCustomerName" text="Customer Name: ">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Label>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <Pagination fx:id="pgDetailOrderList" prefHeight="488.0" prefWidth="895.0" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>

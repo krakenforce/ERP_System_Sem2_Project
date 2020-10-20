@@ -244,6 +244,75 @@ public class DetailOrderDAO implements IListBehavior {
         return count;
     }
 
+    public Long sumTotalSpentByAll(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(total) FROM DetailOrder WHERE customer.id = :customerID";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    public Long sumTotalDebt(Long customerID, Date startDate, Date endDate){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(debt) FROM DetailOrder WHERE customer.id = :customerID AND date BETWEEN :startDate AND :endDate";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+    public Long sumTotalDebtByAll(Long customerID){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Long count = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT SUM(debt) FROM DetailOrder WHERE customer.id = :customerID";
+            Query query = session.createQuery(hql);
+            query.setParameter("customerID", customerID);
+            count = (Long) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return count;
+    }
+
+
     public List<DetailOrder> getDetailOrderListByDate(Long customerID, Date startDate, Date endDate){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -267,8 +336,7 @@ public class DetailOrderDAO implements IListBehavior {
         }
         return detailOrderList;
     }
-
-
+    
 
     public List<DetailOrder> findByStatus(Boolean status){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

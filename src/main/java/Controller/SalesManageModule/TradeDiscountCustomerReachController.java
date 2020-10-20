@@ -1,102 +1,97 @@
 package Controller.SalesManageModule;
 
+import NodeService.PaginationService;
+import Services.Hibernate.DAO.CustomerDAO;
 import Services.Hibernate.DAO.DetailOrderDAO;
 import Services.Hibernate.DAO.OrderDAO;
 import Services.Hibernate.DAO.TradeDiscountDAO;
+import Services.Hibernate.EntityCombination.DetailOrderCustomer;
+import Services.Hibernate.EntityCombination.TradeDiscountCustomer;
 import Services.Hibernate.entity.Customer;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.Order;
 import Services.Hibernate.entity.TradeDiscounts;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class TradeDiscountCustomerReachController {
-    @FXML
-    private DatePicker dpStartDay;
-
-    @FXML
-    private DatePicker dpEndDay;
+public class TradeDiscountCustomerReachController implements Initializable {
 
     @FXML
-    private TableView<?> tbTradeCustomer;
+    private TextField tfTDName;
 
     @FXML
-    private TableColumn<?, ?> clCustomerID;
+    private Label lblInfo;
 
     @FXML
-    private TableColumn<?, ?> clCustomerName;
+    private Pagination pgCustomerList;
 
-    @FXML
-    private TableColumn<?, ?> clAmountInvoice;
+    private TableView<DetailOrderCustomer> tbCustomerList;
+    private TableColumn<DetailOrderCustomer, Long> clCusID;
+    private TableColumn<DetailOrderCustomer, String> clCusName;
+    private TableColumn<DetailOrderCustomer, Long> clTotalSpent;
+    private TableColumn<DetailOrderCustomer, Void> clCreatePayment;
 
-    @FXML
-    private TableColumn<?, ?> clTotalInvoiceMoney;
+    PaginationService<TradeDiscountCustomer> paginationService = new PaginationService<>();
 
-    @FXML
-    private TableColumn<?, ?> clTradeDiscountID;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    @FXML
-    private TableColumn<?, ?> clTradeDiscountName;
-
-    @FXML
-    private TableColumn<?, ?> clCreatePayment;
-
-    Date startDate = null, endDate = null;
-
-    @FXML
-    void showCustomerTradeDiscount(ActionEvent event) {
-        //countDetailOrders((long) 15);
     }
 
-//    public List<DetailOrder> getTradeDiscount(Date startDate, Date endDate){
-//        DetailOrderDAO dao = new DetailOrderDAO();
-//        //List<DetailOrder> detailOrdersList = dao.findByDateRange(startDate, endDate);
-//        List<Customer> customerList = FXCollections.observableArrayList();
-//        return detailOrdersList;
-//    }
+    public void setUpTable(){
+        tbCustomerList = new TableView<DetailOrderCustomer>();
+        clCusID = new TableColumn<DetailOrderCustomer, Long>("Customer ID");
+        clCusName = new TableColumn<DetailOrderCustomer, String>("Customer Name");
+        clTotalSpent = new TableColumn<DetailOrderCustomer, Long>("Total Spent");
+        clCreatePayment = new TableColumn<DetailOrderCustomer, Void>("Function");
 
-    public void countDetailOrders(Long customerID){
-        DetailOrderDAO dao = new DetailOrderDAO();
-        List<DetailOrder> detailOrdersList = dao.findByCustomerID(customerID);
-        OrderDAO orderDAO = new OrderDAO();
+        clCusID.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, Long>("customerID"));
+        clCusName.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, String>("customerName"));
+        clTotalSpent.setCellValueFactory(new PropertyValueFactory<DetailOrderCustomer, Long>("totalSpent"));
 
-        long totalCostOrder = 0;
-        long total = 0;
-        for(DetailOrder detailOrder : detailOrdersList){
-            List<Order> orderList = orderDAO.findByDetailOrderID(detailOrder.getId());
-            for(Order order: orderList){
-                total = order.getAmount() * order.getProduct().getPrice();
+
+        tbCustomerList.getColumns().addAll(clCusID, clCusName, clTotalSpent);
+    }
+
+    public ObservableList<DetailOrderCustomer> getCustomerListByDate(Date startDay, Date endDay){
+        ObservableList<DetailOrderCustomer> observableList = FXCollections.observableArrayList();
+        CustomerDAO customerDAO = new CustomerDAO();
+        List<Customer> customerList = customerDAO.selectAllCustomer();
+
+        DetailOrderDAO detailOrderDAO = new DetailOrderDAO();
+        for(Customer customer : customerList){
+            DetailOrderCustomer object = new DetailOrderCustomer();
+            Long totalDebt = detailOrderDAO.sumTotalDebt(customer.getId(),startDay, endDay);
+            Long totalSpent = detailOrderDAO.sumTotalSpent(customer.getId(), startDay, endDay);
+
+            if(totalDebt != null || totalSpent != null){
+                object.setCustomerID(customer.getId());
+                object.setCustomerName(customer.getName());
+                object.setTotalDebt(totalDebt);
+                object.setTotalSpent(totalSpent);
+                observableList.add(object);
             }
-            totalCostOrder += total;
-            System.out.println("total: " + totalCostOrder);
-
         }
-        System.out.println(dao.countDetailOrderByCustomerID(customerID));
 
+        return observableList;
+    }
+
+    public void setDataToLabel(String tradeDiscountNames, Date startDate, Date endDate){
+        tfTDName.setText(tradeDiscountNames);
+        lblInfo.setText("Result is from " + startDate.toString() + " to " + endDate.toString());
     }
 
 
-    public Date getStartDate() {
-        return startDate;
-    }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 }

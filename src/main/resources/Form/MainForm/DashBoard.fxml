@@ -172,7 +172,10 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                   <Button mnemonicParsing="false" onAction="#openCustomersManage" prefHeight="45.0" prefWidth="213.0" text="Customers Manage" />
+                   <Button mnemonicParsing="false" onAction="#openCustomersManage" prefHeight="45.0" prefWidth="272.0" text="Customers Manage">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                   <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="217.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="223.0" text="Button" />
                </children>

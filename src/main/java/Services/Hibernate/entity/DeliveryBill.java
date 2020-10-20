@@ -1,5 +1,6 @@
 package Services.Hibernate.entity;
 
+//Delete this table
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

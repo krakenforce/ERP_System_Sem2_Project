@@ -6,7 +6,7 @@ import Services.Hibernate.entity.DetailOrder;
 import java.sql.Date;
 
 public class DetailOrderCustomer {
-    Long detailOrderID,salesmanID, customerID, debt, total, count, totalSpent, amountOfInvoice;
+    Long detailOrderID,salesmanID, customerID, debt, total, count, totalSpent, amountOfInvoice, totalDebt;
     String customerName, salesmanName;
     Date date;
     Boolean status;
@@ -134,5 +134,13 @@ public class DetailOrderCustomer {
 
     public void setAmountOfInvoice(Long amountOfInvoice) {
         this.amountOfInvoice = amountOfInvoice;
+    }
+
+    public Long getTotalDebt() {
+        return totalDebt;
+    }
+
+    public void setTotalDebt(Long totalDebt) {
+        this.totalDebt = totalDebt;
     }
 }

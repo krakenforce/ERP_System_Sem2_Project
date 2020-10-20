@@ -5,10 +5,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.TradeDiscountListController">
     <top>
@@ -36,39 +35,28 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </DatePicker>
-                        <Button mnemonicParsing="false" onAction="#showCustomerTradeDiscount" text="Show">
+                        <Button mnemonicParsing="false" onAction="#showTradeDiscount" text="Show">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Button">
+                        <Button mnemonicParsing="false" onAction="#openAddTradeDiscount" text="Add Trade Discount">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
                         </Button>
                     </children>
                 </HBox>
             </bottom>
         </BorderPane>
     </top>
-    <center>
-        <TableView fx:id="tbTradeDiscountList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="clTradeDiscountID" prefWidth="116.0" text="Trade discount ID" />
-                <TableColumn fx:id="clTradeDiscountName" prefWidth="140.0" text="Trade discount Name" />
-                <TableColumn fx:id="clStartDay" prefWidth="98.0" text="Start day" />
-                <TableColumn fx:id="clEndDay" prefWidth="105.0" text="End day" />
-                <TableColumn fx:id="clMoneyLimit" prefWidth="148.0" text="Money Limit" />
-                <TableColumn fx:id="clDiscountPercentage" prefWidth="131.0" text="Discount Percentage" />
-                <TableColumn fx:id="clCreatePayment" prefWidth="142.0" text="Create Payment" />
-            </columns>
-        </TableView>
-    </center>
-    <bottom>
-        <BorderPane prefHeight="78.0" prefWidth="881.0" BorderPane.alignment="CENTER">
-            <top>
-                <Pagination prefHeight="25.0" prefWidth="881.0" BorderPane.alignment="CENTER" />
-            </top>
-        </BorderPane>
-    </bottom>
+   <center>
+      <Pagination fx:id="pgTradeDiscountList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

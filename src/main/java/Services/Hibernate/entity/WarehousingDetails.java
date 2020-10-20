@@ -22,6 +22,7 @@ public class WarehousingDetails implements Serializable {
     @Column(name = "price")
     private Long price;
 
+    //bỏ bớt phí vận chuyển
     @Column(name = "transport_fee")
     private Long transportFee;
 

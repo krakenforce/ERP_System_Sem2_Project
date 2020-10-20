@@ -21,8 +21,9 @@ public class BillWarehousing {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "transport_fee")
-    private Long transportFee;
+    //create new transporting fee table
+//    @Column(name = "transport_fee")
+//    private Long transportFee;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "billWarehousing")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
@@ -48,13 +49,13 @@ public class BillWarehousing {
         this.warehouse = warehouse;
     }
 
-    public Long getTransportFee() {
-        return transportFee;
-    }
-
-    public void setTransportFee(Long transportFee) {
-        this.transportFee = transportFee;
-    }
+//    public Long getTransportFee() {
+//        return transportFee;
+//    }
+//
+//    public void setTransportFee(Long transportFee) {
+//        this.transportFee = transportFee;
+//    }
 
     public Warehouse getWarehouse() {
         return warehouse;

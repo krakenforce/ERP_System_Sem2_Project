@@ -173,6 +173,31 @@ public class TradeDiscountDAO implements IListBehavior {
         }
     }
 
+    public List<TradeDiscounts> findTradeDiscountsByDateRange(Date startDay, Date endDay){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();;
+        String hql = "";
+        List<TradeDiscounts> tradeDiscountsList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM TradeDiscounts session WHERE dateStars >= :startDay AND  dateEnd <= :endDay";
+            Query query = session.createQuery(hql);
+            query.setParameter("startDay", startDay);
+            query.setParameter("endDay", endDay);
+            tradeDiscountsList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception exception){
+            exception.printStackTrace();
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+            return tradeDiscountsList;
+        }
+    }
+
+
+
       public Long addTradeDiscount(String name) {
         TradeDiscounts td = new TradeDiscounts();
         td.setName(name);
