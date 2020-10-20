@@ -87,18 +87,18 @@ public class TradeDiscountDAO implements IListBehavior {
         }
     }
 
-    public TradeDiscounts findByName(String name){
+  public List<TradeDiscounts> findByName(String name){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
-        TradeDiscounts tradeDiscounts = null;
+        List<TradeDiscounts> tradeDiscounts = null;
 
         try{
             session.beginTransaction();
             hql = "SELECT session FROM TradeDiscounts session WHERE session.name LIKE :name";
             Query query = session.createQuery(hql);
-            query.setParameter("name", name);
-            tradeDiscounts = (TradeDiscounts) query.getSingleResult();
+            query.setParameter("name", "%" + name + "%");
+            tradeDiscounts = query.getResultList();
             session.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -173,7 +173,24 @@ public class TradeDiscountDAO implements IListBehavior {
         }
     }
 
+      public Long addTradeDiscount(String name) {
+        TradeDiscounts td = new TradeDiscounts();
+        td.setName(name);
+        saveTradeDiscount(td);
+        return td.getId();
+    }
+
+    public Long addTradeDiscount(String name, Date start, Date end, Long discount, Long limit) {
+        TradeDiscounts td = new TradeDiscounts();
 
 
+        td.setName(name);
+        td.setDateStars(start);
+        td.setDateEnd(end);
+        td.setDiscountPercentage(discount);
+        td.setLimitMoney(limit);
 
+        saveTradeDiscount(td);
+        return td.getId();
+    }
 }

@@ -76,13 +76,4 @@ public class ConfirmBox {
         return answer;
     }
 
-
-    public void noClicked() {
-        answer = false;
-        window.close();
-    }
-    public void yesClicked() {
-        answer = true;
-        window.close();
-    }
 }

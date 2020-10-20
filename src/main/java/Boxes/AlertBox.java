@@ -37,8 +37,8 @@ public class AlertBox {
         scene.getStylesheets().add("Main/css/style.css");
 
         win.setScene(scene);
-        win.setHeight(150);
-        win.setWidth(250);
+        win.setHeight(250);
+        win.setWidth(300);
         win.setTitle(title);
 
         win.showAndWait();

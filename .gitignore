@@ -11,7 +11,6 @@
 target
 src/main/java/MainTest.java
 src/main/java/TestTuan.java
-
 # Generated files
 .idea/**/contentModel.xml
 

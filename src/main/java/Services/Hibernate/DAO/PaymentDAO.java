@@ -19,7 +19,6 @@ public class PaymentDAO implements IListBehavior {
     public void savePayment(Payment payment){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-
         try{
             session.beginTransaction();
             session.save(payment);
@@ -283,4 +282,25 @@ public class PaymentDAO implements IListBehavior {
             return payment;
         }
     }
+     public List<Payment> findByCustomer(Long customerID){
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            String hql = "";
+            List payments =  null;
+
+            try{
+                session.beginTransaction();
+                hql = "SELECT session FROM Payment session WHERE session.customer.id = :customerID";
+                Query query = session.createQuery(hql);
+                query.setParameter("customerID", customerID);
+                payments = query.getResultList();
+                session.getTransaction().commit();
+            }catch (Exception e){
+                e.printStackTrace();
+                session.getTransaction().rollback();
+            }finally {
+                session.close();
+                return payments;
+            }
+        }
 }
