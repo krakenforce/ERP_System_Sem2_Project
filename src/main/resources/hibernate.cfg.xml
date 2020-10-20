@@ -3,15 +3,15 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/ERP_System_Sem_2</property>
+            jdbc:sqlserver://localhost:1433;databaseName=ERP_System_Sem_2</property>
         <property name="hibernate.connection.username">toan</property>
-        <property name="hibernate.connection.password">Toan.789</property>
+        <property name="hibernate.connection.password">Toan.123</property>
         <property name="hibernate.connection.pool_size">10</property>
         <property name="show_sql">false</property> <!-- notice this -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
 
