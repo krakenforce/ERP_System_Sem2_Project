@@ -48,7 +48,7 @@ public class App extends Application {
 
 
 //        // jump to login:
-        goToDashboard();
+        goToLogin();
         window.show();
     }
 
