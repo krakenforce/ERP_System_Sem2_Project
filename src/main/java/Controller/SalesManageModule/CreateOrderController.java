@@ -429,18 +429,32 @@ public class CreateOrderController implements Initializable {
 
     @FXML
     public void openAddCustomer(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/AddNewCustomer.fxml"));
-        Parent root = fxmlLoader.load();
 
-        AddNewCustomerController controller = fxmlLoader.getController();
-        controller.setSalesman(getSalesman());
-        controller.setSalesmanData();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/CustomerSalerList.fxml"));
+        Parent root = loader.load();
+
+        CustomerSalerListController controller = loader.getController();
+        controller.setSalesmanInfo(getSalesman().getId());
+        controller.getDataCustomer(getSalesman().getId());
 
         Stage stage = new Stage();
-        stage.setTitle("Add customer");
-        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Salesman Customer List");
         stage.show();
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/AddNewCustomer.fxml"));
+//        Parent root = fxmlLoader.load();
+//
+//        AddNewCustomerController controller = fxmlLoader.getController();
+//        controller.setSalesman(getSalesman());
+//        controller.setSalesmanData();
+//
+//        Stage stage = new Stage();
+//        stage.setTitle("Add customer");
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.setScene(new Scene(root));
+//        stage.show();
     }
 
     public void addProductByBarcodeReader(){

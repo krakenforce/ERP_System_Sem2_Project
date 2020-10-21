@@ -43,20 +43,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(String username, String password, String email, int type) {
-        SessionFactory fac = HibernateUtil.getSessionFactory();
-        Session s = fac.openSession();
-
-        try{
-            s.beginTransaction();
-
-            LoginInfo u = new LoginInfo(username, Crypto.hashpw(password), email, type);
-            s.save(u);
-
-            s.getTransaction().commit();
-
-        }finally {
-            s.close();
-        }
+//        SessionFactory fac = HibernateUtil.getSessionFactory();
+//        Session s = fac.openSession();
+//
+//        try{
+//            s.beginTransaction();
+//
+//            LoginInfo u = new LoginInfo(username, Crypto.hashpw(password), email, type);
+//            s.save(u);
+//
+//            s.getTransaction().commit();
+//
+//        }finally {
+//            s.close();
+//        }
     }
 
     @Override

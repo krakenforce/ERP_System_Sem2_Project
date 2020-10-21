@@ -1,7 +1,7 @@
 package Services.Hibernate.DAO;
 
-import Services.Hibernate.entity.LoginInfo;
-import Services.Hibernate.entity.WarehousingDetails;
+import Services.Hibernate.entity.Unit;
+import Services.Hibernate.entity.UserType;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,18 +9,19 @@ import org.hibernate.SessionFactory;
 import javax.persistence.Query;
 import java.util.List;
 
-public class LoginInfoDAO {
-    public LoginInfoDAO(){
+public class UserTypeDAO {
+
+    public UserTypeDAO() {
 
     }
 
-    public void saveLoginInfo(LoginInfo loginInfo){
+    public void saveUserType(UserType userType){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.save(loginInfo);
+            session.save(userType);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
@@ -30,13 +31,13 @@ public class LoginInfoDAO {
         }
     }
 
-    public void updateLoginInfo(LoginInfo loginInfo){
+    public void updateUserType(UserType userType){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.update(loginInfo);
+            session.update(userType);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
@@ -46,13 +47,13 @@ public class LoginInfoDAO {
         }
     }
 
-    public void deleteLoginInfo(LoginInfo loginInfo){
+    public void deteleUserType(UserType userType){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
 
         try{
             session.beginTransaction();
-            session.delete(loginInfo);
+            session.delete(userType);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
@@ -61,90 +62,71 @@ public class LoginInfoDAO {
             session.close();
         }
     }
-    public LoginInfo findById(Long id){
+
+    public List<UserType> getAll(){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         String hql = "";
-        LoginInfo loginInfo = null;
+        List<UserType> userTypesList = null;
 
         try{
             session.beginTransaction();
-            hql = "SELECT session FROM LoginInfo session WHERE session.id = :id";
+            hql = "FROM UserType ";
+            Query query = session.createQuery(hql);
+            userTypesList = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            session.close();
+            return userTypesList;
+        }
+    }
+
+    public UserType findByName(String typeName){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        UserType userTypes = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM UserType WHERE typeName = :typeName ";
+            Query query = session.createQuery(hql);
+            query.setParameter("typeName", typeName);
+            userTypes = (UserType) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            session.close();
+            return userTypes ;
+        }
+    }
+
+    public UserType findByID(int id){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        UserType userTypes = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM UserType WHERE id = :id ";
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
-            loginInfo = (LoginInfo) query.getSingleResult();
+            userTypes = (UserType) query.getSingleResult();
             session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch(Exception e){
             session.getTransaction().rollback();
-        }finally {
+            e.printStackTrace();
+        }finally{
             session.close();
-            return loginInfo;
+            return userTypes ;
         }
     }
 
-    public LoginInfo findByUsername(String username){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        String hql = "";
-        LoginInfo loginInfo = null;
-
-        try{
-            session.beginTransaction();
-            hql = "SELECT session FROM LoginInfo session WHERE session.username = :username";
-            Query query = session.createQuery(hql);
-            query.setParameter("username", username);
-            loginInfo = (LoginInfo) query.getSingleResult();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
-            return loginInfo;
-        }
-    }
-
-    public LoginInfo findByEmail(String email){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        String hql = "";
-        LoginInfo loginInfo = null;
-
-        try{
-            session.beginTransaction();
-            hql = "SELECT session FROM LoginInfo session WHERE session.email LIKE :email";
-            Query query = session.createQuery(hql);
-            query.setParameter("email", email);
-            loginInfo = (LoginInfo) query.getSingleResult();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
-            return loginInfo;
-        }
-    }
-    public List<LoginInfo> getAll(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        String hql = "";
-        List<LoginInfo> loginInfoList = null;
-
-        try{
-            session.beginTransaction();
-            hql = "FROM LoginInfo";
-            Query query = session.createQuery(hql);
-            loginInfoList = query.getResultList();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            e.printStackTrace();
-            session.getTransaction().rollback();
-        }finally {
-            session.close();
-            return loginInfoList;
-        }
-    }
 
 }

@@ -2,8 +2,11 @@ package Controller;
 
 import App.App;
 import Boxes.ConfirmBox;
+import Controller.SalesManageModule.CreateOrderController;
 import NodeService.TabPaneService;
 import NodeService.TabService;
+import Services.Hibernate.DAO.UserTypeDAO;
+import Services.Hibernate.entity.LoginInfo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,11 +51,29 @@ public class DashBoardController implements Initializable {
     TabService customerManageTab = new TabService("Customer Manage");
     TabService tradeDiscountManageTab = new TabService("Trade Discount Manage");
 
+    @FXML
+    private Label lblUsername;
+
+    @FXML
+    private Label lblID;
+
+    @FXML
+    private Label lblRole;
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void setUserData(App app){
+        UserTypeDAO userTypeDAO = new UserTypeDAO();
+        LoginInfo user = new LoginInfo();
+        user = app.getLoggedUser();
+        lblUsername.setText(user.getUsername());
+        lblID.setText(Integer.toString(user.getId()));
+        lblRole.setText(userTypeDAO.findByID(user.getUserType().getId()).getTypeName());
     }
 
 
@@ -125,5 +147,24 @@ public class DashBoardController implements Initializable {
 
     public void openTradeDiscountManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
         tabPaneService.addTab(tpMain, tradeDiscountManageTab, "/Form/SalesmanModule/TradeDiscountList.fxml");
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        app.logOut();
+    }
+
+    public void openCreateOrder(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/CreateOrder.fxml"));
+        CreateOrderController controller = loader.getController();
+
+    }
+
+    public void openCustomerList(ActionEvent actionEvent) {
+    }
+
+    public void openCommission(ActionEvent actionEvent) {
+    }
+
+    public void openGroupProduct(ActionEvent actionEvent) {
     }
 }

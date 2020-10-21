@@ -40,19 +40,31 @@
                   <Label text="Salesman name:">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin></Label>
                   <Label text="Customer name:" GridPane.rowIndex="2">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin></Label>
                   <Label text="Customer ID:" GridPane.rowIndex="1">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin></Label>
                   <Label text="Current Date:" GridPane.rowIndex="3">
                      <font>
                         <Font size="16.0" />
-                     </font></Label>
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin></Label>
                   <TextField fx:id="tfSalesmanName" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="100.0" />
@@ -62,30 +74,33 @@
                         <Insets right="100.0" />
                      </GridPane.margin></TextField>
                   <DatePicker fx:id="dpCurrentDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="cbCustomerID" onAction="#getCustomerName" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbCustomerID" onAction="#getCustomerName" prefWidth="150.0" promptText="Select Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
                      <children>
-                        <ComboBox fx:id="cbProductName" prefHeight="25.0" prefWidth="223.0" />
-                        <Label text="Amount:">
+                        <ComboBox fx:id="cbProductName" prefHeight="25.0" prefWidth="186.0" promptText="Select Product Name" />
+                        <Label prefHeight="17.0" prefWidth="51.0" text="Amount:">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Spinner fx:id="spAmount" prefHeight="25.0" prefWidth="74.0">
+                        <Spinner fx:id="spAmount" editable="true" prefHeight="25.0" prefWidth="88.0">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Spinner>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#addProductToOrderList" prefHeight="25.0" prefWidth="87.0" text="Add Product" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Button mnemonicParsing="false" onAction="#addProductToOrderList" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #1E90FF;" text="Add Product" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </GridPane.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
                   </Button>
-                  <TextField fx:id="tfBarcode" promptText="Barcode" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <TextField fx:id="tfBarcode" prefHeight="25.0" prefWidth="177.0" promptText="Barcode" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
-                        <Insets left="150.0" />
+                        <Insets left="100.0" />
                      </GridPane.margin>
                   </TextField>
                </children>
@@ -94,18 +109,6 @@
          <top>
             <HBox prefHeight="43.0" prefWidth="804.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openAddCustomer" prefHeight="52.0" prefWidth="98.0" text="Add Customer">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Photo/customer-segment-1792155-1522474.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
                   <Label text="Type of Search: ">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -135,6 +138,24 @@
                </children>
             </HBox>
          </top>
+         <right>
+            <AnchorPane prefHeight="159.0" prefWidth="88.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button contentDisplay="TOP" layoutX="2.0" layoutY="6.0" mnemonicParsing="false" onAction="#openAddCustomer" prefHeight="52.0" prefWidth="98.0" text="Add Customer">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Photo/customer-segment-1792155-1522474.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right>
       </BorderPane>
    </top>
    <right>
@@ -144,13 +165,25 @@
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font></Button>
-            <Label layoutX="12.0" layoutY="119.0" text="Total Cost:" />
+            <Label layoutX="12.0" layoutY="119.0" text="Total Cost:">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Label>
             <TextField fx:id="tfTotalCost" editable="false" layoutX="10.0" layoutY="136.0" />
-            <Label layoutX="14.0" layoutY="161.0" text="Paid:" />
+            <Label layoutX="14.0" layoutY="161.0" text="Paid:">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Label>
             <TextField fx:id="tfPaid" layoutX="10.0" layoutY="185.0" />
-            <Label layoutX="11.0" layoutY="210.0" text="Change:" />
+            <Label layoutX="11.0" layoutY="210.0" text="Change:">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font></Label>
             <TextField fx:id="tfChange" layoutX="10.0" layoutY="233.0" />
-            <Label layoutX="12.0" layoutY="14.0" text="Voucher Code:" />
+            <Label layoutX="12.0" layoutY="14.0" text="Voucher Code:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <TextField fx:id="tfVoucherCode" layoutX="10.0" layoutY="31.0" />
             <Label fx:id="lbVoucherInfo" layoutX="13.0" layoutY="67.0" />
          </children>

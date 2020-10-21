@@ -48,23 +48,16 @@ public class App extends Application {
 
 
 //        // jump to login:
-        goToDashboard();
+        //goToLogin();
+        goToMainWindow();
         window.show();
-    }
-
-    public void goToDashboard(){
-        try{
-            dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Enterprise Planning Resource System - Kraken force");
-            dashboard.setApp(this);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
     }
 
     public void goToMainWindow() {
         try {
-            mainw = (MainWindowController) changeScene("/Form/MainForm/DashBoard.fxml", "Enterprise Planning Resource System - Kraken force");
-            mainw.setApp(this);
+            dashboard = (DashBoardController) changeScene("/Form/MainForm/DashBoard.fxml", "Enterprise Planning Resource System - Kraken force");
+            dashboard.setApp(this);
+            //dashboard.setUserData(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,7 +84,7 @@ public class App extends Application {
         window.setScene(new Scene(root));
         window.setTitle(title);
         window.getIcons().add(new Image("/Photo/customer-segment-1792155-1522474.png"));
-        //window.setResizable(false);
+        window.setMaximized(true);
 
         return (Initializable) loader.getController();
     }

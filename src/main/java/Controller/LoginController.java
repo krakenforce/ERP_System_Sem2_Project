@@ -3,8 +3,11 @@ package Controller;
 import App.App;
 import Boxes.AlertBox;
 import Boxes.ForgetPassword;
+import Services.Hibernate.DAO.LoginInfoDAO;
 import Services.Hibernate.DAO.UserDaoImpl;
 import Services.Hibernate.entity.LoginInfo;
+import Services.Hibernate.utils.HibernateUtil;
+import Utils.Security;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
@@ -12,8 +15,12 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +62,16 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userDao = new UserDaoImpl();
+        SessionFactory fac = HibernateUtil.getSessionFactory();
+        Session s = fac.openSession();
+        LoginInfo u;
+
+        try {
+            s.beginTransaction();
+            s.getTransaction().commit();
+        }finally {
+            s.close();
+        }
 
          //setup the 2 password fields:
         pfPW.textProperty().bindBidirectional(tfShowPW.textProperty());
@@ -86,6 +102,7 @@ public class LoginController implements Initializable {
 
     @FXML
     public void logIn(ActionEvent event) {
+        LoginInfoDAO loginInfoDAO = new LoginInfoDAO();
         AlertBox alertBox = new AlertBox();
         String username = tfUsername.getText();
         String pw = pfPW.getText();
@@ -95,13 +112,14 @@ public class LoginController implements Initializable {
             return;
         }
 
-        System.out.println(pw);
-        LoginInfo u = userDao.getUserByUsername(username);
-        if (u != null) {
-            app.setLoggedUser(u);
+        //System.out.println(pw);
+        LoginInfo user = loginInfoDAO.findByUsername(username);
+        Security security = new Security();
+        if (user != null && security.checkPassword(pw, user.getHashpw())) {
+            app.setLoggedUser(user);
             app.goToMainWindow();
         } else {
-            prompt.setText("Wrong username or password");
+            //prompt.setText("Wrong username or password");
         }
 
 
@@ -114,5 +132,9 @@ public class LoginController implements Initializable {
 
     public void createAccount(ActionEvent event) {
 
+    }
+
+    public void loadDashBoard(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/MainForm/DashBoard.fxml"));
     }
 }

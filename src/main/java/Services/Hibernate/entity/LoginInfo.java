@@ -28,18 +28,20 @@ public class LoginInfo implements Serializable {
     @Column(name = "email", length = 255)
     private String email; //unique
 
-    @Column(name ="type_id")
-    private int type_id;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "type_id", foreignKey = @ForeignKey(name = "fk_loginType_user"))
+    private UserType userType;
+
 
     public LoginInfo() {
 
     }
 
-    public LoginInfo(String username, String hashpw, String email, int type_id) {
+    public LoginInfo(String username, String hashpw, String email, UserType userType) {
         this.username = username;
         this.hashpw = hashpw;
         this.email = email;
-        this.type_id = type_id;
+        this.userType = userType;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class LoginInfo implements Serializable {
                 "username='" + username + '\'' +
                 ", hashpw='" + hashpw + '\'' +
                 ", email='" + email + '\'' +
-                ", type=" + type_id +
+                ", type=" + userType +
                 '}';
     }
 
@@ -84,12 +86,12 @@ public class LoginInfo implements Serializable {
         this.email = email;
     }
 
-    public int getType() {
-        return type_id;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setType(int type) {
-        this.type_id = type;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }
 
