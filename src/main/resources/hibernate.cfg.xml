@@ -12,7 +12,7 @@
         <property name="show_sql">false</property> <!-- notice this -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
 
         <mapping class="Services.Hibernate.entity.PriceOld"/>

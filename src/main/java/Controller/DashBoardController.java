@@ -54,6 +54,26 @@ public class DashBoardController implements Initializable {
     TabService receiptManageTab = new TabService("Receipt Manage");
     TabService welcomeTab = new TabService("Welcome");
 
+    private TabPaneService tabpaneservice;
+    private TabService tab_ManagerSales;
+    private TabService tab_QuanLyKho;
+    private TabService tab_QuanLySanPham;
+    private TabService tab_QuanLyNhomSanPham;
+    private TabService tab_QuanLyThongTinGiamGia;
+    private TabService tab_QuanLyDonVi;
+
+    public DashBoardController() {
+
+        tabpaneservice = new TabPaneService();
+
+        tab_ManagerSales = new TabService("Quản Lý Nhân Viên");
+        tab_QuanLyKho = new TabService("Warehouse Manage");
+        tab_QuanLySanPham = new TabService("Product Manage");
+        tab_QuanLyNhomSanPham = new TabService("Product Group Manage");
+        tab_QuanLyThongTinGiamGia = new TabService("Discount Manage");
+        tab_QuanLyDonVi = new TabService("Unit Manage");
+    }
+
     @FXML
     private Label lblUsername;
 
@@ -69,6 +89,9 @@ public class DashBoardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             tabPaneService.addTab(tpMain,welcomeTab,"/Form/MainForm/welcome.fxml");
+
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -186,5 +209,30 @@ public class DashBoardController implements Initializable {
 
     public void openReceipt(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
         tabPaneService.addTab(tpMain, receiptManageTab , "/Form/SalesmanModule/ReceiptByType.fxml");
+    }
+
+    public void openWarehouseList(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabpaneservice.addTab(tpMain,tab_QuanLyKho, "/Form/WarehouseModule/TabpaneWarehouseMain.fxml");
+    }
+
+    public void openUnitManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabpaneservice.addTab(tpMain,tab_QuanLyDonVi, "/Form/WarehouseModule/UnitManager/TabpaneUnitMain.fxml");
+
+    }
+
+    public void openProductGroupManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabpaneservice.addTab(tpMain,tab_QuanLyNhomSanPham, "/Form/WarehouseModule/GroupProductManager/TabpaneGroupProductMain.fxml");
+
+    }
+
+
+    public void openProductManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabpaneservice.addTab(tpMain,tab_QuanLySanPham, "/Form/WarehouseModule/ProductManager/TabpaneProductMain.fxml");
+
+    }
+
+    public void openDiscountProductManage(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabpaneservice.addTab(tpMain,tab_QuanLyThongTinGiamGia, "/Form/WarehouseModule/DiscountManager/TabpaneDiscountMain.fxml");
+
     }
 }

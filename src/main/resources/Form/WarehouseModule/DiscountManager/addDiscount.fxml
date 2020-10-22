@@ -9,12 +9,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Controller.WarehouseController.DiscountController.addDiscountController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.DiscountController.addDiscountController">
    <children>
-      <Label text="Nhập Thông Tin Giảm Giá" />
+      <Label text="*ADD DISCOUNT INFO*">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
       <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="139.0" />
@@ -26,15 +28,27 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Sản Phẩm Giảm Giá" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-            <Label text="Số Lượng Mua" GridPane.rowIndex="1" />
-            <Label text="Phần Trăm Giảm" GridPane.rowIndex="2" />
+            <Label text="Product Discount:">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <ComboBox prefHeight="25.0" prefWidth="202.0" promptText="Select Product" GridPane.columnIndex="1" />
+            <Label text="Amount:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label text="Discount Percentage:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
             <Spinner GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Spinner GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" text="Thêm" />
+      <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="89.0" styleClass="btn" stylesheets="@../../style.css" text="ADD">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font></Button>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

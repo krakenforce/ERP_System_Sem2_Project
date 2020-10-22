@@ -12,11 +12,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="Controller.WarehouseController.importWarehouseController">
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.importWarehouseController">
    <children>
-      <Label text="Nhập Sản Phẩm Vào Kho" />
+      <Label text="*PRODUCT WAREHOUSING*">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
       <GridPane hgap="10.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="161.0" />
@@ -28,36 +31,45 @@
           <RowConstraints maxHeight="318.0" minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Kho" />
-            <Label text="Phí Vận Chuyển" GridPane.rowIndex="1" />
-            <Label text="Nhập Danh Sách Sản Phẩm:" GridPane.rowIndex="2" />
+            <Label text="Warehouse:">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label text="Transport Fee:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label prefHeight="19.0" prefWidth="130.0" text="Enter Product List:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
             <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <HBox spacing="10.0">
                      <children>
-                        <Label prefWidth="120.0" text="Tên Sản Phẩm Nhập :" />
-                        <ComboBox fx:id="id_CbSanPham" prefWidth="170.0" />
+                        <Label prefHeight="17.0" prefWidth="162.0" text="Warehousing Product Name :" />
+                        <ComboBox fx:id="id_CbSanPham" prefWidth="170.0" promptText="Select Product Name" />
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Label prefWidth="120.0" text="Giá Nhà Cung Cấp " />
+                        <Label prefWidth="120.0" text="Supplier Price:" />
                         <TextField fx:id="id_GiaNhaCungCap" prefHeight="25.0" prefWidth="170.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Label prefWidth="120.0" text="Số Lượng" />
+                        <Label prefWidth="120.0" text="Amount" />
                         <TextField fx:id="id_SoLuong" prefWidth="170.0" />
-                        <Button mnemonicParsing="false" onAction="#themSPNhapKho" text="Thêm SP" />
+                        <Button mnemonicParsing="false" onAction="#themSPNhapKho" styleClass="btn" stylesheets="@../style.css" text="Add Product" />
                      </children>
                   </HBox>
                   <TableView fx:id="id_TableSPNhapKho" prefHeight="300.0">
                     <columns>
-                      <TableColumn fx:id="id_ColTenSP" prefWidth="103.0" text="Tên Sản Phẩm" />
-                      <TableColumn fx:id="id_ColGiaNhaCungCap" prefWidth="147.0" text="Giá Nhà Cung Cấp" />
-                        <TableColumn fx:id="id_ColSoLuong" prefWidth="75.0" text="Số Lượng" />
-                        <TableColumn fx:id="id_ColXoa" prefWidth="75.0" text="Xóa" />
+                      <TableColumn fx:id="id_ColTenSP" prefWidth="136.0" text="Product Name" />
+                      <TableColumn fx:id="id_ColGiaNhaCungCap" prefWidth="114.0" text="Supplier Price" />
+                        <TableColumn fx:id="id_ColSoLuong" prefWidth="94.0" text="Amount" />
+                        <TableColumn fx:id="id_ColXoa" prefWidth="74.0" text="Delete" />
                     </columns>
                   </TableView>
                </children>
@@ -65,14 +77,17 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <ComboBox fx:id="id_CbKho" prefWidth="150.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="id_CbKho" prefWidth="150.0" promptText="Select Warehouse" GridPane.columnIndex="1" />
             <TextField fx:id="id_PhiVanChuyen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </GridPane>
-      <Button mnemonicParsing="false" onAction="#nhapKho" text="Nhập Kho" />
+      <Button mnemonicParsing="false" onAction="#nhapKho" styleClass="btn" stylesheets="@../style.css" text="Warehousing">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

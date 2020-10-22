@@ -12,13 +12,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <HBox prefHeight="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.ProductController.editProductController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0" spacing="20.0">
          <children>
-            <Label text="Chỉnh Sửa" />
+            <Label text="*PRODUCT INFO EDIT*">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Label>
             <GridPane prefHeight="550.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.4000244140625" minWidth="10.0" prefWidth="130.39999389648438" />
@@ -35,13 +38,34 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Tên SP" />
-                  <Label text="Đơn Giá" GridPane.rowIndex="1" />
-                  <Label text="Đơn Vị Tính" GridPane.rowIndex="2" />
-                  <Label text="Nhóm Sản Phẩm" GridPane.rowIndex="3" />
-                  <Label text="Lượng Tồn Tối Thiểu" GridPane.rowIndex="4" />
-                  <Label text="Phần Trăm Lợi Nhuận" GridPane.rowIndex="5" />
-                  <Label text="Dự Tính Giá Bán" GridPane.rowIndex="6" />
+                  <Label text="Product Name:">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Price:" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Unit:" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Product Group:" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Minimum Inventory:" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Rate Profit:" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <Label text="Estimated Price:" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
                   <TextField fx:id="id_TenSp" GridPane.columnIndex="1" />
                   <TextField fx:id="id_Price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="id_TonToiThieu" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -49,7 +73,10 @@
                   <TextField fx:id="id_DuGiaBan" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <ComboBox fx:id="id_DonVi" prefHeight="26.0" prefWidth="273.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ComboBox fx:id="id_NhomSP" prefHeight="26.0" prefWidth="278.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" onAction="#suaThongTinSP" text="Sửa" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Button mnemonicParsing="false" onAction="#suaThongTinSP" styleClass="btn" stylesheets="@../../style.css" text="UPDATE" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font></Button>
                </children>
             </GridPane>
          </children>
@@ -59,13 +86,19 @@
       </VBox>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" spacing="20.0">
          <children>
-            <Label text="Tìm Kiếm" />
+            <Label text="*SEARCH*">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Label>
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <Label text="Tìm Kiếm Theo" />
-                  <ComboBox fx:id="combo_SearchStyle" onAction="#SelectStyleSearch" prefWidth="150.0" />
+                  <Label text="Search Type:" />
+                  <ComboBox fx:id="combo_SearchStyle" onAction="#SelectStyleSearch" prefWidth="150.0" promptText="Select Search Type" />
                   <AnchorPane fx:id="anchorpane_InputDataSearch" prefHeight="25.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" onAction="#SearchPrisoner" text="Tìm" />
+                  <Button mnemonicParsing="false" onAction="#SearchPrisoner" styleClass="btn" stylesheets="@../../style.css" text="Search">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></Button>
                </children>
             </HBox>
             <Pagination fx:id="pagination_Product" prefHeight="500.0" prefWidth="500.0" />

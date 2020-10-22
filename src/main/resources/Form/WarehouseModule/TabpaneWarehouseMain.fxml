@@ -6,27 +6,27 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.TabpaneWarehouseController">
   <tabs>
-    <Tab fx:id="id_TabNhapKho" text="Nhập Kho">
+    <Tab fx:id="id_TabNhapKho" text="Warehousing">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-    <Tab fx:id="id_TabXuatKho" text="Xuất Kho">
+    <Tab fx:id="id_TabXuatKho" text="Delivery">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-    <Tab fx:id="id_TabThemKho" text="Thêm Kho">
+    <Tab fx:id="id_TabThemKho" text="Add Warehousing">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-    <Tab fx:id="id_TabNhapKhoHangDu" text="Nhập Kho Hàng Dư">
+    <Tab fx:id="id_TabNhapKhoHangDu" text="Surplus Goods Warehousing">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-    <Tab fx:id="id_TabNhapKhoHangLoi" text="Nhập Kho Hàng Lỗi">
+    <Tab fx:id="id_TabNhapKhoHangLoi" text="Defective Warehousing">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>

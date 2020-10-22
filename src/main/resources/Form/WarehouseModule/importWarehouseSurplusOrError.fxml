@@ -9,14 +9,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.importWarehouseSurplusOrError">
    <children>
-      <Label text="Nhập Lại Hàng" />
+      <Label text="*RESTOCK PRODUCT*">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
       <Label fx:id="id_TieuDe" text="Label" />
       <HBox spacing="20.0">
          <children>
-            <Label text="Số Lượng" />
+            <Label text="Amount:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             <TextField fx:id="id_SoLuongNhap" />
          </children>
          <padding>
@@ -25,19 +32,25 @@
       </HBox>
       <HBox spacing="20.0">
          <children>
-            <Label text="Loại Nhập: " />
-            <RadioButton fx:id="id_HAngDu" mnemonicParsing="false" text="Hàng Dư" />
-            <RadioButton fx:id="id_HangLoi" mnemonicParsing="false" text="Hàng Lỗi" />
+            <Label text="Type:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <RadioButton fx:id="id_HAngDu" mnemonicParsing="false" text="Surplus Goods" />
+            <RadioButton fx:id="id_HangLoi" mnemonicParsing="false" text="Defective Item" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#nhapKho" text="Nhập" />
+      <Button mnemonicParsing="false" onAction="#nhapKho" styleClass="btn" stylesheets="@../style.css" text="Warehousing">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
       <TableView fx:id="tableViewPhieuXuatKho" prefHeight="300.0" prefWidth="500.0">
         <columns>
-          <TableColumn fx:id="col_Ma" prefWidth="116.0" text="Mã Phiếu Xuất Kho" />
-          <TableColumn fx:id="id_SoLuongCongLai" prefWidth="135.20001220703125" text="Số Lượng Còn Lại" />
+          <TableColumn fx:id="col_Ma" prefWidth="116.0" text="Delivery ID" />
+          <TableColumn fx:id="id_SoLuongCongLai" prefWidth="135.20001220703125" text="Remaining Amount" />
         </columns>
       </TableView>
    </children>

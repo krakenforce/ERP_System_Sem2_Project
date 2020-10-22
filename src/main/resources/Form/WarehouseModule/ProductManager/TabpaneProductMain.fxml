@@ -5,8 +5,8 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.ProductController.TabpaneProductController">
   <tabs>
-    <Tab fx:id="id_TabThemSanPham" text="Thêm Sản Phẩm" />
-    <Tab fx:id="id_TabChinhSuaSP" text="Chỉnh Sửa SP" />
-    <Tab text="Thống Kê" />
+    <Tab fx:id="id_TabThemSanPham" text="Add Product" />
+    <Tab fx:id="id_TabChinhSuaSP" text="Edit Product Info" />
+    <Tab text="Statistic" />
   </tabs>
 </TabPane>

@@ -8,24 +8,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.exportWarehouseController">
    <children>
-      <Label text="Xuất Kho" />
+      <Label text="*WAREHOUSE DELIVERY*">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Label>
       <HBox spacing="10.0">
          <children>
-            <Label text="Mã Hóa Đơn" />
+            <Label text="Invoice ID:">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font></Label>
             <TextField fx:id="id_MaHD" />
-            <Button mnemonicParsing="false" onAction="#timHD" text="Tìm" />
+            <Button mnemonicParsing="false" onAction="#timHD" styleClass="btn" stylesheets="@../style.css" text="Search">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
          </children>
       </HBox>
       <TableView fx:id="id_TableOrderProduct" prefHeight="400.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="id_ColTenSp" prefWidth="91.99999845027924" text="Tên Sản Phẩm" />
-          <TableColumn fx:id="id_ColSoLuong" prefWidth="58.39997100830078" text="Số Lượng" />
-            <TableColumn fx:id="id_ColTrangThai" prefWidth="75.0" text="Trạng Thái" />
-            <TableColumn fx:id="id_ColButtonXem" prefWidth="127.20001220703125" text="Xem Tồn Kho" />
-            <TableColumn fx:id="id_ColButtonNhapKho" prefWidth="75.0" text="Nhập Kho" />
+          <TableColumn fx:id="id_ColTenSp" prefWidth="123.0" text="Product Name" />
+          <TableColumn fx:id="id_ColSoLuong" prefWidth="84.0" text="Amount" />
+            <TableColumn fx:id="id_ColTrangThai" minWidth="6.0" prefWidth="76.0" text="Status" />
+            <TableColumn fx:id="id_ColButtonXem" prefWidth="128.0" text="Inventory Check" />
+            <TableColumn fx:id="id_ColButtonNhapKho" prefWidth="105.0" text="Wareshousing" />
         </columns>
       </TableView>
    </children>

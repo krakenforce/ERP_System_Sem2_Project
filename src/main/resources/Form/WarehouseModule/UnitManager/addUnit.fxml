@@ -8,10 +8,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.WarehouseController.UnitController.addUnitController">
    <children>
-      <Label text="Thêm Đơn Vị Tính" />
+      <Label text="*ADD UNIT*">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
       <GridPane prefHeight="120.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="150.0" />
@@ -24,17 +28,32 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Đơn Vị Tính Chính" />
-            <Label text="Giá Trị Tương Ứng" GridPane.rowIndex="1" />
+            <Label text="Primary Unit">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label text="Primary Unit Value" GridPane.rowIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
             <TextField fx:id="id_DVChinh" GridPane.columnIndex="1" />
             <TextField fx:id="id_GTDonVi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Đơn Vị Quy Đổi" GridPane.rowIndex="2" />
+            <Label text="Exchange Unit" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
             <TextField fx:id="id_DVQuyDoi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="id_GTQuyDoi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Giá Trị Tương Ứng" GridPane.rowIndex="3" />
+            <Label text="Exchange Unit Value" GridPane.rowIndex="3">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" onAction="#themDV" text="Thêm" />
+      <Button mnemonicParsing="false" onAction="#themDV" prefHeight="43.0" prefWidth="71.0" styleClass="btn" stylesheets="@../../style.css" text="ADD">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

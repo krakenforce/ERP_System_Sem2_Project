@@ -116,7 +116,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="31.0" prefWidth="247.0" styleClass="btn" stylesheets="@../style.css" text="Warehouse List">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openWarehouseList" prefHeight="31.0" prefWidth="247.0" styleClass="btn" stylesheets="@../style.css" text="Warehouse List">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -128,7 +128,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Unit Manage">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openUnitManage" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Unit Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -140,7 +140,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="81.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Product Group Manage">
+                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="81.0" mnemonicParsing="false" onAction="#openProductGroupManage" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Product Group Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -152,7 +152,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Product Manage">
+                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#openProductManage" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Product Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -164,7 +164,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="197.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Discount Product Manage">
+                              <Button contentDisplay="TOP" layoutX="25.0" layoutY="197.0" mnemonicParsing="false" onAction="#openDiscountProductManage" prefHeight="53.0" prefWidth="230.0" styleClass="btn" stylesheets="@../style.css" text="Discount Product Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -216,41 +216,6 @@
                         </VBox>
                      </content>
                   </TitledPane>
-                  <TitledPane expanded="false" text="SALE MANAGE">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleManage" prefHeight="61.0" prefWidth="251.0" styleClass="btn" stylesheets="@../style.css" text="Sales Manage">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Photo/png-clipart-computer-icons-profit-chart-business-income-angle-text.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openReceipt" prefHeight="66.0" prefWidth="285.0" styleClass="btn" stylesheets="@../style.css" text="Receipt Manage">
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Photo/img_122068.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                     <font>
-                        <Font name="System Bold" size="19.0" />
-                     </font>
-                  </TitledPane>
                   <TitledPane expanded="false" prefHeight="18.0" prefWidth="220.0" text="CUSTOMER MANAGE">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
@@ -279,6 +244,41 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <font>
+                        <Font name="System Bold Italic" size="19.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane expanded="false" text="SALE MANAGE">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleManage" prefHeight="61.0" prefWidth="251.0" styleClass="btn" stylesheets="@../style.css" text="Sales Manage">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Photo/png-clipart-computer-icons-profit-chart-business-income-angle-text.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openReceipt" prefHeight="66.0" prefWidth="285.0" styleClass="btn" stylesheets="@../style.css" text="Receipt Manage">
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Photo/img_122068.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
                               <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openPayment" prefHeight="60.0" prefWidth="312.0" styleClass="btn" stylesheets="@../style.css" text="Payment Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -295,7 +295,7 @@
                         </VBox>
                      </content>
                      <font>
-                        <Font name="System Bold Italic" size="19.0" />
+                        <Font name="System Bold" size="19.0" />
                      </font>
                   </TitledPane>
                   <TitledPane expanded="false" prefHeight="22.0" prefWidth="242.0" text="STATISTIC">
