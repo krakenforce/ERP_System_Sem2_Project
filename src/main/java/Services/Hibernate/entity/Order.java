@@ -42,11 +42,13 @@ public class Order implements Serializable {
     @JoinColumn(name = "product_id" , foreignKey= @ForeignKey(name = "Fk_product_Order"), nullable = true)
     private Product product;
 
-    //bảng này có thể xoá
-    @OneToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "order")
-    private Set<DetailOutOfStockOrder> detailOutOfStockOrderSet = new HashSet<DetailOutOfStockOrder>(0);
+    private Set<Delivery_Warehousing> delivery_WarehousingSet = new HashSet<Delivery_Warehousing>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "order")
+    private Set<RecieptsProduct> recieptsProductSet = new HashSet<RecieptsProduct>(0);
 
     public Order() {
     }
@@ -59,13 +61,6 @@ public class Order implements Serializable {
         this.salesman = salesman;
     }
 
-    public Set<DetailOutOfStockOrder> getDetailOutOfStockOrderSet() {
-        return detailOutOfStockOrderSet;
-    }
-
-    public void setDetailOutOfStockOrderSet(Set<DetailOutOfStockOrder> detailOutOfStockOrderSet) {
-        this.detailOutOfStockOrderSet = detailOutOfStockOrderSet;
-    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -120,5 +115,21 @@ public class Order implements Serializable {
     }
     public Long tinhTienOrder(){
         return amount*product.getPrice();
+    }
+
+    public Set<Delivery_Warehousing> getDelivery_WarehousingSet() {
+        return delivery_WarehousingSet;
+    }
+
+    public void setDelivery_WarehousingSet(Set<Delivery_Warehousing> delivery_WarehousingSet) {
+        this.delivery_WarehousingSet = delivery_WarehousingSet;
+    }
+
+    public Set<RecieptsProduct> getRecieptsProductSet() {
+        return recieptsProductSet;
+    }
+
+    public void setRecieptsProductSet(Set<RecieptsProduct> recieptsProductSet) {
+        this.recieptsProductSet = recieptsProductSet;
     }
 }

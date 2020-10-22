@@ -9,7 +9,10 @@ import java.util.Set;
 @DiscriminatorValue("WarehouseOfStore")
 public class WarehouseOfStore extends Warehouse{
 
-    
+    public WarehouseOfStore(String address, Set<BillWarehousing> billWarehousingSet) {
+        super(address, billWarehousingSet);
+
+    }
 
     public WarehouseOfStore() {
     }

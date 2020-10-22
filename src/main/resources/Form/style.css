@@ -55,3 +55,6 @@
     -fx-background-color: yellow ;
     -fx-max-height: 28;
 }
+.imgv:hover{
+    -fx-opacity: 50 ;
+}

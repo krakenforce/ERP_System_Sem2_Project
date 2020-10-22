@@ -4,12 +4,14 @@ import Repositories.IListBehavior;
 import Services.Hibernate.entity.DetailOrder;
 import Services.Hibernate.entity.GroupProduct;
 import Services.Hibernate.entity.Product;
+import Services.Hibernate.entity.WarehousingDetails;
 import Services.Hibernate.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO implements IListBehavior {
@@ -195,5 +197,56 @@ public class ProductDAO implements IListBehavior {
             session.close();
         }
         return list;
+    }
+
+    public List<WarehousingDetails> getWarehouse(Product product){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<WarehousingDetails> warehousingDetailsList = new ArrayList<WarehousingDetails>();
+        String hql = "";
+
+        try{
+            session.beginTransaction();
+
+            hql = "select w\n" +
+                    "from Product p inner join WarehousingDetails w on p.id = w.product.id\n" +
+                    "inner join BillWarehousing bw on bw.id = w.billWarehousing.id\n" +
+                    "where p.id = :id\n" +
+                    "order by bw.date asc";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", product.getId());
+            warehousingDetailsList = (List<WarehousingDetails>) query.getResultList();
+
+
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return warehousingDetailsList;
+        }
+    }
+
+    public List<Product> GetListProductByName(String nameSeacrh) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Product> productList = null;
+        String name = "%" + nameSeacrh + "%";
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Product session WHERE session.name like :name";
+            Query query = session.createQuery(hql);
+            query.setParameter("name", name);
+            productList =  query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return productList;
+        }
     }
 }

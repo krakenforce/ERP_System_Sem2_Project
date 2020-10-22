@@ -12,18 +12,20 @@
         <property name="show_sql">false</property> <!-- notice this -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
 
+        <mapping class="Services.Hibernate.entity.PriceOld"/>
+        <mapping class="Services.Hibernate.entity.PriceWarehous"/>
+        <mapping class="Services.Hibernate.entity.TranportFee"/>
+        <mapping class="Services.Hibernate.entity.RecieptsProduct"/>
         <mapping class="Services.Hibernate.entity.LoginInfo"/>
-        <mapping class="Services.Hibernate.entity.DeliveryBill"/>
         <mapping class="Services.Hibernate.entity.Delivery_Warehousing"/>
         <mapping class="Services.Hibernate.entity.Product"/>
         <mapping class="Services.Hibernate.entity.Order"/>
         <mapping class="Services.Hibernate.entity.WarehouseOfStore"/>
         <mapping class="Services.Hibernate.entity.Warehouse"/>
         <mapping class="Services.Hibernate.entity.CentalWarehouse"/>
-        <mapping class="Services.Hibernate.entity.DetailOutOfStockOrder"/>
         <mapping class="Services.Hibernate.entity.Customer"/>
         <mapping class="Services.Hibernate.entity.TradeDiscounts"/>
         <mapping class="Services.Hibernate.entity.Unit"/>
@@ -32,7 +34,6 @@
         <mapping class="Services.Hibernate.entity.DetailOrder"/>
         <mapping class="Services.Hibernate.entity.Discount"/>
         <mapping class="Services.Hibernate.entity.GroupProduct"/>
-        <mapping class="Services.Hibernate.entity.LoginInfo"/>
         <mapping class="Services.Hibernate.entity.Payment"/>
         <mapping class="Services.Hibernate.entity.Receipts"/>
         <mapping class="Services.Hibernate.entity.Salesman"/>

@@ -317,5 +317,29 @@ public class OrderDAO implements IListBehavior {
         }
     }
 
+    public Order getById(Long id) {
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Order order = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Order session WHERE session.id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            order = (Order) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return order;
+        }
+    }
+
+
 
 }

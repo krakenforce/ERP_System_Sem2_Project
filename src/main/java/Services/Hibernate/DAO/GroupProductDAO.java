@@ -124,4 +124,25 @@ public class GroupProductDAO {
             return groupProductsList;
         }
     }
+
+    public List<GroupProduct> findAll() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<GroupProduct> list = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM GroupProduct " ;
+            Query query = session.createQuery(hql);
+            list = query.getResultList();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
+    }
 }

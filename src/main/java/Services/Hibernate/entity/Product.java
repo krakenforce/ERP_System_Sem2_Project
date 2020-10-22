@@ -46,6 +46,21 @@ public class Product implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "product")
+    private Set<PriceWarehous> priceWarehousSet = new HashSet<PriceWarehous>();
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
+    private Set<TranportFee> tranportFeesSet = new HashSet<TranportFee>();
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
+    private Set<PriceOld> priceOldHashSet = new HashSet<PriceOld>();
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "product")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
     @OneToMany(fetch = FetchType.LAZY,
@@ -164,5 +179,29 @@ public class Product implements Serializable {
 
     public void setBarCode(String barCode) {
         this.barCode = barCode;
+    }
+
+    public Set<PriceWarehous> getPriceWarehousSet() {
+        return priceWarehousSet;
+    }
+
+    public void setPriceWarehousSet(Set<PriceWarehous> priceWarehousSet) {
+        this.priceWarehousSet = priceWarehousSet;
+    }
+
+    public Set<TranportFee> getTranportFeesSet() {
+        return tranportFeesSet;
+    }
+
+    public void setTranportFeesSet(Set<TranportFee> tranportFeesSet) {
+        this.tranportFeesSet = tranportFeesSet;
+    }
+
+    public Set<PriceOld> getPriceOldHashSet() {
+        return priceOldHashSet;
+    }
+
+    public void setPriceOldHashSet(Set<PriceOld> priceOldHashSet) {
+        this.priceOldHashSet = priceOldHashSet;
     }
 }

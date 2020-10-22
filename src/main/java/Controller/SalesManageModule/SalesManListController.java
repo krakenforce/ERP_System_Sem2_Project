@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class SalesManListController implements Initializable, Function {
 
@@ -67,15 +68,16 @@ public class SalesManListController implements Initializable, Function {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpTableView();
-        setUpPagination();
+        setUpPagination(getData());
         selectRowTable();
     }
 
-    public void setUpPagination(){
+    public void setUpPagination(ObservableList<Salesman> observableList){
         paginationService.setPagination(pgSalesmanList);
         paginationService.setTableView(tbSalemanList);
         paginationService.setSopt(10);
-        paginationService.createPagination(getData());
+        List<Salesman> salesmanList = observableList.stream().collect(Collectors.toList());
+        paginationService.createPagination(salesmanList);
     }
 
     public void setUpTableView(){
@@ -133,8 +135,8 @@ public class SalesManListController implements Initializable, Function {
             SalesManDAO salesManDAO = new SalesManDAO();
             salesManDAO.saveSalesMan(salesman);
 
-           refreshTable(tbSalemanList);
         }
+        setUpPagination(getData());
     }
 
     //retrieve salesman information from DB and return an ObservableList to setItems for table;
@@ -143,7 +145,12 @@ public class SalesManListController implements Initializable, Function {
         SalesManDAO salesManDAO = new SalesManDAO();
         List<Salesman> list = salesManDAO.selectAll();
         for (Salesman value : list) {
-            salesmenList.add(new Salesman(value.getId(), value.getName(), value.getAddress(), value.getPhone()));
+            Salesman salesman = new Salesman();
+            salesman.setId(value.getId());
+            salesman.setName(value.getName());
+            salesman.setAddress(value.getAddress());
+            salesman.setPhone(value.getPhone());
+            salesmenList.add(salesman);
         }
         return salesmenList;
     }

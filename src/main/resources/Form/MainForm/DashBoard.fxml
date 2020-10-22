@@ -64,7 +64,7 @@
                               <Label fx:id="lblRole" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
-                        <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: transparent;">
+                        <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#logOut" prefHeight="44.0" prefWidth="46.0" style="-fx-background-color: transparent;" styleClass="imgv" stylesheets="@../style.css">
                            <HBox.margin>
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
@@ -220,7 +220,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleManage" prefHeight="61.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Sales Manage">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleManage" prefHeight="61.0" prefWidth="251.0" styleClass="btn" stylesheets="@../style.css" text="Sales Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -232,7 +232,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openReceipt" prefHeight="66.0" prefWidth="225.0" styleClass="btn" stylesheets="@../style.css" text="Receipt Manage">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openReceipt" prefHeight="66.0" prefWidth="285.0" styleClass="btn" stylesheets="@../style.css" text="Receipt Manage">
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -255,7 +255,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                               <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomersManage" prefHeight="45.0" prefWidth="272.0" styleClass="btn" stylesheets="@../style.css" text="Customers Manage">
+                               <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomersManage" prefHeight="60.0" prefWidth="256.0" styleClass="btn" stylesheets="@../style.css" text="Customers Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -267,7 +267,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openTradeDiscountManage" prefHeight="41.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Trade Discount Manage">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openTradeDiscountManage" prefHeight="63.0" prefWidth="278.0" styleClass="btn" stylesheets="@../style.css" text="Trade Discount Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -279,7 +279,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openPayment" prefHeight="35.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Payment Manage">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openPayment" prefHeight="60.0" prefWidth="312.0" styleClass="btn" stylesheets="@../style.css" text="Payment Manage">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -302,7 +302,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomerStatis" prefHeight="36.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Customer Statistic">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomerStatis" prefHeight="60.0" prefWidth="327.0" styleClass="btn" stylesheets="@../style.css" text="Customer Statistic">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -314,7 +314,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomerTradeDiscountStatis" prefHeight="34.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Customer Trade Discount Statistic">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openCustomerTradeDiscountStatis" prefHeight="59.0" prefWidth="284.0" styleClass="btn" stylesheets="@../style.css" text="Customer Trade Discount Statistic">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -326,7 +326,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openTradeDiscountStatis" prefHeight="35.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Trade Discount Statistic">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openTradeDiscountStatis" prefHeight="61.0" prefWidth="283.0" styleClass="btn" stylesheets="@../style.css" text="Trade Discount Statistic">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -338,7 +338,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openProductGroupStatistic" prefHeight="38.0" prefWidth="220.0" styleClass="btn" stylesheets="@../style.css" text="Product Group Statistic">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openProductGroupStatistic" prefHeight="64.0" prefWidth="296.0" styleClass="btn" stylesheets="@../style.css" text="Product Group Statistic">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -362,7 +362,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleStatistic" prefHeight="38.0" prefWidth="228.0" styleClass="btn" stylesheets="@../style.css" text="Sales Statistic">
+                              <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#openSaleStatistic" prefHeight="61.0" prefWidth="321.0" styleClass="btn" stylesheets="@../style.css" text="Sales Statistic">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

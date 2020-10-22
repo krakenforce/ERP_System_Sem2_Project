@@ -39,6 +39,14 @@ public class Delivery_Warehousing implements Serializable {
         this.order = order;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Delivery_Warehousing() {
     }
 
@@ -72,5 +80,13 @@ public class Delivery_Warehousing implements Serializable {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "Delivery_Warehousing{" +
+                "id=" + id +
+                ", amount=" + amount +
+                '}';
     }
 }

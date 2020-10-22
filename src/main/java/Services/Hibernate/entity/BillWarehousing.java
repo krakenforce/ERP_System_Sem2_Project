@@ -11,7 +11,6 @@ import java.util.Set;
 @Table(name = "bill_warehousing")
 public class BillWarehousing {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -21,11 +20,11 @@ public class BillWarehousing {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    //create new transporting fee table
-//    @Column(name = "transport_fee")
-//    private Long transportFee;
+    @Type(type="true_false")
+    @Column(name = "isError")
+    private boolean isError;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "billWarehousing")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "billWarehousing")
     private Set<WarehousingDetails> warehousingDetailsSet = new HashSet<WarehousingDetails>(0);
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
@@ -49,16 +48,16 @@ public class BillWarehousing {
         this.warehouse = warehouse;
     }
 
-//    public Long getTransportFee() {
-//        return transportFee;
-//    }
-//
-//    public void setTransportFee(Long transportFee) {
-//        this.transportFee = transportFee;
-//    }
-
     public Warehouse getWarehouse() {
         return warehouse;
+    }
+
+    public boolean isError() {
+        return isError;
+    }
+
+    public void setError(boolean error) {
+        isError = error;
     }
 
     public void setWarehouse(Warehouse warehouse) {

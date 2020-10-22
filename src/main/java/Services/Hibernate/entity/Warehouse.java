@@ -20,6 +20,10 @@ public abstract class Warehouse implements Serializable {
     protected Long id;
 
     @Type(type = "org.hibernate.type.StringNVarcharType")
+    @Column(name = "name", length = 50, nullable = false)
+    protected String name;
+
+    @Type(type = "org.hibernate.type.StringNVarcharType")
     @Column(name = "address", length = 50, nullable = false)
     protected String address;
 
@@ -35,5 +39,42 @@ public abstract class Warehouse implements Serializable {
 
     public Warehouse() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Set<BillWarehousing> getBillWarehousingSet() {
+        return billWarehousingSet;
+    }
+
+    public void setBillWarehousingSet(Set<BillWarehousing> billWarehousingSet) {
+        this.billWarehousingSet = billWarehousingSet;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
