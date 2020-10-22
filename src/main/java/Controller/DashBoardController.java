@@ -1,6 +1,7 @@
 package Controller;
 
 import App.App;
+import Boxes.AlertBox;
 import Boxes.ConfirmBox;
 import Controller.SalesManageModule.CreateOrderController;
 import NodeService.TabPaneService;
@@ -50,6 +51,8 @@ public class DashBoardController implements Initializable {
     TabService customerTradeDiscountStatTab = new TabService("Customer Trade Discount Statistic");
     TabService customerManageTab = new TabService("Customer Manage");
     TabService tradeDiscountManageTab = new TabService("Trade Discount Manage");
+    TabService receiptManageTab = new TabService("Receipt Manage");
+    TabService welcomeTab = new TabService("Welcome");
 
     @FXML
     private Label lblUsername;
@@ -64,7 +67,17 @@ public class DashBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            tabPaneService.addTab(tpMain,welcomeTab,"/Form/MainForm/welcome.fxml");
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setUserData(App app){
@@ -150,7 +163,10 @@ public class DashBoardController implements Initializable {
     }
 
     public void logOut(ActionEvent actionEvent) {
-        app.logOut();
+        AlertBox alertBox = new AlertBox();
+        if(alertBox.InsertAlert("Sign out", "Do you really want to sign out")){
+            app.logOut();
+        }
     }
 
     public void openCreateOrder(ActionEvent actionEvent) {
@@ -166,5 +182,9 @@ public class DashBoardController implements Initializable {
     }
 
     public void openGroupProduct(ActionEvent actionEvent) {
+    }
+
+    public void openReceipt(ActionEvent actionEvent) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, IOException {
+        tabPaneService.addTab(tpMain, receiptManageTab , "/Form/SalesmanModule/ReceiptByType.fxml");
     }
 }

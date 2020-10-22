@@ -10,16 +10,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaymentManageController implements Initializable {
+
+    @FXML
+    private DatePicker dpStartDay;
+
+    @FXML
+    private DatePicker dpEndDay;
+
     @FXML
     private TableView<PaymentTradeCustomer> tbPaymentTable;
 
@@ -109,5 +118,57 @@ public class PaymentManageController implements Initializable {
     }
     public void LamMoi(){
 
+    }
+
+    public void showAll(ActionEvent actionEvent) {
+        setTableItems(getObservableList());
+    }
+
+    public void searchByDay(ActionEvent actionEvent) {
+        setTableItems(getObservableListByDate());
+    }
+
+    public Date getDay(DatePicker datePicker){
+        LocalDate localDate = datePicker.getValue();
+        return Date.valueOf(localDate);
+    }
+
+    public ObservableList<PaymentTradeCustomer> getObservableListByDate(){
+        ObservableList<PaymentTradeCustomer> obsList = FXCollections.observableArrayList();
+        PaymentDAO paymentDAO = new PaymentDAO();
+        List<Payment> paymentList = paymentDAO.findPaymentByDate(getDay(dpStartDay), getDay(dpEndDay));
+        Long paymentID,moneyLimit,customerID, money;
+        String tradeDiscountName, customerName;
+        Date paymentDate, startDate, endDate;
+
+        for(Payment items : paymentList){
+            paymentID = items.getId();
+            moneyLimit = items.getTradeDiscounts().getLimitMoney();
+            customerID = items.getCustomer().getId();
+            money = items.getMoney();
+            tradeDiscountName = items.getTradeDiscounts().getName();
+            // customerName = items.getTradeDiscounts().getCustomer().getName();
+            paymentDate = items.getDate();
+            startDate = items.getTradeDiscounts().getDateStars();
+            endDate = items.getTradeDiscounts().getDateEnd();
+
+            //set parameters for PaymentTradeCustomer combination object
+            PaymentTradeCustomer combination = new PaymentTradeCustomer();
+//
+//            //set value for object
+            combination.setPaymentId(paymentID);
+            combination.setPaymentDate(paymentDate);
+            combination.setMoney(money);
+            combination.setTradeDiscountName(tradeDiscountName);
+            combination.setMoneyLimit(moneyLimit);
+            combination.setStartDate(startDate);
+            combination.setEndDate(endDate);
+            combination.setCustomerID(customerID);
+            combination.setCustomerName(items.getCustomer().getName());
+
+
+            obsList.add(combination);
+        }
+        return obsList;
     }
 }

@@ -24,7 +24,34 @@
 }
 .btn{
     -fx-background-color: #1E90FF;
+    -fx-text-fill: black;
+    -fx-border-color: whitesmoke;
+    -fx-border-radius: 2px;
+}
+.btn:hover{
+    -fx-background-color: #00BFFF;
     -fx-text-fill: white;
     -fx-border-color: whitesmoke;
     -fx-border-radius: 2px;
+}
+
+.tab-pane *.tab-header-area *.tab-header-background {
+    -fx-background-color:silver;
+}
+
+
+.tab-pane {
+    -fx-tab-min-height:25px;
+    -fx-tab-max-height:25px;
+}
+
+.tab {
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-background-color: #188bff ;
+}
+
+.tab:selected {
+    -fx-background-color: yellow ;
+    -fx-max-height: 28;
 }

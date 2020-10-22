@@ -1,6 +1,5 @@
 package Controller.CustomerManageModule;
 
-import Boxes.AddDiscount;
 import Services.Hibernate.DAO.TradeDiscountDAO;
 import Services.Hibernate.entity.TradeDiscounts;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class AddDiscountController {
-    private AddDiscount mainBox;
     private TradeDiscountDAO ti = new TradeDiscountDAO();
 
     public TextField nameField;
@@ -70,8 +68,5 @@ public class AddDiscountController {
         }
 
     }
-
-    public void setBox(AddDiscount box) {
-        this.mainBox = box;
-    }
+    
 }

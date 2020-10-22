@@ -106,6 +106,7 @@ public class LoginController implements Initializable {
         AlertBox alertBox = new AlertBox();
         String username = tfUsername.getText();
         String pw = pfPW.getText();
+        AlertBox alertbox = new AlertBox();
 
         if (username.isBlank() | pw.isBlank()) {
             alertBox.warningAlert("Cannot Log in", "Please enter username and password");
@@ -119,7 +120,7 @@ public class LoginController implements Initializable {
             app.setLoggedUser(user);
             app.goToMainWindow();
         } else {
-            //prompt.setText("Wrong username or password");
+            alertBox.warningAlert("Cannot Log in","Wrong username or password" );
         }
 
 

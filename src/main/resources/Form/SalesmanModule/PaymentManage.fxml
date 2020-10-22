@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -13,63 +14,68 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SalesManageModule.PaymentManageController">
     <top>
         <HBox prefHeight="48.0" prefWidth="779.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="56.0" prefWidth="54.0" text="Save">
-                    <graphic>
-                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/save.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
+         <children>
+            <Label text="Start day:">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </Label>
+            <DatePicker fx:id="dpStartDay">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </DatePicker>
+            <Label text="End day:">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </Label>
+            <DatePicker fx:id="dpEndDay">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </DatePicker>
+            <Button mnemonicParsing="false" onAction="#searchByDay" style="-fx-background-color: #1E90FF;" text="Search By Day" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="60.0" prefWidth="52.0" text="New">
-                    <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/add-icon--ikons-icons--softiconsm-5.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
+               </font>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showAll" style="-fx-background-color: green;" text="Show all" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="65.0" prefWidth="51.0" text="Edit">
-                    <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/create-new--v1.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="56.0" prefWidth="60.0" text="Delete">
-                    <graphic>
-                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/unnamed.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="56.0" prefWidth="68.0" text="Cancel">
-                    <graphic>
-                        <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../Photo/delete-sign--v2.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
-            </children>
+               </font>
+               <opaqueInsets>
+                  <Insets top="20.0" />
+               </opaqueInsets>
+            </Button>
+         </children>
         </HBox>
     </top>
     <center>

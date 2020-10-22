@@ -52,8 +52,6 @@ public class TabPaneService {
         Tab tab = tabservice.getTab();
 
         if(tabservice.isKt()) {
-
-            System.out.println("tao tab moi");
 //					int vitri = tabpane.getTabs().size();
 //					tabservice.setVitri(vitri);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(tenfilefx));

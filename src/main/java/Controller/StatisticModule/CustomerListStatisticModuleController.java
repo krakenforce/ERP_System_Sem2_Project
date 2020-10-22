@@ -61,6 +61,7 @@ public class CustomerListStatisticModuleController implements Initializable {
         setUpPagination(showAllCustomerList());
     }
 
+    // khởi tạo phân trang và cài đặt dữ liệu cho bảng
     public void setUpPagination(ObservableList<DetailOrderCustomer> observableList){
         paginationService.setPagination(pgCustomerStatistic);
         paginationService.setTableView(tbCustomerList);
@@ -69,6 +70,7 @@ public class CustomerListStatisticModuleController implements Initializable {
         paginationService.createPagination(list);
     }
 
+    //khởi tạo bảng
     public void setUpTableView(){
         tbCustomerList = new TableView<DetailOrderCustomer>();
         clCusID = new TableColumn<DetailOrderCustomer, Long>("Customer ID");
