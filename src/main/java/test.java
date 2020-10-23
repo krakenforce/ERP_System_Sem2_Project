@@ -20,7 +20,7 @@ public class test extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/PaymentManage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Form/WarehouseModule/ProductManager/editProduct.fxml"));
         Parent root = loader.load();
 
 

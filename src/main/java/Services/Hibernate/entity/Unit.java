@@ -38,12 +38,11 @@ public class Unit implements Serializable {
             mappedBy = "unit")
     private Set<Product> productSet = new HashSet<Product>(0);
 
-    public Unit(String unitPrimary, String unitExchange, Long valuePrimary, Long valueExchange, Product product) {
+    public Unit(String unitPrimary, String unitExchange, Long valuePrimary, Long valueExchange) {
         this.unitPrimary = unitPrimary;
         this.unitExchange = unitExchange;
         this.valuePrimary = valuePrimary;
         this.valueExchange = valueExchange;
-        //this.product = product;
     }
 
     public Unit() {
@@ -95,5 +94,10 @@ public class Unit implements Serializable {
 
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
+    }
+
+    @Override
+    public String toString() {
+        return  unitPrimary;
     }
 }

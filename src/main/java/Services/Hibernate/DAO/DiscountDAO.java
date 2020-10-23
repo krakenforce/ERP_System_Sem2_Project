@@ -127,4 +127,25 @@ public class DiscountDAO {
             return discountList;
         }
     }
+
+    public List<Discount> getAll(){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        List<Discount> discountList = null;
+
+        try{
+            session.beginTransaction();
+            hql = "FROM Discount";
+            Query query = session.createQuery(hql);
+            discountList = query.getResultList();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return discountList;
+        }
+    }
 }

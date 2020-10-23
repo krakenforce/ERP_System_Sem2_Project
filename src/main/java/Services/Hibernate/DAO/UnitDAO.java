@@ -83,6 +83,28 @@ public class UnitDAO {
         }
     }
 
+    public Unit findByPrimaryUnit(String primaryUnit){
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String hql = "";
+        Unit unit = null;
+
+        try{
+            session.beginTransaction();
+            hql = "SELECT session FROM Unit session WHERE session.unitPrimary = :primaryUnit ";
+            Query query = session.createQuery(hql);
+            query.setParameter("primaryUnit", primaryUnit);
+            unit = (Unit) query.getSingleResult();
+            session.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+            return unit;
+        }
+    }
+
     public List<Unit> findAll() {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -104,5 +126,7 @@ public class UnitDAO {
         }
         return list;
     }
+
+
 
 }

@@ -89,4 +89,9 @@ public class GroupProduct implements Serializable {
     public void setProductHashSet(Set<Product> productHashSet) {
         this.productHashSet = productHashSet;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -43,6 +43,11 @@ public class Product implements Serializable {
     @JoinColumn(name = "group_product_id", foreignKey = @ForeignKey(name = "fk_group_product_Product"))
     private GroupProduct groupProduct;
 
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "unit_id", foreignKey = @ForeignKey(name = "fk_Unit_Product") )
+    private Unit unit;
+
     @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "product")
@@ -73,10 +78,7 @@ public class Product implements Serializable {
             mappedBy = "product")
     private Set<Order> orderSet = new HashSet<Order>(0);
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "unit_id", unique = true, nullable = false)
-    private Unit unit;
+
 
     public Product() {
     }

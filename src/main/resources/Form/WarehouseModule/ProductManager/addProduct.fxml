@@ -32,6 +32,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Product Name:">
@@ -75,6 +76,12 @@
                   <Font size="13.0" />
                </font></Label>
             <ComboBox fx:id="id_NhomSanPham" prefHeight="25.0" prefWidth="172.0" promptText="Select Product Group" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="10.0" layoutY="410.0" text="Barcode:" GridPane.rowIndex="8">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfBarcode" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <Button mnemonicParsing="false" onAction="#nhapSanPham" styleClass="btn" stylesheets="@../../style.css" text="Product Warehouse" />

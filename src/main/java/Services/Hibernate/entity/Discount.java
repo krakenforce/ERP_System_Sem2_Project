@@ -35,6 +35,8 @@ public class Discount implements Serializable {
     @Column(name = "status")
     private Boolean status;
 
+    private String productName;
+
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
@@ -107,5 +109,13 @@ public class Discount implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

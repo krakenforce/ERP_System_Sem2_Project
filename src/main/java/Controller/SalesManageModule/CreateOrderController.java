@@ -163,10 +163,6 @@ public class CreateOrderController implements Initializable {
                 order.setProduct(productOfList);
                 order.setSalesman(selectedSalesman);
 
-                WarehousingDetails warehousingDetails = warehousingDetailDAO.findByProductId(orderProductList.get(i).getProductID());
-                warehousingDetails.setAmount(warehousingDetails.getAmount() - orderProductList.get(i).getAmount());
-                warehousingDetailDAO.updateWarehousingDetail(warehousingDetails);
-
                 orderDAO.saveOrder(order);
             }
         }
@@ -442,19 +438,6 @@ public class CreateOrderController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Salesman Customer List");
         stage.show();
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Form/SalesmanModule/AddNewCustomer.fxml"));
-//        Parent root = fxmlLoader.load();
-//
-//        AddNewCustomerController controller = fxmlLoader.getController();
-//        controller.setSalesman(getSalesman());
-//        controller.setSalesmanData();
-//
-//        Stage stage = new Stage();
-//        stage.setTitle("Add customer");
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.setScene(new Scene(root));
-//        stage.show();
     }
 
     public void addProductByBarcodeReader(){
