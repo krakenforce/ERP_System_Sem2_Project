@@ -444,67 +444,67 @@ public class CreateOrderController implements Initializable {
         tfBarcode.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                //String subString = t1.substring(0, t1.length()-1);
+                String subString = t1.substring(0, t1.length()-1);
                 //Will you when use barcode scanner
 
-                if(t1.length() >= 12){
+                if(t1.length() > 12){
                     ProductDAO dao = new ProductDAO();
-                    Product selectedProduct = dao.findByBarcode(t1);
+                    Product selectedProduct = dao.findByBarcode(subString);
                     Long amount = (long) 1;
                     Long salePrice = null;
 
-                    OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+                    if(amount > 0) {
+                        OrderProductDetailWareHousing object = new OrderProductDetailWareHousing();
+                        object.setProductID(selectedProduct.getId());
+                        object.setProductName(selectedProduct.getName());
+                        object.setAmount(amount);
+                        object.setPrice(selectedProduct.getPrice());
 
-                    object.setProductID(selectedProduct.getId());
-                    object.setProductName(selectedProduct.getName());
-                    object.setAmount(amount);
-                    object.setPrice(selectedProduct.getPrice());
-                    object.setProductID(selectedProduct.getId());
-                    object.setProductName(selectedProduct.getName());
-                    object.setAmount(amount);
-                    object.setPrice(selectedProduct.getPrice());
-
-                    if(checkDuplicateProduct(object, orderProductList) == true){
-                        orderProductList.add(object);
-                        tbProductList.refresh();
-                        setDataToTable(orderProductList);
-
-                        if(checkDiscount(selectedProduct.getId()) != null){
+                        if (checkDiscount(selectedProduct.getId()) != null) {
                             salePrice = selectedProduct.getPrice() - checkDiscount(selectedProduct.getId());
                             object.setSalePrice(salePrice);
                             object.setTotal(salePrice * amount);
-                        }else{
+                        } else {
                             object.setSalePrice(selectedProduct.getPrice());
                             object.setTotal(selectedProduct.getPrice() * amount);
                         }
-                        object.setProduct(selectedProduct);
 
-                        if(checkAmountOfProduct(amount,selectedProduct,object) == false){
-                            AlertBox alertBox = new AlertBox();
-                            alertBox.warningAlert("Not enough product", "Please warehousing more product");
-                        }
-
-                    }else{
-                        for(int i = 0; i < orderProductList.size(); i++){
-                            if(object.getProductID() == orderProductList.get(i).getProductID()){
-                                orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
-                                orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
-
+                        if (checkDuplicateProduct(object, orderProductList) == true) {
+                            object.setProduct(selectedProduct);
+                            if (checkAmountOfProduct(amount, selectedProduct, object) == false) {
+                                AlertBox alertBox = new AlertBox();
+                                alertBox.warningAlert("Not enough product", "Please warehousing more product");
                             }
+                            ;
+                            orderProductList.add(object);
+                            tbProductList.refresh();
+                            setDataToTable(orderProductList);
+                        } else {
+                            for (int i = 0; i < orderProductList.size(); i++) {
+                                if (object.getProductID() == orderProductList.get(i).getProductID()) {
+                                    orderProductList.get(i).setAmount(object.getAmount() + orderProductList.get(i).getAmount());
+                                    orderProductList.get(i).setTotal(object.getTotal() + orderProductList.get(i).getTotal());
+
+                                    if (checkAmountOfProduct(orderProductList.get(i).getAmount(), orderProductList.get(i).getProduct(), orderProductList.get(i)) == false) {
+                                        AlertBox alertBox = new AlertBox();
+                                        alertBox.warningAlert("Not enough product", "Please warehousing more product");
+                                        orderProductList.remove(i);
+                                    }
+                                }
+                            }
+                            tbProductList.refresh();
+                            setDataToTable(orderProductList);
                         }
-                        tbProductList.refresh();
+                        
+                        calculateTotalCost(orderProductList);
                         setDataToTable(orderProductList);
+                        Platform.runLater(() -> {
+                            tfBarcode.clear();
+                        });
                     }
-
-
-                    calculateTotalCost(orderProductList);
-                    setDataToTable(orderProductList);
-                    Platform.runLater(() -> {
-                        tfBarcode.clear();
-                    });
                 }else if(t1.length() < 12){
-                }
 
+                }
             }
         });
     }
